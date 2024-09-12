@@ -3,6 +3,8 @@ function loader() {
   var b = document.querySelectorAll(".preloader");
   var main = document.querySelectorAll(".main");
   var bar2 = document.querySelectorAll("#bar-2");
+  var bar1 = document.querySelectorAll("#bar-1");
+  var loader = document.querySelectorAll(".loader");
   var full = document.querySelectorAll(".full-loader");
 
   var count = 0;
@@ -35,16 +37,27 @@ function loader() {
         },
         "<"
       );
-
+      gsap.to(loader, { delay: 1, rotate: 20 });
+      gsap.to(
+        bar1,
+        {
+          delay: 1,
+          duration: 1,
+          overflow: "hidden",
+          scale: 30,
+          backgroundColor: "white",
+          ease: "expo.Out",
+        },
+        "<"
+      );
       gsap.to(
         bar2,
         {
-          delay: 1,
-          duration: 0.8,
-          overflow: "hidden",
-          scale: 31.5,
+          duration: 1,
+          
+          scale: 50,
           backgroundColor: "white",
-          ease: "power2.inOut",
+          ease: "expo.inOut",
         },
         "<"
       );
@@ -52,12 +65,16 @@ function loader() {
       gsap.to(
         b,
         {
-          delay: 0.3,
+          delay: 0.1,
           display: "none",
         },
         "<"
       );
-      gsap.to(main, { delay: 0.4, display: "flex" }, "<");
+      gsap.to(
+        main,
+        {  duration: 0.8, display: "flex", ease: "circ.inOut" },
+        "<"
+      );
     }
   }, 50);
 }

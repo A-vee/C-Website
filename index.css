@@ -60,6 +60,7 @@ background-color: rgb(255, 255, 255);
 height: 100%;
 }
 .main {
+   
    display: none;
    margin: 1%;
    border: 4px solid black;
@@ -67,11 +68,16 @@ height: 100%;
    border-top-right-radius: 1rem;
    width:97%;
    height:96vh;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+   
    background-color: rgb(255, 255, 255);
 }
 
 #nav
 {
+   
    margin-top: 0.2px;
    width:100%;
    border-top-left-radius: 1rem;
@@ -80,17 +86,17 @@ height: 100%;
    justify-content: space-between;
    align-items: center;
    flex-direction: column;
-  border-bottom: 4px solid black;
+   border-bottom: 4px solid black;
    background-color: rgb(197,196,197);
    color: black;
-   height:10vh
+   height:10%;
 }
 #nav li
 
 {
    font-family: Reg;
    font-size: 1.9rem;
-   font-weight: 100;
+   font-weight: lighter;
 }
 #nav li a
 {
@@ -117,9 +123,58 @@ height: 100%;
 {
    
    color: white;
-   transition: 0.2s all ease-in-out;
-   background-color: black;
+   transition:ease 0.2s all;   background-color: black;
    scale: 2;
+}
+.container
+{
+   
+  width: 100%;
+   height: 90%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+}
+.container #text
+{
+   width: 45%
+   ;
+   height: 100%;
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+   align-items: center;
+   line-height: 7rem;
+   
+}
+#text h1{
+   font-size: 7rem;
+   font-family: Reg;
+
+}
+#text h5
+{
+   line-height: 4rem;
+   font-size: 2rem;
+   font-family: Reg;
+}
+.container #img
+{
+   width: 55%;
+   height:100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+}
+.container #img img
+{
+   height: 100%;
+   width:100%;
+   object-fit: cover
+   ;
+   scale: 0.8;
 }
 
 

@@ -1,3 +1,8 @@
+document.addEventListener('contextmenu', (event)=> {
+  event.preventDefault(); 
+});
+
+
 function loader() {
   var a = document.querySelectorAll(".loader");
   var b = document.querySelectorAll(".preloader");
@@ -6,7 +11,7 @@ function loader() {
   var bar1 = document.querySelectorAll("#bar-1");
   var loader = document.querySelectorAll(".loader");
   var full = document.querySelectorAll(".full-loader");
-
+  var text=document.querySelectorAll(".preloader #text");
   var count = 0;
 
   const timer = setInterval(() => {
@@ -24,6 +29,14 @@ function loader() {
         backgroundColor: "black",
         ease: "elasticity",
       });
+      gsap.to(
+        text,
+        {
+          duration:1,
+          opacity:0,
+          ease: "elasticity",
+        }
+      )
       gsap.to(
         bar2,
         {
@@ -54,7 +67,7 @@ function loader() {
         bar2,
         {
           duration: 1,
-          
+
           scale: 50,
           backgroundColor: "white",
           ease: "expo.inOut",
@@ -72,7 +85,7 @@ function loader() {
       );
       gsap.to(
         main,
-        {  duration: 0.8, display: "flex", ease: "circ.inOut" },
+        { duration: 1, display: "flex" ,  ease: "power2.inOut" },
         "<"
       );
     }

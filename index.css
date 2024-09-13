@@ -6,6 +6,7 @@
 *{
    margin: 0;
    padding: 0;
+   scroll-behavior: smooth;
 }
 ::-webkit-scrollbar-track{
    width: 0;
@@ -28,8 +29,14 @@ body
    overflow: hidden;
    scrollbar-width: 0px;
    display: flex;
+   flex-direction: column;
    justify-content: center;
    align-items: center;
+}
+.preloader #text
+{
+   margin-top: 1rem;
+   
 }
 .full-loader
 {
@@ -170,28 +177,37 @@ height: 100%;
 #text button
 {
    margin-top: 1rem;
-   width: 12rem;
+   width: 11rem;
    height:4rem;
+   border-radius: 5px;
    border: 3px solid black;
    margin-left: -14rem;
-   background-color: rgb(197,196,197);
-}
-#text button a
-{
-   text-decoration: none;
-   font-size: 1.8rem;
    color: black;
+   background-color: rgb(197,196,197);
+   
+}
+#text  a
+{
+   
+   text-decoration: none;
+   color: black;
+   font-size: 2rem;
    font-family: Reg;
 }
+#text  a:hover
+{
+   
+   color: rgb(255, 255, 255);
+   
+}
+
 #text button:hover 
 {
    color: aliceblue;
    background-color: black;
 }
-#text button a:hover
-{
-   color:aliceblue
-}
+
+
 .container #img
 {
    width: 55%;
@@ -209,10 +225,30 @@ height: 100%;
    ;
    scale: 0.8;
 }
+.container #link
+{
+   top:20%;
+   left: 87%;
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   color: white;
+   z-index: 1;
+   position: absolute;
+   width:100px;
+   height: 100px;
+   background-color: rgb(0, 0, 0);
+   border-radius: 100px;
+}
+#link i
+{
+  size: 5rem;
+  color: aliceblue;
+  width: 100%;
+  height: 100%;
+}
 
 .main2 {
-   
-   
    margin-left: 1%;
    margin-right: 1%;
    border: 4px solid black;

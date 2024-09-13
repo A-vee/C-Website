@@ -12,6 +12,7 @@ function loader() {
   var loader = document.querySelectorAll(".loader");
   var full = document.querySelectorAll(".full-loader");
   var text=document.querySelectorAll(".preloader #text");
+  var footer=document.querySelectorAll(".preloader #footer a");
   var count = 0;
 
   const timer = setInterval(() => {
@@ -21,14 +22,16 @@ function loader() {
       duration: 0.5,
       ease: "power2.out",
     });
+   
 
     if (count >= 100) {
       clearInterval(timer);
-
+      
       gsap.to(full, {
         backgroundColor: "black",
         ease: "elasticity",
       });
+     
       gsap.to(
         text,
         {
@@ -37,6 +40,11 @@ function loader() {
           ease: "elasticity",
         }
       )
+      gsap.to(footer,{
+        duration:1,
+        opacity:0,
+        ease: "elasticity",
+      })
       gsap.to(
         bar2,
         {

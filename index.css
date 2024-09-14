@@ -274,7 +274,8 @@ height: 100%;
    justify-content: center;
    flex-direction: column;
    align-items: center;
-   
+   border-bottom-left-radius: 10%;
+   border-bottom-right-radius: 10%;
    background-color: rgb(255, 255, 255);
 }
 
@@ -315,6 +316,8 @@ height: 100%;
 
 .section
 {
+   border-bottom-left-radius: 10%;
+   border-bottom-right-radius: 10%;
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -364,11 +367,13 @@ text-decoration: none;
 }
 .section footer
 {
-   margin-top: 3%;
+   margin-top: 5%;
    width: 100%;
    height: 10vh;
    color: black; 
    background-color: rgb(197,196,197);
+   border-bottom-left-radius: 1rem;
+   border-bottom-right-radius: 1rem;
 }
 
 @media screen and (max-width:1024px) {

@@ -391,6 +391,10 @@ text-decoration: none;
       z-index: 100;
      
    }
+   .text h1
+   {
+      font-size: 3rem;
+   }
    *{
       overflow: hidden;
    }
@@ -412,6 +416,10 @@ text-decoration: none;
       display: flex;
       z-index: 100;
      
+   }
+   .text h1
+   {
+      font-size: 1.5rem;
    }
    *{
       overflow: hidden;

@@ -315,9 +315,40 @@ height: 100%;
 
 .section
 {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
    width: 100%;
    height: 85%;
    background-image: url('https://assets.website-files.com/5e87e737ee7085b9ba02c101/5e87e737ee7085fccd02c10d_pattern-grey.svg');
+}
+.section #folder1
+{
+   width: 100%;
+   height:30vh;
+   justify-content: center;
+   align-items: center;
+   display: flex;
+   gap: 3rem;
+   background-color: rgb(160, 160, 160);
+   margin-top: 2%;
+}
+
+span 
+{
+color: azure;
+background-color:black ;
+width: 11%;
+height:70%;
+border-radius: 15%;
+}
+.section #folder2
+{
+   width: 100%;
+   height:30vh;
+   background-color: rgb(22, 22, 19);
+   margin-top: 5%;
 }
 
 @media screen and (max-width:1024px) {

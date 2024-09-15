@@ -43,7 +43,7 @@ function loader() {
       )
       gsap.to(footer,{
         duration:1,
-        display:"none",
+        opacity:0,
         ease: "elasticity",
       })
       gsap.to(

@@ -1,6 +1,3 @@
-document.addEventListener("contextmenu", (e) => {
-  e.preventDefault();
-});
 
 
 
@@ -49,13 +46,16 @@ function loader() {
       gsap.to(
         bar2,
         {
+         
           delay: 0.5,
           rotate: "90deg",
-          y: "90",
-          x: "-105",
+          
+        x:"-1.8rem",
+        y:"6.4rem",
           ease: "power4.inOut",
           overflow: "hidden",
           duration: 1,
+          height:"98%"
         },
         "<"
       );

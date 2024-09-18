@@ -56,8 +56,8 @@ top: 30%;
 }
 .full-loader
 {
-   width: 20rem;
-   height: 10%;
+   width: 20%;
+   height: 9%;
    background-color: rgba(128, 129, 129, 0.552);
    position: relative;
   
@@ -75,13 +75,13 @@ top: 30%;
 .loader #bar-1
 {
    
-width: 58%;
+width: 55%;
 background-color: rgb(255, 255, 255);
 height: 100%;
 }
  #bar-2
 {
-width: 43%;
+width: 45%;
 background-color: rgb(255, 255, 255);
 height: 100%;
 }

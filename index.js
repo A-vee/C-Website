@@ -1,4 +1,9 @@
-
+document.addEventListener("contextmenu",
+  (e)=>
+  {
+    e.preventDefault();
+  }
+)
 
 
 function loader() {

@@ -50,8 +50,8 @@ function loader() {
           delay: 0.5,
           rotate: "90deg",
           
-        x:"-1.8rem",
-        y:"6.4rem",
+        x:"-2rem",
+        y:"6.7rem",
           ease: "power4.inOut",
           overflow: "hidden",
           duration: 1,

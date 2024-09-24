@@ -8,6 +8,8 @@
    margin: 0;
    padding: 0;
    scroll-behavior: smooth;
+  
+   
 }
 ::-webkit-scrollbar-track{
    width: 0;
@@ -132,7 +134,7 @@ height: 100%;
 {
    color: black;
    text-decoration: none;
-   padding: 1rem;
+  padding: 0.9rem;
    
 }
 
@@ -142,7 +144,7 @@ height: 100%;
    color: white;
    transition: 0.2s all ease-in-out;
    
-   scale: 2;
+  
 }
 
 #nav li:nth-child(2) :hover
@@ -154,7 +156,7 @@ height: 100%;
    
    color: white;
    transition:ease 0.2s all;   background-color: black;
-   scale: 2;
+   
 }
 .container
 {

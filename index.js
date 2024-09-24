@@ -1,6 +1,5 @@
 document.addEventListener("contextmenu",
-  (e)=>
-  {
+  (e) => {
     e.preventDefault();
   }
 )
@@ -14,8 +13,8 @@ function loader() {
   var bar1 = document.querySelectorAll("#bar-1");
   var loader = document.querySelectorAll(".loader");
   var full = document.querySelectorAll(".full-loader");
-  var text=document.querySelectorAll(".preloader #text");
-  var footer=document.querySelectorAll(".preloader #footer a");
+  var text = document.querySelectorAll(".preloader #text");
+  var footer = document.querySelectorAll(".preloader #footer a");
   var count = 0;
 
   const timer = setInterval(() => {
@@ -25,42 +24,42 @@ function loader() {
       duration: 0.5,
       ease: "power2.out",
     });
-   
+
 
     if (count >= 100) {
       clearInterval(timer);
-      
+
       gsap.to(full, {
         backgroundColor: "black",
         ease: "elasticity",
       });
-     
-      gsap.to(
-        text,
-        {
-          duration:1,
-          opacity:0,
-          ease: "elasticity",
-        }
-      )
-      gsap.to(footer,{
-        duration:1,
-        opacity:0,
+      gsap.to(footer, {
+        duration: 1,
+        display: "none",
         ease: "elasticity",
       })
       gsap.to(
+        text,
+        {
+          duration: 1,
+          opacity: 0,
+          ease: "elasticity",
+        }
+      )
+
+      gsap.to(
         bar2,
         {
-         
+
           delay: 0.5,
           rotate: "90deg",
-          
-        x:"-2rem",
-        y:"6.7rem",
+
+          x: "-2.4rem",
+          y: "6.7rem",
           ease: "power4.inOut",
           overflow: "hidden",
           duration: 1,
-          height:"98%"
+          height: "98%"
         },
         "<"
       );
@@ -99,7 +98,7 @@ function loader() {
       );
       gsap.to(
         main,
-        { duration: 1, display: "flex" ,  ease: "power2.inOut" },
+        { duration: 1, display: "flex", ease: "power2.inOut" },
         "<"
       );
     }

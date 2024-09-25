@@ -20,6 +20,7 @@ function loader()
     count+=1;
     if(count==100)
         {
+            clearInterval(interval)
             gsap.to(preloader,{
                 opacity:0,
                 display:"none"

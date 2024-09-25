@@ -34,13 +34,15 @@ function loader() {
         ease: "elasticity",
       });
       gsap.to(footer, {
-        duration: 1,
+        duration: 0.5,
+        opacity:0,
         display: "none",
-        ease: "elasticity",
+        ease: "expo.inOut",
       })
       gsap.to(
         text,
         {
+          dealy:0.7,
           duration: 1,
           opacity: 0,
           ease: "elasticity",
@@ -51,7 +53,7 @@ function loader() {
         bar2,
         {
 
-          delay: 0.5,
+          delay: 0.7,
           rotate: "90deg",
 
           x: "-2.8rem",

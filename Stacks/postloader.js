@@ -1,4 +1,8 @@
-
+document.addEventListener("contextmenu",
+    (e) => {
+      e.preventDefault();
+    }
+  )
 function loader()
 {
     var preloader=document.querySelectorAll(".postloader")

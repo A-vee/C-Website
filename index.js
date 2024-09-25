@@ -54,8 +54,8 @@ function loader() {
           delay: 0.5,
           rotate: "90deg",
 
-          x: "-2.4rem",
-          y: "6.7rem",
+          x: "-2.8rem",
+          y: "6.5rem",
           ease: "power4.inOut",
           overflow: "hidden",
           duration: 1,

@@ -144,9 +144,8 @@ height: 100%;
    color: white;
    transition: 0.2s all ease-in-out;
    
-  
+   scale: 1.4;
 }
-
 #nav li:nth-child(2) :hover
 ,#nav li:nth-child(3) :hover,
 #nav li:nth-child(4) :hover,

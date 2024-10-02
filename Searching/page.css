@@ -23,7 +23,7 @@
 }
 @font-face {
     font-family: Reg;
-    src: url('BalooThambi-Regular.ttf');
+    src: url('../BalooThambi-Regular.ttf');
  }
 .postloader
 {

@@ -3,6 +3,10 @@
    font-family: Reg;
    src: url('BalooThambi-Regular.ttf');
 }
+@font-face {
+   font-family: lg;
+   src: url('apercu-light-pro.ttf');
+}
 
 *{
    margin: 0;
@@ -54,7 +58,7 @@ top: 30%;
 .preloader #text
 {
    margin-top: 2rem;
-   
+   margin-bottom: -4rem;
 }
 .full-loader
 {

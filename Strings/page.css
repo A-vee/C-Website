@@ -76,7 +76,7 @@
 {
    
    margin-top: 0.2px;
-   width:100%;
+   width:100vw;
    display: flex;
    justify-content: space-between;
    align-items: center;
@@ -111,6 +111,7 @@
 }
 #nav li:nth-child(2) :hover
 ,#nav li:nth-child(4) :hover,
+
 #nav li:nth-child(5) :hover,
 #nav li:nth-child(6) :hover,
 #nav li:nth-child(7) :hover,

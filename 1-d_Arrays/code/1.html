@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>1. Create a program to check wheter Array is Sorted or not.</h1>
+        #include &lt;stdio.h&gt;
+        #include <stdbool.h>
+        void main()
+        {
+            int arr[] = {1, 2, 7, 8};
+            int i = 0;
+            bool set = true;
+            for (i; i < 4; i++)
+            {
+              if (arr[i] > arr[i + 1])
+              {
+                 set = false;
+                 break;
+              }
+            }
+            if (set == false)
+            {
+              printf("Array is not Sorted");
+            }
+            else
+            {
+              printf("Array is Sorted");
+            }
+        }</code>
+    </pre>
+</body>
+</html>

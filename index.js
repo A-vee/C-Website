@@ -24,7 +24,8 @@ function loader() {
       duration: 0.5,
       ease: "power2.out",
     });
-
+    
+    
 
     if (count >= 100) {
       clearInterval(timer);

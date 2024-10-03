@@ -43,7 +43,6 @@ function loader() {
       gsap.to(
         text,
         {
-          dealy:0.7,
           duration: 1,
           opacity: 0,
           ease: "elasticity",

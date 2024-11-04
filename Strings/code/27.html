@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>27. Display string on the output screen but ask the text alignment options given by the user (1 for Left, 2 for Center and 3 for Right).</h1>
+        #include < stdio.h>
+        #include < string.h>
+        
+        void printAligned(const char *str, int option, int width) {
+            int len = strlen(str);
+        
+            switch (option) {
+                case 1: // Left Alignment
+                    printf("%s\n", str);
+                    break;
+                case 2: // Center Alignment
+                    printf("%*s\n", (width + len) / 2, str); // Centering
+                    break;
+                case 3: // Right Alignment
+                    printf("%*s\n", width, str); // Right aligning
+                    break;
+                default:
+                    printf("Invalid alignment option.\n");
+            }
+        }
+        
+        int main() {
+            char str[256];
+            int option;
+        
+            // Input the string from the user
+            printf("Enter a string: ");
+            fgets(str, sizeof(str), stdin);
+            str[strcspn(str, "\n")] = 0; // Remove newline character
+        
+            // Input alignment option
+            printf("Choose text alignment:\n");
+            printf("1. Left\n");
+            printf("2. Center\n");
+            printf("3. Right\n");
+            printf("Enter your choice (1-3): ");
+            scanf("%d", &option);
+        
+            // Define the width for alignment (can be adjusted as needed)
+            int width = 50;
+        
+            // Print the string with the chosen alignment
+            printAligned(str, option, width);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a string: Hello, World!
+        Choose text alignment:
+        1. Left
+        2. Center
+        3. Right
+        Enter your choice (1-3): 2
+                            Hello, World!
+        </code>
+    </pre>
+</body>
+</html>

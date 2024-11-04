@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>18. Enter two Strings from the user and convert into an integer value.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        int main() {
+            char str1[20], str2[20];
+            int num1, num2;
+        
+            // Input two strings from the user
+            printf("Enter the first string (integer): ");
+            fgets(str1, sizeof(str1), stdin);
+        
+            printf("Enter the second string (integer): ");
+            fgets(str2, sizeof(str2), stdin);
+        
+            // Convert strings to integers
+            num1 = atoi(str1);
+            num2 = atoi(str2);
+        
+            // Display the results
+            printf("The integer value of the first string is: %d\n", num1);
+            printf("The integer value of the second string is: %d\n", num2);
+        
+            return 0;
+        }
+        <h1>Output</h1>
+        Enter the first string (integer): 123
+        Enter the second string (integer): 456
+        The integer value of the first string is: 123
+        The integer value of the second string is: 456
+        </code>
+    </pre>
+</body>
+</html>

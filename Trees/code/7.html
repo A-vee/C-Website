@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>7. CREATE BINARY SEARCH TREE USING ARRAYS (INSERT, DELETE, SEARCH, PREORDER, INORDER, POSTORDER, MINIMUM ELEMENT).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        #define MAX_SIZE 100
+        
+        typedef struct BST {
+            int* arr;    // Array to store BST elements
+            int size;    // Current size of the BST
+        } BST;
+        
+        // Function to create a new BST
+        BST* createBST() {
+            BST* bst = (BST*)malloc(sizeof(BST));
+            bst->arr = (int*)malloc(MAX_SIZE * sizeof(int));
+            bst->size = 0;
+            return bst;
+        }
+        
+        // Helper function to insert a value into the BST
+        void insert(BST* bst, int value) {
+            if (bst->size >= MAX_SIZE) {
+                printf("BST is full, cannot insert %d\n", value);
+                return;
+            }
+            int i = 0;
+            while (i < bst->size) {
+                if (value < bst->arr[i]) {
+                    i = 2 * i + 1; // Go to left child
+                } else {
+                    i = 2 * i + 2; // Go to right child
+                }
+                if (i >= MAX_SIZE) {
+                    printf("Cannot insert %d, tree is too deep\n", value);
+                    return;
+                }
+            }
+            // Insert the value
+            bst->arr[bst->size] = value;
+            bst->size++;
+        }
+        
+        // Helper function to search for a value in the BST
+        int search(BST* bst, int value) {
+            int i = 0;
+            while (i < bst->size) {
+                if (bst->arr[i] == value) {
+                    return 1; // Found
+                }
+                if (value < bst->arr[i]) {
+                    i = 2 * i + 1; // Go to left child
+                } else {
+                    i = 2 * i + 2; // Go to right child
+                }
+            }
+            return 0; // Not found
+        }
+        
+        // Helper function to find the minimum value in the BST
+        int findMinimum(BST* bst) {
+            if (bst->size == 0) {
+                printf("BST is empty.\n");
+                return -1; // Or some indication of no elements
+            }
+            int i = 0;
+            while (2 * i + 1 < bst->size) {
+                i = 2 * i + 1; // Go to left child
+            }
+            return bst->arr[i];
+        }
+        
+        // Preorder traversal
+        void preorder(BST* bst, int index) {
+            if (index >= bst->size) return;
+            printf("%d ", bst->arr[index]);
+            preorder(bst, 2 * index + 1); // Left child
+            preorder(bst, 2 * index + 2); // Right child
+        }
+        
+        // Inorder traversal
+        void inorder(BST* bst, int index) {
+            if (index >= bst->size) return;
+            inorder(bst, 2 * index + 1); // Left child
+            printf("%d ", bst->arr[index]);
+            inorder(bst, 2 * index + 2); // Right child
+        }
+        
+        // Postorder traversal
+        void postorder(BST* bst, int index) {
+            if (index >= bst->size) return;
+            postorder(bst, 2 * index + 1); // Left child
+            postorder(bst, 2 * index + 2); // Right child
+            printf("%d ", bst->arr[index]);
+        }
+        
+        // Helper function to delete a value (not implemented)
+        void delete(BST* bst, int value) {
+            // Deletion in an array-based BST can be complex.
+            // For simplicity, we won't implement deletion here.
+            // You can remove the node, and then fill the gap with a value,
+            // possibly rearranging the tree as needed.
+            printf("Deletion not implemented.\n");
+        }
+        
+        int main() {
+            BST* bst = createBST();
+            
+            // Insert values into the BST
+            insert(bst, 50);
+            insert(bst, 30);
+            insert(bst, 20);
+            insert(bst, 40);
+            insert(bst, 70);
+            insert(bst, 60);
+            insert(bst, 80);
+        
+            // Search for a value
+            int valueToSearch = 40;
+            printf("Searching for %d: %s\n", valueToSearch, 
+            search(bst, valueToSearch) ? "Found" : "Not Found");
+        
+            // Find minimum value
+            printf("Minimum value in BST: %d\n", findMinimum(bst));
+        
+            // Display traversals
+            printf("Preorder traversal: ");
+            preorder(bst, 0);
+            printf("\n");
+        
+            printf("Inorder traversal: ");
+            inorder(bst, 0);
+            printf("\n");
+        
+            printf("Postorder traversal: ");
+            postorder(bst, 0);
+            printf("\n");
+        
+            // Deletion example (not implemented)
+            delete(bst, 20); 
+        
+            // Free memory (not implemented for brevity)
+            free(bst->arr);
+            free(bst);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Searching for 40: Found
+        Minimum value in BST: 20
+        Preorder traversal: 50 30 20 40 70 60 80 
+        Inorder traversal: 20 30 40 50 60 70 80 
+        Postorder traversal: 20 40 30 60 80 70 50 
+        Deletion not implemented.
+        </code>
+    </pre>
+</body>
+</html>

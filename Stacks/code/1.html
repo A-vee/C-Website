@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>1. CREATE A STACK IMPLEMENTING THE OPERATIONS ON AN INTEGER ARRAY (PUSH, POP, PEEK, ISEMPTY, ISFULL).</h1>
+        #include &lt;stdio.h&gt;
+            #include &lt;stdbool.h&gt;
+            
+            #define MAX_SIZE 100 // Define the maximum size of the stack
+            
+            typedef struct {
+                int items[MAX_SIZE];
+                int top;
+            } Stack;
+            
+            // Function to initialize the stack
+            void initialize(Stack *s) {
+                s->top = -1;
+            }
+            
+            // Function to check if the stack is full
+            bool isFull(Stack *s) {
+                return s->top == MAX_SIZE - 1;
+            }
+            
+            // Function to check if the stack is empty
+            bool isEmpty(Stack *s) {
+                return s->top == -1;
+            }
+            
+            // Function to push an item onto the stack
+            bool push(Stack *s, int item) {
+                if (isFull(s)) {
+                    printf("Stack is full! Cannot push %d\n", item);
+                    return false;
+                }
+                s->items[++(s->top)] = item;
+                printf("Pushed %d onto the stack.\n", item);
+                return true;
+            }
+            
+            // Function to pop an item from the stack
+            int pop(Stack *s) {
+                if (isEmpty(s)) {
+                    printf("Stack is empty! Cannot pop.\n");
+                    return -1; // Return -1 to indicate error
+                }
+                return s->items[(s->top)--];
+            }
+            
+            // Function to peek at the top item of the stack
+            int peek(Stack *s) {
+                if (isEmpty(s)) {
+                    printf("Stack is empty! Cannot peek.\n");
+                    return -1; // Return -1 to indicate error
+                }
+                return s->items[s->top];
+            }
+            
+            // Function to display the stack contents
+            void display(Stack *s) {
+                if (isEmpty(s)) {
+                    printf("Stack is empty.\n");
+                    return;
+                }
+                printf("Stack contents: ");
+                for (int i = s->top; i >= 0; i--) {
+                    printf("%d ", s->items[i]);
+                }
+                printf("\n");
+            }
+            
+            int main() {
+                Stack stack;
+                initialize(&stack);
+            
+                int choice, value;
+            
+                while (1) {
+                    printf("\nStack Operations:\n");
+                    printf("1. Push\n");
+                    printf("2. Pop\n");
+                    printf("3. Peek\n");
+                    printf("4. Check if empty\n");
+                    printf("5. Check if full\n");
+                    printf("6. Display stack\n");
+                    printf("7. Exit\n");
+                    printf("Enter your choice: ");
+                    scanf("%d", &choice);
+            
+                    switch (choice) {
+                        case 1:
+                            printf("Enter an integer to push: ");
+                            scanf("%d", &value);
+                            push(&stack, value);
+                            break;
+                        case 2:
+                            value = pop(&stack);
+                            if (value != -1) {
+                                printf("Popped %d from the stack.\n", value);
+                            }
+                            break;
+                        case 3:
+                            value = peek(&stack);
+                            if (value != -1) {
+                                printf("Top item is %d\n", value);
+                            }
+                            break;
+                        case 4:
+                            if (isEmpty(&stack)) {
+                                printf("The stack is empty.\n");
+                            } else {
+                                printf("The stack is not empty.\n");
+                            }
+                            break;
+                        case 5:
+                            if (isFull(&stack)) {
+                                printf("The stack is full.\n");
+                            } else {
+                                printf("The stack is not full.\n");
+                            }
+                            break;
+                        case 6:
+                            display(&stack);
+                            break;
+                        case 7:
+                            printf("Exiting program.\n");
+                            return 0;
+                        default:
+                            printf("Invalid choice. Please try again.\n");
+                    }
+                }
+            
+                return 0;
+            }
+            
+        <h1>Output</h1>
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 1
+        Enter an integer to push: 10
+        Pushed 10 onto the stack.
+        </code>
+    </pre>
+</body>
+</html>

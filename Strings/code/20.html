@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>20. Enter the string from user and count the number of characters, words, spaces and lines.</h1>
+        #include < stdio.h>
+        int main() {
+            int i,count1=0,count2=0,count3,result;
+            char str[100];
+            printf("Enter a string: ");
+            gets(str);
+        
+            for(i = 0; str[i] != '\0'; i++) {
+                if(str[i] == ' ')
+                    count1++;
+            }
+            printf("Total spaces: %d\n",count1);
+        
+            for(i = 0; str[i] != '\0'; i++) {
+                count2++;
+            }
+            result = count2 - count1;
+            printf("Total Characters: %d\n",result);
+        
+            for(i = 1; str[i] != '\0'; i++) {
+                if(str[i] == ' ' && str[i+1] != ' ' && str[i+1] != '\0') {
+                    count3++;
+                }
+            }
+            if(str[0]!=' ' && str[0] != '\0') {
+                count3++;
+            }
+            printf("Total Words: %d\n",count3);
+
+        }
+
+        <h1>Output</h1>
+        Enter a string: The Walking Dead
+        Total spaces: 2
+        Total Characters: 14
+        Total Words: 3
+        </code>
+    </pre>
+</body>
+</html>

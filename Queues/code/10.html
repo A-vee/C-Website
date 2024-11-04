@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>10. IMPLEMENT THE OPERATIONS OF DOUBLE ENDED QUEUE IN AN STRING ARRAY (INSERT, DELETE, PEEK, ISEMPTY, ISFULL).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        
+        #define MAX_SIZE 5 // Define the maximum size of the deque
+        #define STRING_LENGTH 100 // Define the maximum length for each string
+        
+        // Define the structure for the Deque
+        struct Deque {
+            char items[MAX_SIZE][STRING_LENGTH]; // Array to store strings
+            int front;
+            int rear;
+        };
+        
+        // Function to create and initialize the deque
+        struct Deque* createDeque() {
+            struct Deque* dq = (struct Deque*)malloc(sizeof(struct Deque));
+            dq->front = -1;
+            dq->rear = -1;
+            return dq;
+        }
+        
+        // Function to check if the deque is empty
+        int isEmpty(struct Deque* dq) {
+            return (dq->front == -1);
+        }
+        
+        // Function to check if the deque is full
+        int isFull(struct Deque* dq) {
+            return ((dq->rear + 1) % MAX_SIZE == dq->front);
+        }
+        
+        // Function to insert an element at the front of the deque
+        void insertFront(struct Deque* dq, char* value) {
+            if (isFull(dq)) {
+                printf("Deque is full! Cannot insert '%s' at front\n", value);
+                return;
+            }
+            if (isEmpty(dq)) {
+                dq->front = 0;
+                dq->rear = 0;
+            } else {
+                dq->front = (dq->front - 1 + MAX_SIZE) % MAX_SIZE; // Move front back
+            }
+            strcpy(dq->items[dq->front], value);
+            printf("'%s' inserted at the front of the deque\n", value);
+        }
+        
+        // Function to insert an element at the rear of the deque
+        void insertRear(struct Deque* dq, char* value) {
+            if (isFull(dq)) {
+                printf("Deque is full! Cannot insert '%s' at rear\n", value);
+                return;
+            }
+            if (isEmpty(dq)) {
+                dq->front = 0;
+                dq->rear = 0;
+            } else {
+                dq->rear = (dq->rear + 1) % MAX_SIZE; // Move rear forward
+            }
+            strcpy(dq->items[dq->rear], value);
+            printf("'%s' inserted at the rear of the deque\n", value);
+        }
+        
+        // Function to delete an element from the front of the deque
+        char* deleteFront(struct Deque* dq) {
+            if (isEmpty(dq)) {
+                printf("Deque is empty! Cannot delete from front\n");
+                return NULL; // Indicate that the deque is empty
+            }
+        
+            char* deletedValue = dq->items[dq->front];
+            if (dq->front == dq->rear) { // Only one element was present
+                dq->front = -1;
+                dq->rear = -1;
+            } else {
+                dq->front = (dq->front + 1) % MAX_SIZE; // Move front forward
+            }
+        
+            printf("'%s' deleted from the front of the deque\n", deletedValue);
+            return deletedValue;
+        }
+        
+        // Function to delete an element from the rear of the deque
+        char* deleteRear(struct Deque* dq) {
+            if (isEmpty(dq)) {
+                printf("Deque is empty! Cannot delete from rear\n");
+                return NULL; // Indicate that the deque is empty
+            }
+        
+            char* deletedValue = dq->items[dq->rear];
+            if (dq->front == dq->rear) { // Only one element was present
+                dq->front = -1;
+                dq->rear = -1;
+            } else {
+                dq->rear = (dq->rear - 1 + MAX_SIZE) % MAX_SIZE; // Move rear back
+            }
+        
+            printf("'%s' deleted from the rear of the deque\n", deletedValue);
+            return deletedValue;
+        }
+        
+        // Function to peek at the front element of the deque
+        char* peekFront(struct Deque* dq) {
+            if (isEmpty(dq)) {
+                printf("Deque is empty! Cannot peek from front\n");
+                return NULL; // Indicate that the deque is empty
+            }
+            return dq->items[dq->front]; // Return the front element
+        }
+        
+        // Function to peek at the rear element of the deque
+        char* peekRear(struct Deque* dq) {
+            if (isEmpty(dq)) {
+                printf("Deque is empty! Cannot peek from rear\n");
+                return NULL; // Indicate that the deque is empty
+            }
+            return dq->items[dq->rear]; // Return the rear element
+        }
+        
+        // Function to display the deque
+        void display(struct Deque* dq) {
+            if (isEmpty(dq)) {
+                printf("Deque is empty!\n");
+                return;
+            }
+            printf("Deque elements: ");
+            int i = dq->front;
+            while (1) {
+                printf("'%s' ", dq->items[i]);
+                if (i == dq->rear) break; // Stop when we reach the rear
+                i = (i + 1) % MAX_SIZE; // Move to next element
+            }
+            printf("\n");
+        }
+        
+        // Main function
+        int main() {
+            struct Deque* dq = createDeque();
+            
+            int choice;
+            char value[STRING_LENGTH];
+        
+            do {
+                printf("\nDouble-Ended Queue Operations:\n");
+                printf("1. Insert at Front\n");
+                printf("2. Insert at Rear\n");
+                printf("3. Delete from Front\n");
+                printf("4. Delete from Rear\n");
+                printf("5. Peek Front\n");
+                printf("6. Peek Rear\n");
+                printf("7. Display\n");
+                printf("8. Check if Empty\n");
+                printf("9. Check if Full\n");
+                printf("10. Exit\n");
+                printf("Enter your choice: ");
+                scanf("%d", &choice);
+                getchar(); // Consume the newline character
+        
+                switch (choice) {
+                    case 1:
+                        printf("Enter string to insert at front: ");
+                        fgets(value, STRING_LENGTH, stdin);
+                        value[strcspn(value, "\n")] = 0; // Remove newline character
+                        insertFront(dq, value);
+                        break;
+                    case 2:
+                        printf("Enter string to insert at rear: ");
+                        fgets(value, STRING_LENGTH, stdin);
+                        value[strcspn(value, "\n")] = 0; // Remove newline character
+                        insertRear(dq, value);
+                        break;
+                    case 3:
+                        deleteFront(dq);
+                        break;
+                    case 4:
+                        deleteRear(dq);
+                        break;
+                    case 5:
+                        {
+                            char* peekedValue = peekFront(dq);
+                            if (peekedValue != NULL) {
+                                printf("Front element is: '%s'\n", peekedValue);
+                            }
+                        }
+                        break;
+                    case 6:
+                        {
+                            char* peekedValue = peekRear(dq);
+                            if (peekedValue != NULL) {
+                                printf("Rear element is: '%s'\n", peekedValue);
+                            }
+                        }
+                        break;
+                    case 7:
+                        display(dq);
+                        break;
+                    case 8:
+                        if (isEmpty(dq)) {
+                            printf("Deque is empty\n");
+                        } else {
+                            printf("Deque is not empty\n");
+                        }
+                        break;
+                    case 9:
+                        if (isFull(dq)) {
+                            printf("Deque is full\n");
+                        } else {
+                            printf("Deque is not full\n");
+                        }
+                        break;
+                    case 10:
+                        printf("Exiting...\n");
+                        break;
+                    default:
+                        printf("Invalid choice! Please try again.\n");
+                }
+            } while (choice != 10);
+        
+            free(dq); // Free the allocated memory for the deque
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Double-Ended Queue Operations:
+        1. Insert at Front
+        2. Insert at Rear
+        3. Delete from Front
+        4. Delete from Rear
+        5. Peek Front
+        6. Peek Rear
+        7. Display
+        8. Check if Empty
+        9. Check if Full
+        10. Exit
+        Enter your choice: 1
+        Enter string to insert at front:
+        
+        Hello
+        'Hello' inserted at the front of the deque
+        
+        Enter your choice: 2
+        Enter string to insert at rear: World
+        'World' inserted at the rear of the deque
+        
+        Enter your choice: 7
+        Deque elements: 'Hello' 'World'
+        </code>
+    </pre>
+</body>
+</html>

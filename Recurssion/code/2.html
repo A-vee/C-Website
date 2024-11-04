@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>2. CALCULATE FIBONACCI OF A NUMBER USING RECURSION.</h1>
+        #include < stdio.h>
+
+        // Function to calculate Fibonacci number recursively
+        int fibonacci(int n) {
+            // Base cases
+            if (n == 0) {
+                return 0;
+            }
+            if (n == 1) {
+                return 1;
+            }
+            // Recursive case
+            return fibonacci(n - 1) + fibonacci(n - 2);
+        }
+        
+        // Main function
+        int main() {
+            int number;
+        
+            printf("Enter a non-negative integer: ");
+            scanf("%d", &number);
+        
+            if (number < 0) {
+                printf("Fibonacci is not defined for negative numbers.\n");
+            } else {
+                int result = fibonacci(number);
+                printf("Fibonacci of %d is %d\n", number, result);
+            }
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a non-negative integer: 6
+        Fibonacci of 6 is 8
+        </code>
+    </pre>
+</body>
+</html>

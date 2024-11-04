@@ -10,31 +10,29 @@
    
     <pre>
         <code>
-        <h1>1. Create a program to check wheter Array is Sorted or not.</h1>
-        #include &lt;stdio.h&gt;
-        #include &lt;stdbool.h&gt;
-        void main()
-        {
-            int arr[] = {1, 2, 7, 8};
-            int i = 0;
-            bool set = true;
-            for (i; i < 4; i++)
-            {
-              if (arr[i] > arr[i + 1])
-              {
-                 set = false;
-                 break;
-              }
+        <h1>1. Enter an array from the user and display all the values.</h1>
+        #include < stdio.h>
+        int main() {
+            int n,i;
+            printf("Enter the size of array: ");
+            scanf("%d",&n);
+            int arr[n];
+            printf("Enter the values: ");
+            for(i=0;i< n;i++) {
+                scanf("%d",&arr[i]);
             }
-            if (set == false)
-            {
-              printf("Array is not Sorted");
+            printf("Entered Values: ");
+            for(i=0;i< n;i++) {
+                printf("%d ",arr[i]);
             }
-            else
-            {
-              printf("Array is Sorted");
-            }
-        }</code>
+        }
+
+        <h1>Output</h1>
+        Enter the size of array: 5
+        Enter the values: 2 -4 0 1 43
+        Entered Values: 2 -4 0 1 43
+        
+        </code>
     </pre>
 </body>
 </html>

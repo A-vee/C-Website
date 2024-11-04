@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>5. Enter a Matrix from user, copy it in another matrix of same size.</h1>
+        #include < stdio.h>
+
+        int main() {
+            int rows, cols;
+        
+            // Input dimensions of the matrix
+            printf("Enter the number of rows: ");
+            scanf("%d", &rows);
+            printf("Enter the number of columns: ");
+            scanf("%d", &cols);
+        
+            int matrix[rows][cols], copy[rows][cols];
+        
+            // Input the original matrix
+            printf("Enter elements of the matrix:\n");
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    printf("Element [%d][%d]: ", i, j);
+                    scanf("%d", &matrix[i][j]);
+                }
+            }
+        
+            // Copy the matrix to another matrix
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    copy[i][j] = matrix[i][j];
+                }
+            }
+        
+            // Display the copied matrix
+            printf("\nThe copied matrix is:\n");
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    printf("%d ", copy[i][j]);
+                }
+                printf("\n");
+            }
+        
+            return 0;
+        }
+    
+        <h1>Output</h1>
+        Enter the number of rows: 2
+        Enter the number of columns: 3
+        Enter elements of the matrix:
+        Element [0][0]: 1
+        Element [0][1]: 2
+        Element [0][2]: 3
+        Element [1][0]: 4
+        Element [1][1]: 5
+        Element [1][2]: 6
+        The copied matrix is:
+        1 2 3 
+        4 5 6 
+        
+        </code>
+    </pre>
+</body>
+</html>

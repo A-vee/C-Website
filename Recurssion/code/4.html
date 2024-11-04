@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>4. ENTER THE NUMBER FROM THE USER AND ADD ALL DIGITS OF THE NUMBER USING RECURSION.</h1>
+        #include < stdio.h>
+
+        // Function to sum the digits of a number recursively
+        int sumOfDigits(int n) {
+            // Base case: if n is 0, return 0
+            if (n == 0) {
+                return 0;
+            }
+            // Recursive case: return last digit + sum of remaining digits
+            return (n % 10) + sumOfDigits(n / 10);
+        }
+        
+        // Main function
+        int main() {
+            int number;
+        
+            printf("Enter a non-negative integer: ");
+            scanf("%d", &number);
+        
+            if (number < 0) {
+                printf("Please enter a non-negative integer.\n");
+            } else {
+                int result = sumOfDigits(number);
+                printf("The sum of the digits of %d is %d\n", number, result);
+            }
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a non-negative integer: 12345
+        The sum of the digits of 12345 is 15
+        </code>
+    </pre>
+</body>
+</html>

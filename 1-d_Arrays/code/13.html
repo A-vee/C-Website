@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>13. Enter an array from the user and count the duplicate values.</h1>
+        #include < stdio.h>
+        int main() {
+            int n,count=0;
+            printf("Enter the size of array: ");
+            scanf("%d",&n);
+            int arr[n];
+        
+            printf("Enter values: ");
+            for(int i=0;i< n;i++) {
+                scanf("%d",&arr[i]);
+            }
+        
+            for(int i=0;i< n-1;i++) {
+                for(int j=i+1;j< n;j++) {
+                    if(arr[i] == arr[j]) {
+                        count++;                
+                        break;
+                    }
+                }
+            }  
+        
+            printf("Duplicate value occurs %d times",count+1);   
+        }
+        
+        <h1>Output</h1>
+        Enter the size of array: 5
+        Enter values: 2 2 2 4 7
+        Duplicate value occurs 3 times
+        
+        
+        </code>
+    </pre>
+</body>
+</html>

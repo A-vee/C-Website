@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>28. Create a dictionary having 10 words and their meaning with the following options (Create, Delete and Search).</h1>
+        #include < stdio.h>
+        #include < string.h>
+        
+        #define MAX_WORDS 10
+        #define WORD_LENGTH 30
+        #define MEANING_LENGTH 100
+        
+        typedef struct {
+            char word[WORD_LENGTH];
+            char meaning[MEANING_LENGTH];
+        } DictionaryEntry;
+        
+        void createEntry(DictionaryEntry dictionary[], int *count) {
+            if (*count >= MAX_WORDS) {
+                printf("Dictionary is full! Cannot add more entries.\n");
+                return;
+            }
+            printf("Enter the word: ");
+            fgets(dictionary[*count].word, sizeof(dictionary[*count].word), stdin);
+            dictionary[*count].word[strcspn(dictionary[*count].word, "\n")] = 0; // Remove newline
+        
+            printf("Enter the meaning: ");
+            fgets(dictionary[*count].meaning, sizeof(dictionary[*count].meaning), stdin);
+            dictionary[*count].meaning[strcspn(dictionary[*count].meaning, "\n")] = 0; // Remove newline
+        
+            (*count)++;
+            printf("Entry added successfully!\n");
+        }
+        
+        void deleteEntry(DictionaryEntry dictionary[], int *count) {
+            char word[WORD_LENGTH];
+            printf("Enter the word to delete: ");
+            fgets(word, sizeof(word), stdin);
+            word[strcspn(word, "\n")] = 0; // Remove newline
+        
+            for (int i = 0; i < *count; i++) {
+                if (strcmp(dictionary[i].word, word) == 0) {
+                    // Shift entries to the left
+                    for (int j = i; j < *count - 1; j++) {
+                        dictionary[j] = dictionary[j + 1];
+                    }
+                    (*count)--;
+                    printf("Entry deleted successfully!\n");
+                    return;
+                }
+            }
+            printf("Word not found!\n");
+        }
+        
+        void searchEntry(const DictionaryEntry dictionary[], int count) {
+            char word[WORD_LENGTH];
+            printf("Enter the word to search: ");
+            fgets(word, sizeof(word), stdin);
+            word[strcspn(word, "\n")] = 0; // Remove newline
+        
+            for (int i = 0; i < count; i++) {
+                if (strcmp(dictionary[i].word, word) == 0) {
+                    printf("Meaning of '%s': %s\n", dictionary[i].word, dictionary[i].meaning);
+                    return;
+                }
+            }
+            printf("Word not found!\n");
+        }
+        
+        int main() {
+            DictionaryEntry dictionary[MAX_WORDS];
+            int count = 0;
+            int choice;
+        
+            while (1) {
+                printf("\nDictionary Options:\n");
+                printf("1. Create Entry\n");
+                printf("2. Delete Entry\n");
+                printf("3. Search Entry\n");
+                printf("4. Exit\n");
+                printf("Enter your choice: ");
+                scanf("%d", &choice);
+                getchar(); // Consume newline left by scanf
+        
+                switch (choice) {
+                    case 1:
+                        createEntry(dictionary, &count);
+                        break;
+                    case 2:
+                        deleteEntry(dictionary, &count);
+                        break;
+                    case 3:
+                        searchEntry(dictionary, count);
+                        break;
+                    case 4:
+                        printf("Exiting...\n");
+                        return 0;
+                    default:
+                        printf("Invalid choice! Please try again.\n");
+                }
+            }
+        }
+
+        <h1>Output</h1>
+        Enter the word: Apple
+        Enter the meaning: A fruit that is typically red or green.
+        Enter the word to search: Apple
+        Meaning of 'Apple': A fruit that is typically red or green.
+        Enter the word to delete: Apple
+        Entry deleted successfully!
+        </code>
+    </pre>
+</body>
+</html>

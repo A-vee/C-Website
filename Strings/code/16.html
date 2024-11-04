@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>16. Enter the string from the user, also enter a character and print the index of the character if it is exist in the string else print -1.</h1>
+        #include < stdio.h>
+        int main() {
+            int i;
+            char str[100],flag;
+            printf("Enter a string: ");
+            gets(str);
+            printf("Enter a character to search in the string: ");
+            scanf("%c",&flag);
+        
+            for(i = 0; str[i] != '\0'; i++) {
+            if(str[i] == flag) {
+                break;
+            }
+            }
+        
+            if(str[i] != flag) {
+                printf("Error -1");
+            }
+            else
+            printf("Character %c is at index %d",flag,i);
+        
+        }
+
+        <h1>Output</h1>
+        Enter a string: Lucifer
+        Enter a character to search in the string: i
+        Character i is at index 3
+        </code>
+    </pre>
+</body>
+</html>

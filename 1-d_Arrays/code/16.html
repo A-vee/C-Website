@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>16. Enter two array from the user and check whether they are same or not.</h1>    
+        #include < stdio.h>
+        int getarray(int arr[],int n) {
+            for(int i=0;i< n;i++) {
+                scanf("%d",&arr[i]);
+            }
+        }
+        
+        int areArraySame(int arr[],int arr1[],int n) {
+            int i;
+            for(i=0;i< n;i++) {
+                if(arr[i] == arr1[i]) {
+                    break;
+                }
+            
+            }
+        
+                if(arr[i] == arr1[i]) 
+                printf("Both are Equal :)");
+                else 
+                printf("Both are unEqual :(");
+                
+        }
+        
+        int main() {
+            int n;
+            printf("Enter the size of array: ");
+            scanf("%d",&n);
+            int arr[n];
+            int arr1[n];
+        
+            printf("Enter first Array: ");
+            getarray(arr,n);
+            printf("Enter second Array: ");
+            getarray(arr1,n);
+        
+            areArraySame(arr,arr1,n);
+            
+        }
+        
+        <h1>Output</h1>
+        Enter the size of array: 5
+        Enter first Array: 79 212 80 85 219
+        Enter second Array: 79 212 80 85 219
+        Both are Equal :)
+        
+        
+        </code>
+    </pre>
+</body>
+</html>

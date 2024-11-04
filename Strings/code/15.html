@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>15. Enter the String from the user, enter a character also and search the character in the string.</h1>
+        #include < stdio.h>
+        int main() {
+            int i;
+            char str[100],flag;
+            printf("Enter a string: ");
+            gets(str);
+            printf("Enter a character to search in the string: ");
+            scanf("%c",&flag);
+        
+            for(i = 0; str[i] != '\0'; i++) {
+            if(str[i] == flag) {
+                break;
+            }
+            }
+        
+            if(str[i] != flag) {
+                printf("Character is not in the string");
+            }
+            else
+            printf("Character is in the string");
+        
+        }
+        <h1>Output</h1>
+        Enter a string: Taco Bell  
+        Enter a character to search in the string: c
+        Character is in the string
+        </code>
+    </pre>
+</body>
+</html>

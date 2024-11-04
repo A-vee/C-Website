@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>14. Enter the String from the user and print the difference of ASCII value of each character.</h1>
+        #include < stdio.h>
+        #include < string.h>
+        
+        int main()
+         {
+            char str[256];
+            int length, i;
+        
+            // Input the string from the user
+            printf("Enter a string: ");
+            fgets(str, sizeof(str), stdin);
+            str[strcspn(str, "\n")] = 0; // Remove newline character
+        
+            length = strlen(str);
+        
+            // Print the differences of ASCII values
+            printf("Differences of ASCII values between consecutive characters:\n");
+            for (i = 0; i < length - 1; i++) {
+                int difference = (int)str[i + 1] - (int)str[i];
+                printf("Difference between '%c' and '%c': %d\n", str[i], str[i + 1], difference);
+            }
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a string: Hello
+        Differences of ASCII values between consecutive characters:
+        Difference between 'H' and 'e': 28
+        Difference between 'e' and 'l': 7
+        Difference between 'l' and 'l': 0
+        Difference between 'l' and 'o': 3
+        </code>
+    </pre>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>12. IMPLEMENT THE OPERATIONS OF PRIORITY QUEUE DYNAMICALLY OF STRING (INSERT, DELETE, PEEK, ISEMPTY, ISFULL).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        
+        #define MAX_SIZE 100
+        
+        typedef struct {
+            char *data[MAX_SIZE];
+            int size;
+        } PriorityQueue;
+        
+        void initQueue(PriorityQueue *pq) {
+            pq->size = 0;
+        }
+        
+        int isEmpty(PriorityQueue *pq) {
+            return pq->size == 0;
+        }
+        
+        int isFull(PriorityQueue *pq) {
+            return pq->size == MAX_SIZE;
+        }
+        
+        void swap(char **a, char **b) {
+            char *temp = *a;
+            *a = *b;
+            *b = temp;
+        }
+        
+        void heapifyUp(PriorityQueue *pq, int index) {
+            while (index > 0) {
+                int parentIndex = (index - 1) / 2;
+                if (strcmp(pq->data[index], pq->data[parentIndex]) > 0) {
+                    swap(&pq->data[index], &pq->data[parentIndex]);
+                    index = parentIndex;
+                } else {
+                    break;
+                }
+            }
+        }
+        
+        void heapifyDown(PriorityQueue *pq, int index) {
+            int largest = index;
+            int leftChild = 2 * index + 1;
+            int rightChild = 2 * index + 2;
+        
+            if (leftChild < pq->size && strcmp(pq->data[leftChild], pq->data[largest]) > 0) {
+                largest = leftChild;
+            }
+            if (rightChild < pq->size && strcmp(pq->data[rightChild], pq->data[largest]) > 0) {
+                largest = rightChild;
+            }
+            if (largest != index) {
+                swap(&pq->data[index], &pq->data[largest]);
+                heapifyDown(pq, largest);
+            }
+        }
+        
+        void insert(PriorityQueue *pq, const char *item) {
+            if (isFull(pq)) {
+                printf("Priority Queue is full!\n");
+                return;
+            }
+            pq->data[pq->size] = strdup(item); // Duplicate the string
+            pq->size++;
+            heapifyUp(pq, pq->size - 1);
+        }
+        
+        char* delete(PriorityQueue *pq) {
+            if (isEmpty(pq)) {
+                printf("Priority Queue is empty!\n");
+                return NULL;
+            }
+            char *root = pq->data[0];
+            pq->data[0] = pq->data[pq->size - 1];
+            pq->size--;
+            heapifyDown(pq, 0);
+            return root;
+        }
+        
+        char* peek(PriorityQueue *pq) {
+            if (isEmpty(pq)) {
+                return NULL;
+            }
+            return pq->data[0];
+        }
+        
+        int main() {
+            PriorityQueue pq;
+            initQueue(&pq);
+        
+            insert(&pq, "banana");
+            insert(&pq, "apple");
+            insert(&pq, "cherry");
+        
+            printf("Peek: %s\n", peek(&pq));  // Outputs: cherry
+        
+            char *deleted = delete(&pq);
+            printf("Deleted: %s\n", deleted);  // Outputs: cherry
+            free(deleted); // Free the deleted string
+        
+            printf("Peek after deletion: %s\n", peek(&pq));  // Outputs: banana
+        
+            // Clean up remaining items
+            while (!isEmpty(&pq)) {
+                deleted = delete(&pq);
+                printf("Deleted: %s\n", deleted);
+                free(deleted); // Free the deleted string
+            }
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Peek: cherry
+        Deleted: cherry
+        Peek after deletion: banana
+        Deleted: banana
+        Deleted: apple
+        </code>
+    </pre>
+</body>
+</html>

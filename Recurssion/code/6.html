@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>6. FIND THE LARGEST ELEMENT IN THE INTEGER ARRAY USING RECURSION.</h1>
+        #include < stdio.h>
+
+        // Function to find the largest element recursively
+        int findLargest(int arr[], int size, int index) {
+            // Base case: if we reach the last element, return it
+            if (index == size - 1) {
+                return arr[index];
+            }
+        
+            // Recursive case: find the largest in the rest of the array
+            int largestInRest = findLargest(arr, size, index + 1);
+        
+            // Compare the current element with the largest found so far
+            return (arr[index] > largestInRest) ? arr[index] : largestInRest;
+        }
+        
+        // Main function
+        int main() {
+            int size;
+        
+            printf("Enter the number of elements in the array: ");
+            scanf("%d", &size);
+        
+            if (size <= 0) {
+                printf("Please enter a positive integer for the size of the array.\n");
+                return 1;
+            }
+        
+            int arr[size];
+            printf("Enter %d integers:\n", size);
+            for (int i = 0; i < size; i++) {
+                scanf("%d", &arr[i]);
+            }
+        
+            int largest = findLargest(arr, size, 0);
+            printf("The largest element in the array is: %d\n", largest);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the number of elements in the array: 5
+        Enter 5 integers:
+        3 5 2 9 1
+        The largest element in the array is: 9
+        </code>
+    </pre>
+</body>
+</html>

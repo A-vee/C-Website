@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>2. CREATE A STACK IMPLEMENTING THE OPERATIONS ON THE CHARACTERS ARRAY (PUSH, POP, PEEK, ISEMPTY, ISFULL).</h1>
+        #include < stdio.h>
+        #include < stdbool.h>
+        
+        #define MAX_SIZE 100 // Define the maximum size of the stack
+        
+        typedef struct {
+            char items[MAX_SIZE];
+            int top;
+        } CharStack;
+        
+        // Function to initialize the stack
+        void initialize(CharStack *s) {
+            s->top = -1;
+        }
+        
+        // Function to check if the stack is full
+        bool isFull(CharStack *s) {
+            return s->top == MAX_SIZE - 1;
+        }
+        
+        // Function to check if the stack is empty
+        bool isEmpty(CharStack *s) {
+            return s->top == -1;
+        }
+        
+        // Function to push an item onto the stack
+        bool push(CharStack *s, char item) {
+            if (isFull(s)) {
+                printf("Stack is full! Cannot push '%c'\n", item);
+                return false;
+            }
+            s->items[++(s->top)] = item;
+            printf("Pushed '%c' onto the stack.\n", item);
+            return true;
+        }
+        
+        // Function to pop an item from the stack
+        char pop(CharStack *s) {
+            if (isEmpty(s)) {
+                printf("Stack is empty! Cannot pop.\n");
+                return '\0'; // Return null character to indicate error
+            }
+            return s->items[(s->top)--];
+        }
+        
+        // Function to peek at the top item of the stack
+        char peek(CharStack *s) {
+            if (isEmpty(s)) {
+                printf("Stack is empty! Cannot peek.\n");
+                return '\0'; // Return null character to indicate error
+            }
+            return s->items[s->top];
+        }
+        
+        // Function to display the stack contents
+        void display(CharStack *s) {
+            if (isEmpty(s)) {
+                printf("Stack is empty.\n");
+                return;
+            }
+            printf("Stack contents: ");
+            for (int i = s->top; i >= 0; i--) {
+                printf("%c ", s->items[i]);
+            }
+            printf("\n");
+        }
+        
+        int main() {
+            CharStack stack;
+            initialize(&stack);
+        
+            int choice;
+            char value;
+        
+            while (1) {
+                printf("\nStack Operations:\n");
+                printf("1. Push\n");
+                printf("2. Pop\n");
+                printf("3. Peek\n");
+                printf("4. Check if empty\n");
+                printf("5. Check if full\n");
+                printf("6. Display stack\n");
+                printf("7. Exit\n");
+                printf("Enter your choice: ");
+                scanf("%d", &choice);
+                getchar(); // Consume newline left by scanf
+        
+                switch (choice) {
+                    case 1:
+                        printf("Enter a character to push: ");
+                        scanf("%c", &value);
+                        push(&stack, value);
+                        break;
+                    case 2:
+                        value = pop(&stack);
+                        if (value != '\0') {
+                            printf("Popped '%c' from the stack.\n", value);
+                        }
+                        break;
+                    case 3:
+                        value = peek(&stack);
+                        if (value != '\0') {
+                            printf("Top element is '%c'.\n", value);
+                        }
+                        break;
+                    case 4:
+                        if (isEmpty(&stack)) {
+                            printf("Stack is empty.\n");
+                        } else {
+                            printf("Stack is not empty.\n");
+                        }
+                        break;
+                    case 5:
+                        if (isFull(&stack)) {
+                            printf("Stack is full.\n");
+                        } else {
+                            printf("Stack is not full.\n");
+                        }
+                        break;
+                    case 6:
+                        display(&stack);
+                        break;
+                    case 7:
+                        printf("Exiting...\n");
+                        return 0;
+                    default:
+                        printf("Invalid choice! Please try again.\n");
+                }
+            }
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 1
+        Enter a character to push: A
+        Pushed 'A' onto the stack.
+
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 1
+        Enter a character to push: B
+        Pushed 'B' onto the stack.
+
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 1
+        Enter a character to push: C
+        Pushed 'C' onto the stack.
+
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 6
+        Stack contents: C B A 
+
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 3
+        Top element is 'C'.
+
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 2
+        Popped 'C' from the stack.
+
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 4
+        Stack is not empty.
+
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 5
+        Stack is not full.
+
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 1
+        Enter a character to push: D
+        Pushed 'D' onto the stack.
+
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 6
+        Stack contents: D B A 
+
+        Stack Operations:
+        1. Push
+        2. Pop
+        3. Peek
+        4. Check if empty
+        5. Check if full
+        6. Display stack
+        7. Exit
+        Enter your choice: 7
+        Exiting...        
+        </code>
+    </pre>
+</body>
+</html>

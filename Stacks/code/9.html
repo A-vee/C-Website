@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>9. ENTER THE INFIX EXPRESSION FROM USER AND CONVERT INTO PREFIX EXPRESSION.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        #include < ctype.h>
+        
+        #define MAX_SIZE 100
+        
+        typedef struct Stack {
+            char arr[MAX_SIZE];
+            int top;
+        } Stack;
+        
+        // Function to initialize the stack
+        void initialize(Stack* stack) {
+            stack->top = -1;
+        }
+        
+        // Function to check if the stack is empty
+        int isEmpty(Stack* stack) {
+            return stack->top == -1;
+        }
+        
+        // Function to check if the stack is full
+        int isFull(Stack* stack) {
+            return stack->top == MAX_SIZE - 1;
+        }
+        
+        // Function to push an element onto the stack
+        void push(Stack* stack, char item) {
+            if (isFull(stack)) {
+                printf("Stack is full! Cannot push %c\n", item);
+                return;
+            }
+            stack->arr[++stack->top] = item;
+        }
+        
+        // Function to pop an element from the stack
+        char pop(Stack* stack) {
+            if (isEmpty(stack)) {
+                printf("Stack is empty! Cannot pop.\n");
+                return '\0'; // Return null character to indicate error
+            }
+            return stack->arr[stack->top--];
+        }
+        
+        // Function to peek the top element of the stack
+        char peek(Stack* stack) {
+            if (isEmpty(stack)) {
+                return '\0'; // Return null character to indicate error
+            }
+            return stack->arr[stack->top];
+        }
+        
+        // Function to check precedence of operators
+        int precedence(char op) {
+            switch (op) {
+                case '+':
+                case '-':
+                    return 1;
+                case '*':
+                case '/':
+                    return 2;
+                case '^':
+                    return 3;
+                default:
+                    return 0;
+            }
+        }
+        
+        // Function to reverse a string
+        void reverse(char* exp) {
+            int n = strlen(exp);
+            for (int i = 0; i < n / 2; i++) {
+                char temp = exp[i];
+                exp[i] = exp[n - i - 1];
+                exp[n - i - 1] = temp;
+            }
+        }
+        
+        // Function to convert infix to prefix
+        void infixToPrefix(const char* infix, char* prefix) {
+            Stack stack;
+            initialize(&stack);
+            char reversedInfix[MAX_SIZE];
+            strcpy(reversedInfix, infix);
+            
+            // Reverse the infix expression
+            reverse(reversedInfix);
+            
+            int j = 0;
+            for (int i = 0; reversedInfix[i] != '\0'; i++) {
+                char current = reversedInfix[i];
+        
+                // If the character is an operand, add it to the output
+                if (isalnum(current)) {
+                    prefix[j++] = current;
+                } 
+                // If the character is '(', push it to the stack
+                else if (current == ')') {
+                    push(&stack, current);
+                } 
+                // If the character is ')', pop from the stack until '(' is encountered
+                else if (current == '(') {
+                    while (!isEmpty(&stack) && peek(&stack) != ')') {
+                        prefix[j++] = pop(&stack);
+                    }
+                    pop(&stack); // Remove ')'
+                } 
+                // If the character is an operator
+                else {
+                    while (!isEmpty(&stack) && precedence(peek(&stack)) > precedence(current)) {
+                        prefix[j++] = pop(&stack);
+                    }
+                    push(&stack, current);
+                }
+            }
+        
+            // Pop all remaining operators from the stack
+            while (!isEmpty(&stack)) {
+                prefix[j++] = pop(&stack);
+            }
+        
+            prefix[j] = '\0'; // Null-terminate the string
+        
+            // Reverse the output to get the final prefix expression
+            reverse(prefix);
+        }
+        
+        // Main function
+        int main() {
+            char infix[MAX_SIZE];
+            char prefix[MAX_SIZE];
+        
+            printf("Enter an infix expression: ");
+            fgets(infix, sizeof(infix), stdin);
+            // Remove the newline character from the end of the string
+            infix[strcspn(infix, "\n")] = 0;
+        
+            infixToPrefix(infix, prefix);
+            printf("Prefix expression: %s\n", prefix);
+        
+            return 0;
+        }
+        <h1>Output</h1>
+        Enter an infix expression: (A + B) * C
+        Prefix expression: * + A B C        
+        </code>
+    </pre>
+</body>
+</html>

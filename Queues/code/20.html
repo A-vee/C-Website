@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>20. Rotten Oranges.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        #define MAX 1000
+        
+        typedef struct {
+            int x, y;
+        } Point;
+        
+        int orangesRotting(int grid[MAX][MAX], int rows, int cols) {
+            int freshCount = 0;
+            int minutes = 0;
+            Point queue[MAX * MAX]; // Queue to hold rotten orange coordinates
+            int front = 0, rear = 0;
+        
+            // Initialize queue with all rotten oranges
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    if (grid[i][j] == 2) {
+                        queue[rear++] = (Point){i, j}; // Add rotten orange to queue
+                    } else if (grid[i][j] == 1) {
+                        freshCount++; // Count fresh oranges
+                    }
+                }
+            }
+        
+            // Directions for the 4 adjacent cells
+            int directions[4][2] = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        
+            // BFS to spread rot
+            while (front < rear) {
+                int size = rear - front; // Number of rotten oranges in this level
+                for (int i = 0; i < size; i++) {
+                    Point current = queue[front++];
+                    for (int j = 0; j < 4; j++) {
+                        int newX = current.x + directions[j][0];
+                        int newY = current.y + directions[j][1];
+                        // Check bounds and if the neighbor is a fresh orange
+                        if (newX >= 0 && newX < rows && newY >= 0 && newY < cols && grid[newX][newY] == 1)
+                        {
+                            grid[newX][newY] = 2; // Mark as rotten
+                            freshCount--; // Decrease fresh orange count
+                            queue[rear++] = (Point){newX, newY}; // Enqueue new rotten orange
+                        }
+                    }
+                }
+                if (front < rear) { // Increment minutes only if we processed new oranges
+                    minutes++;
+                }
+            }
+        
+            // If there are still fresh oranges left, return -1
+            return freshCount == 0 ? minutes : -1;
+        }
+        
+        int main() {
+            int grid[MAX][MAX] = {
+                {2, 1, 1},
+                {1, 1, 0},
+                {0, 1, 2}
+            };
+            int rows = 3, cols = 3;
+        
+            int result = orangesRotting(grid, rows, cols);
+            if (result != -1) {
+                printf("All fresh oranges rot in %d minute(s).\n", result);
+            } else {
+                printf("Some fresh oranges cannot rot.\n");
+            }
+        
+            return 0;
+        }
+
+    <h1>Output</h1>
+        2 1 1
+        1 1 0
+        0 1 2
+
+        All fresh oranges rot in 4 minute(s).
+        </code>
+    </pre>
+</body>
+</html>

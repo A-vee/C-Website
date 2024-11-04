@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>13. IMPLEMENT THE TOWER OF HANOI USING STACKS.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        #define MAX_DISKS 10
+        
+        typedef struct Stack {
+            int disks[MAX_DISKS];
+            int top;
+        } Stack;
+        
+        // Function to initialize the stack
+        void initialize(Stack* stack) {
+            stack->top = -1;
+        }
+        
+        // Function to check if the stack is empty
+        int isEmpty(Stack* stack) {
+            return stack->top == -1;
+        }
+        
+        // Function to push an element onto the stack
+        void push(Stack* stack, int disk) {
+            if (stack->top < MAX_DISKS - 1) {
+                stack->disks[++stack->top] = disk;
+            }
+        }
+        
+        // Function to pop an element from the stack
+        int pop(Stack* stack) {
+            if (!isEmpty(stack)) {
+                return stack->disks[stack->top--];
+            }
+            return -1; // Return -1 to indicate an error
+        }
+        
+        // Function to peek at the top element of the stack
+        int peek(Stack* stack) {
+            if (!isEmpty(stack)) {
+                return stack->disks[stack->top];
+            }
+            return -1; // Return -1 to indicate an error
+        }
+        
+        // Function to print the stack
+        void printStack(Stack* stack) {
+            for (int i = stack->top; i >= 0; i--) {
+                printf("%d ", stack->disks[i]);
+            }
+            printf("\n");
+        }
+        
+        // Function to move disks from source to destination using auxiliary
+        void moveDisks(int n, Stack* source, Stack* destination, Stack* auxiliary) {
+            if (n == 1) {
+                int disk = pop(source);
+                push(destination, disk);
+                printf("Move disk %d from source to destination\n", disk);
+                return;
+            }
+            moveDisks(n - 1, source, auxiliary, destination);
+            moveDisks(1, source, destination, auxiliary);
+            moveDisks(n - 1, auxiliary, destination, source);
+        }
+        
+        // Main function
+        int main() {
+            int numDisks;
+            printf("Enter the number of disks (up to %d): ", MAX_DISKS);
+            scanf("%d", &numDisks);
+        
+            if (numDisks < 1 || numDisks > MAX_DISKS) {
+                printf("Invalid number of disks. Please enter a number between 1 and %d.\n", MAX_DISKS);
+                return 1;
+            }
+        
+            Stack source, destination, auxiliary;
+            initialize(&source);
+            initialize(&destination);
+            initialize(&auxiliary);
+        
+            // Initialize source stack with disks
+            for (int i = numDisks; i >= 1; i--) {
+                push(&source, i);
+            }
+        
+            printf("Initial state of the rods:\n");
+            printf("Source: ");
+            printStack(&source);
+            printf("Destination: ");
+            printStack(&destination);
+            printf("Auxiliary: ");
+            printStack(&auxiliary);
+        
+            // Move disks
+            moveDisks(numDisks, &source, &destination, &auxiliary);
+        
+            printf("\nFinal state of the rods:\n");
+            printf("Source: ");
+            printStack(&source);
+            printf("Destination: ");
+            printStack(&destination);
+            printf("Auxiliary: ");
+            printStack(&auxiliary);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the number of disks (up to 10): 3
+        Initial state of the rods:
+        Source: 3 2 1 
+        Destination: 
+        Auxiliary: 
+        
+        Move disk 1 from source to destination
+        Move disk 2 from source to auxiliary
+        Move disk 1 from destination to auxiliary
+        Move disk 3 from source to destination
+        Move disk 1 from auxiliary to source
+        Move disk 2 from auxiliary to destination
+        Move disk 1 from source to destination
+        
+        Final state of the rods:
+        Source: 
+        Destination: 3 2 1 
+        Auxiliary:        
+        </code>
+    </pre>
+</body>
+</html>

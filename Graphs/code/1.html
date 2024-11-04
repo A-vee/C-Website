@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>1. ENTER THE VERTICES AND EDGES AND REPRESENT IN ADJACENCY MATRIX AND PRINT IT.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        void printAdjacencyMatrix(int** matrix, int vertices) {
+            printf("Adjacency Matrix:\n");
+            for (int i = 0; i < vertices; i++) {
+                for (int j = 0; j < vertices; j++) {
+                    printf("%d ", matrix[i][j]);
+                }
+                printf("\n");
+            }
+        }
+        
+        int main() {
+            int vertices, edges;
+        
+            // Input the number of vertices
+            printf("Enter the number of vertices: ");
+            scanf("%d", &vertices);
+        
+            // Initialize the adjacency matrix
+            int** adjacencyMatrix = (int**)malloc(vertices * sizeof(int*));
+            for (int i = 0; i < vertices; i++) {
+                adjacencyMatrix[i] = (int*)calloc(vertices, sizeof(int));
+            }
+        
+            // Input the number of edges
+            printf("Enter the number of edges: ");
+            scanf("%d", &edges);
+        
+            // Input each edge
+            for (int i = 0; i < edges; i++) {
+                int u, v;
+                printf("Enter edge %d (format: u v): ", i + 1);
+                scanf("%d %d", &u, &v);
+                
+                // Update the adjacency matrix
+                adjacencyMatrix[u][v] = 1; // For directed graph
+                // adjacencyMatrix[v][u] = 1; // Uncomment for undirected graph
+            }
+        
+            // Print the adjacency matrix
+            printAdjacencyMatrix(adjacencyMatrix, vertices);
+        
+            // Free the allocated memory
+            for (int i = 0; i < vertices; i++) {
+                free(adjacencyMatrix[i]);
+            }
+            free(adjacencyMatrix);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the number of vertices: 4
+        Enter the number of edges: 4
+        Enter edge 1 (format: u v): 0 1
+        Enter edge 2 (format: u v): 0 2
+        Enter edge 3 (format: u v): 1 2
+        Enter edge 4 (format: u v): 2 3
+        Adjacency Matrix:
+        0 1 1 0 
+        0 0 1 0 
+        0 0 0 1 
+        0 0 0 0 
+        </code>
+    </pre>
+</body>
+</html>

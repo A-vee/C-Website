@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>6. Enter the Matrix from user, multiply it with a scalar value and display the answer.</h1>
+        #include <stdio.h>
+
+            int main() {
+                int rows, cols;
+                float scalar;
+            
+                // Input dimensions of the matrix
+                printf("Enter the number of rows: ");
+                scanf("%d", &rows);
+                printf("Enter the number of columns: ");
+                scanf("%d", &cols);
+            
+                float matrix[rows][cols], result[rows][cols];
+            
+                // Input the original matrix
+                printf("Enter elements of the matrix:\n");
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                        printf("Element [%d][%d]: ", i, j);
+                        scanf("%f", &matrix[i][j]);
+                    }
+                }
+            
+                // Input the scalar value
+                printf("Enter the scalar value to multiply with: ");
+                scanf("%f", &scalar);
+            
+                // Multiplying the matrix with the scalar value
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                        result[i][j] = matrix[i][j] * scalar;
+                    }
+                }
+            
+                // Displaying the resulting matrix
+                printf("\nResulting matrix after multiplication:\n");
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                        printf("%.2f ", result[i][j]);
+                    }
+                    printf("\n");
+                }
+            
+                return 0;
+            }            
+        
+        <h1>Output</h1>
+        Enter the number of rows: 2
+        Enter the number of columns: 2
+        Enter elements of the matrix:
+        Element [0][0]: 1
+        Element [0][1]: 2
+        Element [1][0]: 3
+        Element [1][1]: 4
+        Enter the scalar value to multiply with: 2
+
+        Resulting matrix after multiplication:
+        2.00 4.00 
+        6.00 8.00 
+       
+        
+        </code>
+    </pre>
+</body>
+</html>

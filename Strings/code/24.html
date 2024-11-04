@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>24. Enter the String from the user and enter the word and replace that word by another word.</h1>
+        #include < stdio.h>
+        #include < string.h>
+        
+        void replaceWord(char *sentence, const char *target, const char *replacement) {
+            char buffer[1024]; // Buffer to hold the modified string
+            char *pos;
+            int targetLen = strlen(target);
+            int replacementLen = strlen(replacement);
+            
+            buffer[0] = '\0'; // Initialize buffer
+        
+            // Find the first occurrence of the target word
+            while ((pos = strstr(sentence, target)) != NULL) {
+                // Copy everything before the target word
+                strncat(buffer, sentence, pos - sentence);
+                // Append the replacement word
+                strcat(buffer, replacement);
+                // Move the sentence pointer forward
+                sentence = pos + targetLen;
+            }
+            
+            // Append the remaining part of the sentence
+            strcat(buffer, sentence);
+            
+            // Copy the modified string back to the original sentence
+            strcpy(sentence, buffer);
+        }
+        
+        int main() {
+            char sentence[1024];
+            char target[50], replacement[50];
+        
+            // Input the sentence from the user
+            printf("Enter a sentence: ");
+            fgets(sentence, sizeof(sentence), stdin);
+            sentence[strcspn(sentence, "\n")] = 0; // Remove newline character
+        
+            // Input the target word to replace
+            printf("Enter the word to replace: ");
+            fgets(target, sizeof(target), stdin);
+            target[strcspn(target, "\n")] = 0; // Remove newline character
+        
+            // Input the replacement word
+            printf("Enter the new word: ");
+            fgets(replacement, sizeof(replacement), stdin);
+            replacement[strcspn(replacement, "\n")] = 0; // Remove newline character
+        
+            // Replace the word in the sentence
+            replaceWord(sentence, target, replacement);
+        
+            // Display the modified sentence
+            printf("Modified sentence: %s\n", sentence);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a sentence: The quick brown fox jumps over the lazy dog.
+        Enter the word to replace: dog
+        Enter the new word: cat
+        Modified sentence: The quick brown fox jumps over the lazy cat.
+
+        </code>
+    </pre>
+</body>
+</html>

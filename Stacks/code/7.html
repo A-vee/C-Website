@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>7. CREATE TWO INTEGER STACKS IN A SINGLE ARRAY.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        #define MAX_SIZE 100
+        
+        typedef struct TwoStacks {
+            int arr[MAX_SIZE];
+            int top1;
+            int top2;
+        } TwoStacks;
+        
+        // Function to initialize the two stacks
+        void initialize(TwoStacks* stacks) {
+            stacks->top1 = -1;          // Stack 1 starts at the beginning
+            stacks->top2 = MAX_SIZE;    // Stack 2 starts at the end
+        }
+        
+        // Function to check if Stack 1 is full
+        int isFullStack1(TwoStacks* stacks) {
+            return stacks->top1 + 1 == stacks->top2;
+        }
+        
+        // Function to check if Stack 2 is full
+        int isFullStack2(TwoStacks* stacks) {
+            return stacks->top2 - 1 == stacks->top1;
+        }
+        
+        // Function to check if Stack 1 is empty
+        int isEmptyStack1(TwoStacks* stacks) {
+            return stacks->top1 == -1;
+        }
+        
+        // Function to check if Stack 2 is empty
+        int isEmptyStack2(TwoStacks* stacks) {
+            return stacks->top2 == MAX_SIZE;
+        }
+        
+        // Function to push an element onto Stack 1
+        void pushStack1(TwoStacks* stacks, int item) {
+            if (isFullStack1(stacks)) {
+                printf("Stack 1 is full! Cannot push %d\n", item);
+                return;
+            }
+            stacks->arr[++stacks->top1] = item;
+            printf("Pushed %d to Stack 1\n", item);
+        }
+        
+        // Function to push an element onto Stack 2
+        void pushStack2(TwoStacks* stacks, int item) {
+            if (isFullStack2(stacks)) {
+                printf("Stack 2 is full! Cannot push %d\n", item);
+                return;
+            }
+            stacks->arr[--stacks->top2] = item;
+            printf("Pushed %d to Stack 2\n", item);
+        }
+        
+        // Function to pop an element from Stack 1
+        int popStack1(TwoStacks* stacks) {
+            if (isEmptyStack1(stacks)) {
+                printf("Stack 1 is empty! Cannot pop.\n");
+                return -1; // Return -1 to indicate error
+            }
+            return stacks->arr[stacks->top1--];
+        }
+        
+        // Function to pop an element from Stack 2
+        int popStack2(TwoStacks* stacks) {
+            if (isEmptyStack2(stacks)) {
+                printf("Stack 2 is empty! Cannot pop.\n");
+                return -1; // Return -1 to indicate error
+            }
+            return stacks->arr[stacks->top2++];
+        }
+        
+        // Function to display elements of Stack 1
+        void displayStack1(TwoStacks* stacks) {
+            if (isEmptyStack1(stacks)) {
+                printf("Stack 1 is empty.\n");
+                return;
+            }
+            printf("Stack 1: ");
+            for (int i = 0; i <= stacks->top1; i++) {
+                printf("%d ", stacks->arr[i]);
+            }
+            printf("\n");
+        }
+        
+        // Function to display elements of Stack 2
+        void displayStack2(TwoStacks* stacks) {
+            if (isEmptyStack2(stacks)) {
+                printf("Stack 2 is empty.\n");
+                return;
+            }
+            printf("Stack 2: ");
+            for (int i = MAX_SIZE - 1; i >= stacks->top2; i--) {
+                printf("%d ", stacks->arr[i]);
+            }
+            printf("\n");
+        }
+        
+        // Main function to demonstrate two stacks
+        int main() {
+            TwoStacks stacks;
+            initialize(&stacks);
+        
+            pushStack1(&stacks, 10);
+            pushStack1(&stacks, 20);
+            displayStack1(&stacks);
+        
+            pushStack2(&stacks, 30);
+            pushStack2(&stacks, 40);
+            displayStack2(&stacks);
+        
+            printf("Popped from Stack 1: %d\n", popStack1(&stacks));
+            displayStack1(&stacks);
+        
+            printf("Popped from Stack 2: %d\n", popStack2(&stacks));
+            displayStack2(&stacks);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Pushed 10 to Stack 1
+        Pushed 20 to Stack 1
+        Stack 1: 10 20 
+        Pushed 30 to Stack 2
+        Pushed 40 to Stack 2
+        Stack 2: 40 30 
+        Popped from Stack 1: 20
+        Stack 1: 10 
+        Popped from Stack 2: 40
+        Stack 2: 30          
+        </code>
+    </pre>
+</body>
+</html>

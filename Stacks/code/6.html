@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>6. CREATE THE PROGRAM TO MATCH THE SINGLE BRACKET USING STACKS.        </h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < stdbool.h>
+        
+        // Define a node structure for the stack
+        typedef struct Node {
+            char data;
+            struct Node* next;
+        } Node;
+        
+        // Define the stack structure
+        typedef struct Stack {
+            Node* top;
+        } Stack;
+        
+        // Function to initialize the stack
+        void initialize(Stack* s) {
+            s->top = NULL;
+        }
+        
+        // Function to check if the stack is empty
+        bool isEmpty(Stack* s) {
+            return s->top == NULL;
+        }
+        
+        // Function to push a character onto the stack
+        void push(Stack* s, char item) {
+            Node* newNode = (Node*)malloc(sizeof(Node));
+            if (newNode == NULL) {
+                printf("Memory allocation failed! Cannot push '%c'\n", item);
+                return;
+            }
+            newNode->data = item;
+            newNode->next = s->top;
+            s->top = newNode;
+        }
+        
+        // Function to pop a character from the stack
+        char pop(Stack* s) {
+            if (isEmpty(s)) {
+                return '\0'; // Return null character to indicate error
+            }
+            Node* temp = s->top;
+            char poppedValue = temp->data;
+            s->top = s->top->next;
+            free(temp);
+            return poppedValue;
+        }
+        
+        // Function to match brackets in the expression
+        bool matchBrackets(const char* expression) {
+            Stack stack;
+            initialize(&stack);
+            
+            for (int i = 0; expression[i] != '\0'; i++) {
+                char current = expression[i];
+                
+                // Push opening brackets onto the stack
+                if (current == '(') {
+                    push(&stack, current);
+                } else if (current == ')') {
+                    // For closing brackets, check if there's a matching opening bracket
+                    if (isEmpty(&stack)) {
+                        return false; // Unmatched closing bracket
+                    }
+                    pop(&stack);
+                }
+            }
+            
+            // If stack is empty, all brackets matched
+            return isEmpty(&stack);
+        }
+        
+        // Main function
+        int main() {
+            char expression[100];
+            
+            printf("Enter an expression: ");
+            fgets(expression, sizeof(expression), stdin);
+            // Remove the newline character from the end of the expression
+            expression[strcspn(expression, "\n")] = 0;
+        
+            if (matchBrackets(expression)) {
+                printf("The brackets are balanced.\n");
+            } else {
+                printf("The brackets are not balanced.\n");
+            }
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+         Enter an expression: (a + b) * (c + d)
+        The brackets are balanced.
+        
+        Enter an expression: (a + b * (c + d))
+        The brackets are balanced.
+        
+        Enter an expression: (a + b) * (c + d
+        The brackets are not balanced.        
+        </code>
+    </pre>
+</body>
+</html>

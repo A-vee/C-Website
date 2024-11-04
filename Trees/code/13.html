@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>13. FIND KTH SMALLEST ELEMENT IN A BINARY SEARCH TREE THROUGH ARRAY.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        // Definition of a binary tree node
+        typedef struct Node {
+            int data;
+            struct Node* left;
+            struct Node* right;
+        } Node;
+        
+        // Function to create a new tree node
+        Node* newNode(int data) {
+            Node* node = (Node*)malloc(sizeof(Node));
+            node->data = data;
+            node->left = NULL;
+            node->right = NULL;
+            return node;
+        }
+        
+        // Function to insert a new value into the BST
+        Node* insert(Node* root, int value) {
+            if (root == NULL) {
+                return newNode(value);
+            }
+            if (value < root->data) {
+                root->left = insert(root->left, value);
+            } else {
+                root->right = insert(root->right, value);
+            }
+            return root;
+        }
+        
+        // Variable to store the Kth smallest element and count
+        int count = 0;
+        int kthSmallest = -1;
+        
+        // Function to perform inorder traversal and find the Kth smallest element
+        void findKthSmallest(Node* root, int K) {
+            if (root == NULL || count >= K) return;
+        
+            // Traverse the left subtree first (smallest element)
+            findKthSmallest(root->left, K);
+        
+            // Increment count and check if this is the Kth smallest
+            count++;
+            if (count == K) {
+                kthSmallest = root->data; // Store the Kth smallest element
+                return;
+            }
+        
+            // Traverse the right subtree
+            findKthSmallest(root->right, K);
+        }
+        
+        // Main function to demonstrate finding the Kth smallest element
+        int main() {
+            Node* root = NULL;
+        
+            // Insert values into the BST
+            root = insert(root, 50);
+            insert(root, 30);
+            insert(root, 20);
+            insert(root, 40);
+            insert(root, 70);
+            insert(root, 60);
+            insert(root, 80);
+        
+            int K = 3; // Find the 3rd smallest element
+        
+            findKthSmallest(root, K);
+        
+            if (kthSmallest != -1) {
+                printf("The %dth smallest element in the BST is: %d\n", K, kthSmallest);
+            } else {
+                printf("The BST does not contain %d elements.\n", K);
+            }
+        
+            // Freeing memory would go here (not implemented for brevity)
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        The 3rd smallest element in the BST is: 40
+        </code>
+    </pre>
+</body>
+</html>

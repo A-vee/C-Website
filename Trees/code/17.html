@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>17. CREATE STRICTLY BINARY TREE FROM THE GIVEN INPUT BY THE USER (DYNAMICALLY).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        // Definition of a binary tree node
+        typedef struct Node {
+            int data;
+            struct Node* left;
+            struct Node* right;
+        } Node;
+        
+        // Function to create a new tree node
+        Node* newNode(int data) {
+            Node* node = (Node*)malloc(sizeof(Node));
+            if (!node) {
+                printf("Memory allocation failed\n");
+                exit(1);
+            }
+            node->data = data;
+            node->left = NULL;
+            node->right = NULL;
+            return node;
+        }
+        
+        // Function to insert nodes into the strictly binary tree
+        Node* insertStrictlyBinary(Node* root, int data) {
+            // If tree is empty, create the root node
+            if (root == NULL) {
+                return newNode(data);
+            }
+        
+            // If the current root has no children, add the left child
+            if (root->left == NULL) {
+                root->left = newNode(data);
+            }
+            // If the current root has a left child but no right child, add the right child
+            else if (root->right == NULL) {
+                root->right = newNode(data);
+            }
+            // If both children are present, do not insert the new node, as we need to keep 
+            it strictly binary
+            else {
+                printf("Node %d cannot be inserted; both children of node %d are already present.\n",
+                 data, root->data);
+                return root;
+            }
+            return root;
+        }
+        
+        // Function to perform inorder traversal and print nodes
+        void inorderTraversal(Node* root) {
+            if (root == NULL) return;
+            inorderTraversal(root->left);
+            printf("%d ", root->data);
+            inorderTraversal(root->right);
+        }
+        
+        // Main function to demonstrate the construction of a strictly binary tree
+        int main() {
+            Node* root = NULL;
+            int numNodes, value;
+        
+            printf("Enter the number of nodes you want to add (must be even for strictly binary tree): ");
+            scanf("%d", &numNodes);
+        
+            // Check if the number of nodes is valid
+            if (numNodes % 2 != 0) {
+                printf("Please enter an even number of nodes.\n");
+                return 1;
+            }
+        
+            for (int i = 0; i < numNodes; i++) {
+                printf("Enter value for node %d: ", i + 1);
+                scanf("%d", &value);
+                root = insertStrictlyBinary(root, value);
+            }
+        
+            // Print the inorder traversal of the constructed strictly binary tree
+            printf("Inorder traversal of the constructed strictly binary tree:\n");
+            inorderTraversal(root);
+            printf("\n");
+        
+            // Freeing memory would go here (not implemented for brevity)
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the number of nodes you want to add (must be even for strictly binary tree): 4
+        Enter value for node 1: 10
+        Enter value for node 2: 20
+        Enter value for node 3: 30
+        Enter value for node 4: 40
+        Inorder traversal of the constructed strictly binary tree:
+        20 10 30 40 
+        
+        </code>
+    </pre>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>9. Enter the string from user and copy it into another string variable.</h1>
+        #include < stdio.h>
+
+        int main() {
+            int i;
+            char str1[100],result[100];
+            printf("Enter a string: ");
+            gets(str1);
+        
+            for(i = 0; str1[i] != '\0'; i++) {
+                result[i] = str1[i];
+            }
+        
+            result[i] = '\0';
+            
+            printf("Source: %s\n",str1);
+            printf("Destination: %s",result);
+        
+        }
+        <h1>Output</h1>
+        Enter a string: Civil War
+        Source: Civil War     
+        Destination: Civil War
+         
+        </code>
+    </pre>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>8. SORT THE STACK IN ASCENDING ORDER USING INTEGER ARRAY.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < stdbool.h>
+        
+        #define MAX_SIZE 100
+        
+        typedef struct Stack {
+            int arr[MAX_SIZE];
+            int top;
+        } Stack;
+        
+        // Function to initialize the stack
+        void initialize(Stack* stack) {
+            stack->top = -1;
+        }
+        
+        // Function to check if the stack is empty
+        bool isEmpty(Stack* stack) {
+            return stack->top == -1;
+        }
+        
+        // Function to check if the stack is full
+        bool isFull(Stack* stack) {
+            return stack->top == MAX_SIZE - 1;
+        }
+        
+        // Function to push an element onto the stack
+        void push(Stack* stack, int item) {
+            if (isFull(stack)) {
+                printf("Stack is full! Cannot push %d\n", item);
+                return;
+            }
+            stack->arr[++stack->top] = item;
+        }
+        
+        // Function to pop an element from the stack
+        int pop(Stack* stack) {
+            if (isEmpty(stack)) {
+                printf("Stack is empty! Cannot pop.\n");
+                return -1; // Return -1 to indicate error
+            }
+            return stack->arr[stack->top--];
+        }
+        
+        // Function to peek the top element of the stack
+        int peek(Stack* stack) {
+            if (isEmpty(stack)) {
+                return -1; // Return -1 to indicate error
+            }
+            return stack->arr[stack->top];
+        }
+        
+        // Function to sort the stack
+        void sortStack(Stack* original) {
+            Stack temp;
+            initialize(&temp);
+        
+            while (!isEmpty(original)) {
+                // Pop an element from the original stack
+                int current = pop(original);
+        
+                // While temporary stack is not empty and top of temp is greater than current
+                while (!isEmpty(&temp) && peek(&temp) > current) {
+                    // Push the top element of temp back to the original stack
+                    push(original, pop(&temp));
+                }
+                
+                // Push the current element onto the temporary stack
+                push(&temp, current);
+            }
+        
+            // Move sorted elements back to the original stack
+            while (!isEmpty(&temp)) {
+                push(original, pop(&temp));
+            }
+        }
+        
+        // Function to display the stack
+        void display(Stack* stack) {
+            if (isEmpty(stack)) {
+                printf("Stack is empty.\n");
+                return;
+            }
+            printf("Stack: ");
+            for (int i = 0; i <= stack->top; i++) {
+                printf("%d ", stack->arr[i]);
+            }
+            printf("\n");
+        }
+        
+        // Main function to demonstrate sorting
+        int main() {
+            Stack stack;
+            initialize(&stack);
+        
+            // Push some elements onto the stack
+            push(&stack, 34);
+            push(&stack, 3);
+            push(&stack, 31);
+            push(&stack, 98);
+            push(&stack, 92);
+            push(&stack, 23);
+        
+            printf("Original ");
+            display(&stack);
+        
+            sortStack(&stack);
+        
+            printf("Sorted ");
+            display(&stack);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Original Stack: 34 3 31 98 92 23 
+        Sorted Stack: 3 23 31 34 92 98         
+        </code>
+    </pre>
+</body>
+</html>

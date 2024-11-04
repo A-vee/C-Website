@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>22. Enter the String from the user and sort the string in ascending order.</h1>
+        #include < stdio.h>
+
+        int main() {
+            int i,j,lenght=0;
+            char str[100];
+            printf("Enter a string");
+            gets(str);
+        
+            for (i = 0; str[i] != '\0'; i++) {
+                lenght++;
+            }
+        
+            for(j=0;j< lenght-1;j++) {
+                for(i=j+1;i< lenght;i++) 
+                {
+                if(str[i]< str[j])
+                {
+                   char temp = str[i];
+                   str[i] = str[j];
+                   str[j] = temp;
+                }
+                } 
+            }
+        
+            printf("Ascending Order: %s ",str);   
+        }
+        <h1>Output</h1>
+        Enter a string charizard
+        Ascending Order:  aacdhirrz
+        </code>
+    </pre>
+</body>
+</html>

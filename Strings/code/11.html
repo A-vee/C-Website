@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>11. Enter the String from the user and check its Pallindrome or not.</h1>
+        #include < stdio.h>
+
+        int main() {
+            int i,j=0,l=1;
+            char str1[100];
+            printf("Enter a string: ");
+            gets(str1);
+            
+            for(i=0;str1[i]!='\0';i++);
+        
+            i--;
+        
+            for(j=0;j< i;j++) {
+            if(str1[j] != str1[i-j]) {
+                l=0;
+                break;
+            }
+            }
+        
+            if(l==1) {
+                printf("Yes, the string is Pallindrome");
+            }
+            else 
+            printf("No, the string is not Pallindrome");
+        
+        }
+
+        <h1>Output</h1>
+        Enter a string: mom
+        Yes, the string is Pallindrome
+
+         
+        </code>
+    </pre>
+</body>
+</html>

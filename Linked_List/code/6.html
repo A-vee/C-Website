@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>6. IMPLEMENT THE OPERATIONS OF SINGLE CIRCULAR LINKED LIST STORING STRING VALUES (INSERT AT BEGIN,INSERT AT POS,INSERT AT END,DELETE AT BEGIN,DELETE AT END, DELETE AT POS, ISEMPTY, ISFULL, DISPLAY, SEARCH).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        
+        #define MAX_STRING_LENGTH 100
+        
+        // Definition of the node structure
+        struct Node {
+            char data[MAX_STRING_LENGTH];
+            struct Node* next;
+        };
+        
+        // Head of the singly linked list
+        struct Node* head = NULL;
+        
+        // Function to check if the list is empty
+        int isEmpty() {
+            return head == NULL;
+        }
+        
+        // Function to insert a node at the beginning
+        void insertAtBeginning(char* value) {
+            struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+            strncpy(newNode->data, value, MAX_STRING_LENGTH);
+            newNode->next = head;
+            head = newNode;
+        }
+        
+        // Function to insert a node at a specific position
+        void insertAtPosition(char* value, int position) {
+            struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+            strncpy(newNode->data, value, MAX_STRING_LENGTH);
+        
+            if (position == 0) {
+                insertAtBeginning(value);
+                return;
+            }
+        
+            struct Node* current = head;
+            for (int i = 0; i < position - 1 && current != NULL; i++) {
+                current = current->next;
+            }
+        
+            if (current == NULL) {
+                printf("Position out of bounds.\n");
+                free(newNode);
+            } else {
+                newNode->next = current->next;
+                current->next = newNode;
+            }
+        }
+        
+        // Function to insert a node at the end
+        void insertAtEnd(char* value) {
+            struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+            strncpy(newNode->data, value, MAX_STRING_LENGTH);
+            newNode->next = NULL;
+        
+            if (isEmpty()) {
+                head = newNode;
+            } else {
+                struct Node* current = head;
+                while (current->next != NULL) {
+                    current = current->next;
+                }
+                current->next = newNode;
+            }
+        }
+        
+        // Function to delete a node at the beginning
+        void deleteAtBeginning() {
+            if (isEmpty()) {
+                printf("List is empty. Cannot delete.\n");
+                return;
+            }
+        
+            struct Node* temp = head;
+            head = head->next;
+            free(temp);
+        }
+        
+        // Function to delete a node at the end
+        void deleteAtEnd() {
+            if (isEmpty()) {
+                printf("List is empty. Cannot delete.\n");
+                return;
+            }
+        
+            if (head->next == NULL) { // Only one node
+                free(head);
+                head = NULL;
+                return;
+            }
+        
+            struct Node* current = head;
+            while (current->next->next != NULL) {
+                current = current->next;
+            }
+        
+            free(current->next);
+            current->next = NULL;
+        }
+        
+        // Function to delete a node at a specific position
+        void deleteAtPosition(int position) {
+            if (isEmpty()) {
+                printf("List is empty. Cannot delete.\n");
+                return;
+            }
+        
+            if (position == 0) {
+                deleteAtBeginning();
+                return;
+            }
+        
+            struct Node* current = head;
+            for (int i = 0; i < position - 1 && current != NULL; i++) {
+                current = current->next;
+            }
+        
+            if (current == NULL || current->next == NULL) {
+                printf("Position out of bounds.\n");
+            } else {
+                struct Node* temp = current->next;
+                current->next = temp->next;
+                free(temp);
+            }
+        }
+        
+        // Function to display the singly linked list
+        void display() {
+            if (isEmpty()) {
+                printf("List is empty.\n");
+                return;
+            }
+        
+            struct Node* current = head;
+            while (current != NULL) {
+                printf("%s -> ", current->data);
+                current = current->next;
+            }
+            printf("NULL\n");
+        }
+        
+        // Function to search for a string in the singly linked list
+        void search(char* value) {
+            struct Node* current = head;
+            int position = 0;
+        
+            while (current != NULL) {
+                if (strcmp(current->data, value) == 0) {
+                    printf("Value '%s' found at position %d.\n", value, position);
+                    return;
+                }
+                current = current->next;
+                position++;
+            }
+        
+            printf("Value '%s' not found in the list.\n", value);
+        }
+        
+        // Main function
+        int main() {
+            int choice, position;
+            char value[MAX_STRING_LENGTH];
+        
+            while (1) {
+                printf("\nSingly Linked List Operations:\n");
+                printf("1. Insert at Beginning\n");
+                printf("2. Insert at Position\n");
+                printf("3. Insert at End\n");
+                printf("4. Delete at Beginning\n");
+                printf("5. Delete at End\n");
+                printf("6. Delete at Position\n");
+                printf("7. Display\n");
+                printf("8. Search\n");
+                printf("9. Exit\n");
+                printf("Enter your choice: ");
+                scanf("%d", &choice);
+                getchar(); // To consume the newline character left by scanf
+        
+                switch (choice) {
+                    case 1:
+                        printf("Enter value to insert at beginning: ");
+                        fgets(value, MAX_STRING_LENGTH, stdin);
+                        value[strcspn(value, "\n")] = '\0'; // Remove newline character
+                        insertAtBeginning(value);
+                        break;
+                    case 2:
+                        printf("Enter value to insert and position: ");
+                        fgets(value, MAX_STRING_LENGTH, stdin);
+                        value[strcspn(value, "\n")] = '\0'; // Remove newline character
+                        printf("Position: ");
+                        scanf("%d", &position);
+                        insertAtPosition(value, position);
+                        break;
+                    case 3:
+                        printf("Enter value to insert at end: ");
+                        fgets(value, MAX_STRING_LENGTH, stdin);
+                        value[strcspn(value, "\n")] = '\0'; // Remove newline character
+                        insertAtEnd(value);
+                        break;
+                    case 4:
+                        deleteAtBeginning();
+                        break;
+                    case 5:
+                        deleteAtEnd();
+                        break;
+                    case 6:
+                        printf("Enter position to delete: ");
+                        scanf("%d", &position);
+                        deleteAtPosition(position);
+                        break;
+                    case 7:
+                        display();
+                        break;
+                    case 8:
+                        printf("Enter value to search: ");
+                        fgets(value, MAX_STRING_LENGTH, stdin);
+                        value[strcspn(value, "\n")] = '\0'; // Remove newline character
+                        search(value);
+                        break;
+                    case 9:
+                        exit(0);
+                    default:
+                        printf("Invalid choice. Please try again.\n");
+                }
+            }
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Singly Linked List Operations:
+        1. Insert at Beginning
+        2. Insert at Position
+        3. Insert at End
+        4. Delete at Beginning
+        5. Delete at End
+        6. Delete at Position
+        7. Display
+        8. Search
+        9. Exit
+        Enter your choice: 1
+        Enter value to insert at beginning: Hello
+        
+        Singly Linked List Operations:
+        1. Insert at Beginning
+        2. Insert at Position
+        3. Insert at End
+        4. Delete at Beginning
+        5. Delete at End
+        6. Delete at Position
+        7. Display
+        8. Search
+        9. Exit
+        Enter your choice: 3
+        Enter value to insert at end: World
+        
+        Singly Linked List Operations:
+        1. Insert at Beginning
+        2. Insert at Position
+        3. Insert at End
+        4. Delete at Beginning
+        5. Delete at End
+        6. Delete at Position
+        7. Display
+        8. Search
+        9. Exit
+        Enter your choice: 7
+        Hello -> World -> NULL
+        </code>
+    </pre>
+</body>
+</html>

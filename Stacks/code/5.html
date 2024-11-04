@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>5. ENTER THE STRING FROM THE USER AND REVERSE THE STRING USING STACKS.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        
+        // Define a node structure for the stack
+        typedef struct Node {
+            char data;
+            struct Node* next;
+        } Node;
+        
+        // Define the stack structure
+        typedef struct Stack {
+            Node* top;
+        } Stack;
+        
+        // Function to initialize the stack
+        void initialize(Stack* s) {
+            s->top = NULL;
+        }
+        
+        // Function to check if the stack is empty
+        int isEmpty(Stack* s) {
+            return s->top == NULL;
+        }
+        
+        // Function to push a character onto the stack
+        void push(Stack* s, char item) {
+            Node* newNode = (Node*)malloc(sizeof(Node));
+            if (newNode == NULL) {
+                printf("Memory allocation failed! Cannot push '%c'\n", item);
+                return;
+            }
+            newNode->data = item;
+            newNode->next = s->top;
+            s->top = newNode;
+        }
+        
+        // Function to pop a character from the stack
+        char pop(Stack* s) {
+            if (isEmpty(s)) {
+                printf("Stack is empty! Cannot pop.\n");
+                return '\0'; // Return null character to indicate error
+            }
+            Node* temp = s->top;
+            char poppedValue = temp->data;
+            s->top = s->top->next;
+            free(temp);
+            return poppedValue;
+        }
+        
+        // Function to reverse a string using a stack
+        void reverseString(const char* str) {
+            Stack stack;
+            initialize(&stack);
+            
+            // Push each character onto the stack
+            for (int i = 0; i < strlen(str); i++) {
+                push(&stack, str[i]);
+            }
+            
+            printf("Reversed string: ");
+            // Pop each character from the stack to get the reversed string
+            while (!isEmpty(&stack)) {
+                printf("%c", pop(&stack));
+            }
+            printf("\n");
+        }
+        
+        // Main function
+        int main() {
+            char str[100];
+            printf("Enter a string: ");
+            fgets(str, sizeof(str), stdin);
+            // Remove the newline character from the end of the string
+            str[strcspn(str, "\n")] = 0;
+        
+            reverseString(str);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a string: Hello, World!
+        Reversed string: !dlroW ,olleH       
+        </code>
+    </pre>
+</body>
+</html>

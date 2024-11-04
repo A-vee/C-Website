@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>2. Enter two Matrices from user, add the matrices and display the answer.</h1>
+        #include < stdio.h>
+
+        int main() {
+            int rows, cols;
+        
+            // Input dimensions of the matrices
+            printf("Enter the number of rows: ");
+            scanf("%d", &rows);
+            printf("Enter the number of columns: ");
+            scanf("%d", &cols);
+        
+            int matrix1[rows][cols], matrix2[rows][cols], sum[rows][cols];
+        
+            // Input first matrix
+            printf("Enter elements of the first matrix:\n");
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    printf("Element [%d][%d]: ", i, j);
+                    scanf("%d", &matrix1[i][j]);
+                }
+            }
+        
+            // Input second matrix
+            printf("Enter elements of the second matrix:\n");
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    printf("Element [%d][%d]: ", i, j);
+                    scanf("%d", &matrix2[i][j]);
+                }
+            }
+        
+            // Adding the matrices
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    sum[i][j] = matrix1[i][j] + matrix2[i][j];
+                }
+            }
+        
+            // Displaying the result
+            printf("\nThe resulting matrix after addition is:\n");
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    printf("%d ", sum[i][j]);
+                }
+                printf("\n");
+            }
+        
+            return 0;
+        }
+        
+        <h1>Output</h1>
+        Enter the number of rows: 2
+        Enter the number of columns: 2
+        Enter elements of the first matrix:
+        Element [0][0]: 1
+        Element [0][1]: 2
+        Element [1][0]: 3
+        Element [1][1]: 4
+        Enter elements of the second matrix:
+        Element [0][0]: 5
+        Element [0][1]: 6
+        Element [1][0]: 7
+        Element [1][1]: 8
+        The resulting matrix after addition is:
+        6 8 
+        10 12
+       
+        
+        </code>
+    </pre>
+</body>
+</html>

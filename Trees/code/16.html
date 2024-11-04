@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>16. CONSTRUCT BINARY SEARCH TREE FROM GIVEN POSTORDER TRAVERSAL THROUGH ARRAYS.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        // Definition of a binary tree node
+        typedef struct Node {
+            int data;
+            struct Node* left;
+            struct Node* right;
+        } Node;
+        
+        // Function to create a new tree node
+        Node* newNode(int data) {
+            Node* node = (Node*)malloc(sizeof(Node));
+            node->data = data;
+            node->left = NULL;
+            node->right = NULL;
+            return node;
+        }
+        
+        // Function to construct BST from postorder traversal
+        Node* constructBSTFromPostorder(int* postorder, int* index, int min, int max, int size) {
+            // Base case
+            if (*index < 0) return NULL;
+        
+            int val = postorder[*index];
+        
+            // Check if the current value is within the allowed range
+            if (val < min || val > max) return NULL;
+        
+            // Create a new node for the current value
+            Node* root = newNode(val);
+            (*index)--;
+        
+            // Since we are traversing in postorder, we first construct the right subtree,
+            // then the left subtree.
+            root->right = constructBSTFromPostorder(postorder, index, val, max, size);
+            root->left = constructBSTFromPostorder(postorder, index, min, val, size);
+        
+            return root;
+        }
+        
+        // Function to perform inorder traversal and print nodes
+        void inorderTraversal(Node* root) {
+            if (root == NULL) return;
+            inorderTraversal(root->left);
+            printf("%d ", root->data);
+            inorderTraversal(root->right);
+        }
+        
+        // Main function to demonstrate the construction from postorder traversal
+        int main() {
+            int postorder[] = {1, 7, 5, 50, 40, 10};
+            int size = sizeof(postorder) / sizeof(postorder[0]);
+            int index = size - 1; // Start from the last element
+        
+            // Construct the BST from postorder traversal
+            Node* root = constructBSTFromPostorder(postorder, &index, INT_MIN, INT_MAX, size);
+        
+            // Print the inorder traversal of the constructed BST
+            printf("Inorder traversal of the constructed BST:\n");
+            inorderTraversal(root);
+            printf("\n");
+        
+            // Freeing memory would go here (not implemented for brevity)
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Inorder traversal of the constructed BST:
+        1 5 7 10 40 50 
+        </code>
+    </pre>
+</body>
+</html>

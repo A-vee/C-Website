@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>8. FIND THE ARITHMETIC MEAN OF AN INTEGER ARRAY USING RECURSION.</h1>
+        #include < stdio.h>
+
+        // Function to calculate the sum of array elements recursively
+        int sumOfArray(int arr[], int size, int index) {
+            // Base case: if we reach the end of the array, return 0
+            if (index == size) {
+                return 0;
+            }
+            // Recursive case: return current element + sum of the rest
+            return arr[index] + sumOfArray(arr, size, index + 1);
+        }
+        
+        // Function to calculate the arithmetic mean
+        double calculateMean(int arr[], int size) {
+            // Get the sum of the array
+            int sum = sumOfArray(arr, size, 0);
+            // Calculate the mean
+            return (double)sum / size; // Casting to double for accurate mean
+        }
+        
+        // Main function
+        int main() {
+            int size;
+        
+            printf("Enter the number of elements in the array: ");
+            scanf("%d", &size);
+        
+            if (size <= 0) {
+                printf("Please enter a positive integer for the size of the array.\n");
+                return 1;
+            }
+        
+            int arr[size];
+            printf("Enter %d integers:\n", size);
+            for (int i = 0; i < size; i++) {
+                scanf("%d", &arr[i]);
+            }
+        
+            double mean = calculateMean(arr, size);
+            printf("The arithmetic mean of the array is: %.2f\n", mean);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the number of elements in the array: 5
+        Enter 5 integers:
+        10 20 30 40 50
+        The arithmetic mean of the array is: 30.00
+        </code>
+    </pre>
+</body>
+</html>

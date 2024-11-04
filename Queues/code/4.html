@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>4. IMPLEMENT THE OPERATIONS OF QUEUE DYNAMICALLY OF STRING (INSERT, DELETE, PEEK, ISEMPTY, ISFULL).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        
+        #define STR_LEN 100 // Maximum length for each string
+        
+        // Define the structure for a queue node
+        struct Node {
+            char data[STR_LEN];
+            struct Node* next;
+        };
+        
+        // Define the structure for the Queue
+        struct Queue {
+            struct Node* front;
+            struct Node* rear;
+        };
+        
+        // Function to create and initialize the queue
+        struct Queue* createQueue() {
+            struct Queue* q = (struct Queue*)malloc(sizeof(struct Queue));
+            q->front = NULL;
+            q->rear = NULL;
+            return q;
+        }
+        
+        // Function to check if the queue is empty
+        int isEmpty(struct Queue* q) {
+            return (q->front == NULL);
+        }
+        
+        // Function to insert an element into the queue
+        void insert(struct Queue* q, const char* value) {
+            struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+            strncpy(newNode->data, value, STR_LEN);
+            newNode->next = NULL;
+        
+            if (q->rear == NULL) {
+                // Queue is empty
+                q->front = newNode;
+                q->rear = newNode;
+            } else {
+                // Add the new node at the end and update rear
+                q->rear->next = newNode;
+                q->rear = newNode;
+            }
+            printf("'%s' inserted into the queue\n", value);
+        }
+        
+        // Function to delete an element from the queue
+        char* delete(struct Queue* q) {
+            if (isEmpty(q)) {
+                printf("Queue is empty! Cannot delete\n");
+                return NULL; // Indicate that the queue is empty
+            }
+            struct Node* temp = q->front;
+            char* deletedValue = strdup(temp->data); // Duplicate the string for return
+        
+            q->front = q->front->next;
+            if (q->front == NULL) {
+                // Queue is now empty
+                q->rear = NULL;
+            }
+            
+            free(temp);
+            printf("'%s' deleted from the queue\n", deletedValue);
+            return deletedValue;
+        }
+        
+        // Function to peek at the front element of the queue
+        char* peek(struct Queue* q) {
+            if (isEmpty(q)) {
+                printf("Queue is empty! Cannot peek\n");
+                return NULL; // Indicate that the queue is empty
+            }
+            return q->front->data;
+        }
+        
+        // Function to display the queue
+        void display(struct Queue* q) {
+            if (isEmpty(q)) {
+                printf("Queue is empty!\n");
+                return;
+            }
+            struct Node* current = q->front;
+            printf("Queue elements: ");
+            while (current != NULL) {
+                printf("'%s' ", current->data);
+                current = current->next;
+            }
+            printf("\n");
+        }
+        
+        // Main function
+        int main() {
+            struct Queue* q = createQueue();
+            
+            int choice;
+            char value[STR_LEN];
+        
+            do {
+                printf("\nQueue Operations:\n");
+                printf("1. Insert\n");
+                printf("2. Delete\n");
+                printf("3. Peek\n");
+                printf("4. Display\n");
+                printf("5. Check if Empty\n");
+                printf("6. Exit\n");
+                printf("Enter your choice: ");
+                scanf("%d", &choice);
+                getchar(); // Consume the newline character
+        
+                switch (choice) {
+                    case 1:
+                        printf("Enter string to insert: ");
+                        fgets(value, STR_LEN, stdin);
+                        value[strcspn(value, "\n")] = 0; // Remove the newline character
+                        insert(q, value);
+                        break;
+                    case 2:
+                        {
+                            char* deletedValue = delete(q);
+                            if (deletedValue != NULL) {
+                                free(deletedValue); // Free the duplicated string
+                            }
+                        }
+                        break;
+                    case 3:
+                        {
+                            char* frontValue = peek(q);
+                            if (frontValue != NULL) {
+                                printf("Front element is: '%s'\n", frontValue);
+                            }
+                        }
+                        break;
+                    case 4:
+                        display(q);
+                        break;
+                    case 5:
+                        if (isEmpty(q)) {
+                            printf("Queue is empty\n");
+                        } else {
+                            printf("Queue is not empty\n");
+                        }
+                        break;
+                    case 6:
+                        printf("Exiting...\n");
+                        break;
+                    default:
+                        printf("Invalid choice! Please try again.\n");
+                }
+            } while (choice != 6);
+        
+            // Free remaining nodes
+            while (!isEmpty(q)) {
+                char* deletedValue = delete(q);
+                if (deletedValue != NULL) {
+                    free(deletedValue);
+                }
+            }
+        
+            free(q); // Free the allocated memory for the queue
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Exit
+        Enter your choice: 1
+        Enter string to insert: Hello
+        'Hello' inserted into the queue
+        
+        Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Exit
+        Enter your choice: 1
+        Enter string to insert: World
+        'World' inserted into the queue
+        
+        Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Exit
+        Enter your choice: 4
+        Queue elements: 'Hello' 'World' 
+        
+        Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Exit
+        Enter your choice: 2
+        'Hello' deleted from the queue
+        </code>
+    </pre>
+</body>
+</html>

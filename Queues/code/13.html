@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>13. Find the first circular tour that visits all petrol pumps.</h1>
+        #include < stdio.h>
+
+        int findStartPump(int petrol[], int distance[], int n) {
+            int total_petrol = 0, total_distance = 0;
+            int current_petrol = 0, start_index = 0;
+        
+            for (int i = 0; i < n; i++) {
+                total_petrol += petrol[i];
+                total_distance += distance[i];
+                current_petrol += petrol[i] - distance[i];
+        
+                // If current petrol is negative, reset start index
+                if (current_petrol < 0) {
+                    start_index = i + 1;
+                    current_petrol = 0; // Reset current petrol
+                }
+            }
+        
+            // If total petrol is greater than total distance, return the start index
+            return (total_petrol >= total_distance) ? start_index : -1;
+        }
+        
+        int main() {
+            int petrol[] = {4, 6, 7, 4};
+            int distance[] = {6, 5, 3, 5};
+            int n = sizeof(petrol) / sizeof(petrol[0]);
+        
+            int start = findStartPump(petrol, distance, n);
+            if (start != -1) {
+                printf("The first circular tour can start at petrol pump index: %d\n", start);
+            } else {
+                printf("There is no circular tour possible.\n");
+            }
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        The first circular tour can start at petrol pump index: 1
+        </code>
+    </pre>
+</body>
+</html>

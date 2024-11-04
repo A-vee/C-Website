@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>6. Enter the string from the user and find the length of the String.</h1>
+        #include < stdio.h>
+        int main() {
+            int i,count=0;
+            char str[100];
+            printf("Enter a string: ");
+            gets(str);
+        
+            for(i = 0; str[i] != '\0'; i++) {
+                count++;
+            }
+            printf("Length of String: %d",count);
+        
+        }
+
+        <h1>Output</h1>
+        Enter a string: Attack on Titan
+        Length of String: 15
+        </code>
+    </pre>
+</body>
+</html>

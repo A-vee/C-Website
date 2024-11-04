@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>3. Enter an array from the user and copy the array into second array.</h1>
+        #include < stdio.h>
+        int main() {
+            int i,arr[5],arr1[5];
+            printf("Enter an Array: ");
+            for(i=0;i< 5;i++) {
+                scanf("%d",&arr[i]);
+            }
+            for(i=0;i< 5;i++) {
+            arr1[i] = arr[i];
+            }
+            printf("Array after Copying into second Array: ");
+            for(i=0;i< 5;i++) {
+            printf("%d ",arr1[i]);
+            }
+        }
+        
+        <h1>Output</h1>
+        Enter an Array: 3 5 7 9 1
+        Array after Copying into second Aray: 3 5 7 9 1 
+        
+        </code>
+    </pre>
+</body>
+</html>

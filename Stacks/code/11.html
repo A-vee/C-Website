@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>11. CREATE A PROGRAM TO EVALUATE THE PREFIX EXPRESSION.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        #include < ctype.h>
+        
+        #define MAX_SIZE 100
+        
+        typedef struct Stack {
+            int arr[MAX_SIZE];
+            int top;
+        } Stack;
+        
+        // Function to initialize the stack
+        void initialize(Stack* stack) {
+            stack->top = -1;
+        }
+        
+        // Function to check if the stack is empty
+        int isEmpty(Stack* stack) {
+            return stack->top == -1;
+        }
+        
+        // Function to check if the stack is full
+        int isFull(Stack* stack) {
+            return stack->top == MAX_SIZE - 1;
+        }
+        
+        // Function to push an element onto the stack
+        void push(Stack* stack, int item) {
+            if (isFull(stack)) {
+                printf("Stack is full! Cannot push %d\n", item);
+                return;
+            }
+            stack->arr[++stack->top] = item;
+        }
+        
+        // Function to pop an element from the stack
+        int pop(Stack* stack) {
+            if (isEmpty(stack)) {
+                printf("Stack is empty! Cannot pop.\n");
+                return -1; // Return -1 to indicate error
+            }
+            return stack->arr[stack->top--];
+        }
+        
+        // Function to evaluate a prefix expression
+        int evaluatePrefix(const char* prefix) {
+            Stack stack;
+            initialize(&stack);
+            int i;
+            int len = strlen(prefix);
+        
+            // Traverse the expression from right to left
+            for (i = len - 1; i >= 0; i--) {
+                if (isspace(prefix[i])) {
+                    continue; // Skip spaces
+                }
+        
+                // If the character is an operand (number), push it to the stack
+                if (isdigit(prefix[i])) {
+                    int num = 0;
+                    // Extract the full number (to handle multi-digit numbers)
+                    while (i >= 0 && isdigit(prefix[i])) {
+                        num = num * 10 + (prefix[i] - '0');
+                        i--;
+                    }
+                    i++; // Adjust for the next iteration
+                    push(&stack, num);
+                } 
+                // If the character is an operator
+                else {
+                    int operand1 = pop(&stack);
+                    int operand2 = pop(&stack);
+                    switch (prefix[i]) {
+                        case '+':
+                            push(&stack, operand1 + operand2);
+                            break;
+                        case '-':
+                            push(&stack, operand1 - operand2);
+                            break;
+                        case '*':
+                            push(&stack, operand1 * operand2);
+                            break;
+                        case '/':
+                            if (operand2 != 0) {
+                                push(&stack, operand1 / operand2);
+                            } else {
+                                printf("Error: Division by zero.\n");
+                                return -1;
+                            }
+                            break;
+                        case '^':
+                            push(&stack, (int)pow(operand1, operand2));
+                            break;
+                        default:
+                            printf("Error: Unknown operator %c\n", prefix[i]);
+                            return -1;
+                    }
+                }
+            }
+            return pop(&stack);
+        }
+        
+        // Main function
+        int main() {
+            char prefix[MAX_SIZE];
+        
+            printf("Enter a prefix expression: ");
+            fgets(prefix, sizeof(prefix), stdin);
+            // Remove the newline character from the end of the string
+            prefix[strcspn(prefix, "\n")] = 0;
+        
+            int result = evaluatePrefix(prefix);
+            printf("Result: %d\n", result);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a prefix expression: + 2 3
+        Result: 5
+        Enter a prefix expression: * + 2 3 4
+        Result: 20        
+        </code>
+    </pre>
+</body>
+</html>

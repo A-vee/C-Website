@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>10. ENTER THE INFIX EXPRESSION FROM USER AND CONVERT INTO POSTFIX EXPRESSION.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        #include < ctype.h>
+        
+        #define MAX_SIZE 100
+        
+        typedef struct Stack {
+            char arr[MAX_SIZE];
+            int top;
+        } Stack;
+        
+        // Function to initialize the stack
+        void initialize(Stack* stack) {
+            stack->top = -1;
+        }
+        
+        // Function to check if the stack is empty
+        int isEmpty(Stack* stack) {
+            return stack->top == -1;
+        }
+        
+        // Function to check if the stack is full
+        int isFull(Stack* stack) {
+            return stack->top == MAX_SIZE - 1;
+        }
+        
+        // Function to push an element onto the stack
+        void push(Stack* stack, char item) {
+            if (isFull(stack)) {
+                printf("Stack is full! Cannot push %c\n", item);
+                return;
+            }
+            stack->arr[++stack->top] = item;
+        }
+        
+        // Function to pop an element from the stack
+        char pop(Stack* stack) {
+            if (isEmpty(stack)) {
+                printf("Stack is empty! Cannot pop.\n");
+                return '\0'; // Return null character to indicate error
+            }
+            return stack->arr[stack->top--];
+        }
+        
+        // Function to peek the top element of the stack
+        char peek(Stack* stack) {
+            if (isEmpty(stack)) {
+                return '\0'; // Return null character to indicate error
+            }
+            return stack->arr[stack->top];
+        }
+        
+        // Function to check precedence of operators
+        int precedence(char op) {
+            switch (op) {
+                case '+':
+                case '-':
+                    return 1;
+                case '*':
+                case '/':
+                    return 2;
+                case '^':
+                    return 3;
+                default:
+                    return 0;
+            }
+        }
+        
+        // Function to convert infix to postfix
+        void infixToPostfix(const char* infix, char* postfix) {
+            Stack stack;
+            initialize(&stack);
+            int j = 0;
+        
+            for (int i = 0; infix[i] != '\0'; i++) {
+                char current = infix[i];
+        
+                // If the character is an operand, add it to the output
+                if (isalnum(current)) {
+                    postfix[j++] = current;
+                } 
+                // If the character is '(', push it to the stack
+                else if (current == '(') {
+                    push(&stack, current);
+                } 
+                // If the character is ')', pop from the stack until '(' is encountered
+                else if (current == ')') {
+                    while (!isEmpty(&stack) && peek(&stack) != '(') {
+                        postfix[j++] = pop(&stack);
+                    }
+                    pop(&stack); // Remove '('
+                } 
+                // If the character is an operator
+                else {
+                    while (!isEmpty(&stack) && precedence(peek(&stack)) >= precedence(current)) {
+                        postfix[j++] = pop(&stack);
+                    }
+                    push(&stack, current);
+                }
+            }
+        
+            // Pop all remaining operators from the stack
+            while (!isEmpty(&stack)) {
+                postfix[j++] = pop(&stack);
+            }
+        
+            postfix[j] = '\0'; // Null-terminate the string
+        }
+        
+        // Main function
+        int main() {
+            char infix[MAX_SIZE];
+            char postfix[MAX_SIZE];
+        
+            printf("Enter an infix expression: ");
+            fgets(infix, sizeof(infix), stdin);
+            // Remove the newline character from the end of the string
+            infix[strcspn(infix, "\n")] = 0;
+        
+            infixToPostfix(infix, postfix);
+            printf("Postfix expression: %s\n", postfix);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter an infix expression: (A + B) * C
+        Postfix expression: AB+C*        
+        </code>
+    </pre>
+</body>
+</html>

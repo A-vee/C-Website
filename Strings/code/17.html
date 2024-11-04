@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>17. Enter two Strings from the user and count the number of vowels.</h1>
+        #include < stdio.h>
+
+        int main() {
+            int i,count=0;
+            char str[100];
+            printf("Enter a string: ");
+            gets(str);
+        
+            for(i = 0; str[i] != '\0'; i++) {
+            if(str[i] == 'a' || 
+               str[i] == 'e' ||
+               str[i] == 'i' ||
+               str[i] == 'o' ||
+               str[i] == 'u') {
+                count++;
+            }
+            }
+        
+            printf("Total number of vowels %d",count);
+        
+        }
+        <h1>Output</h1>
+        Enter a string: Crown and Jewells
+        Total number of vowels 4
+        </code>
+    </pre>
+</body>
+</html>

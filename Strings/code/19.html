@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>19. Enter the string from user and convert into an float value.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>      
+        int main() {
+            char str[20];
+            float num;
+        
+            // Input a string from the user
+            printf("Enter a string representing a float value: ");
+            fgets(str, sizeof(str), stdin);
+        
+            // Convert the string to a float
+            num = strtof(str, NULL);
+        
+            // Display the result
+            printf("The float value of the string is: %.2f\n", num);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a string representing a float value: 123.45
+        The float value of the string is: 123.45
+        </code>
+    </pre>
+</body>
+</html>

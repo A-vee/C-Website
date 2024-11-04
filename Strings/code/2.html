@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>2. Enter the String from the user and convert in Lowercase</h1>
+        #include < stdio.h >
+
+        int main() {
+            int i;
+            char str[100];
+            printf("Enter a string: ");
+            gets(str);
+            for(i = 0; str[i] != '\0'; i++) {
+                if(str[i] >= 'A' && str[i] <= 'Z') {
+                    str[i] += 32 ;
+                }
+            }
+            printf("Lowercase: %s",str);
+        
+        }
+       
+        <h1>Output</h1>
+        Enter a string: POWER rangers SAMURAI
+        Lowercase: power rangers samurai
+         
+        </code>
+    </pre>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>3. TRAVERSE THE ADJACENT MATRIX WITH DEPTH FIRST SEARCH.
+        </h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        // Function to perform Depth First Search
+        void DFS(int vertex, int numVertices, 
+        int adjacencyMatrix[numVertices][numVertices], int visited[]) {
+            // Mark the current vertex as visited
+            visited[vertex] = 1;
+            printf("%d ", vertex); // Print the visited vertex
+        
+            // Recur for all the vertices adjacent to this vertex
+            for (int i = 0; i < numVertices; i++) {
+                if (adjacencyMatrix[vertex][i] == 1 && !visited[i]) {
+                    DFS(i, numVertices, adjacencyMatrix, visited);
+                }
+            }
+        }
+        
+        // Main function to demonstrate DFS on an adjacency matrix
+        int main() {
+            int vertices;
+        
+            // Input the number of vertices
+            printf("Enter the number of vertices: ");
+            scanf("%d", &vertices);
+        
+            // Initialize the adjacency matrix
+            int adjacencyMatrix[vertices][vertices];
+            for (int i = 0; i < vertices; i++) {
+                for (int j = 0; j < vertices; j++) {
+                    adjacencyMatrix[i][j] = 0; // Initialize to 0
+                }
+            }
+        
+            // Input edges
+            int edges;
+            printf("Enter the number of edges: ");
+            scanf("%d", &edges);
+        
+            for (int i = 0; i < edges; i++) {
+                int u, v;
+                printf("Enter edge %d (format: u v): ", i + 1);
+                scanf("%d %d", &u, &v);
+                adjacencyMatrix[u][v] = 1; // For directed graph
+                // adjacencyMatrix[v][u] = 1; // Uncomment for undirected graph
+            }
+        
+            // Array to track visited vertices
+            int visited[vertices];
+            for (int i = 0; i < vertices; i++) {
+                visited[i] = 0; // Initialize all vertices as not visited
+            }
+        
+            // Perform DFS starting from vertex 0 (or any other starting vertex)
+            printf("Depth First Search starting from vertex 0:\n");
+            DFS(0, vertices, adjacencyMatrix, visited);
+            printf("\n");
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the number of vertices: 5
+        Enter the number of edges: 6
+        Enter edge 1 (format: u v): 0 1
+        Enter edge 2 (format: u v): 0 2
+        Enter edge 3 (format: u v): 1 3
+        Enter edge 4 (format: u v): 1 4
+        Enter edge 5 (format: u v): 2 4
+        Enter edge 6 (format: u v): 3 4
+        Depth First Search starting from vertex 0:
+        0 1 3 4 2 
+        </code>
+    </pre>
+</body>
+</html>

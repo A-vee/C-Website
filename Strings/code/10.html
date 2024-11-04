@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>10. Enter the string from user, enter the index number and print character present on that index</h1>
+        #include < stdio.h>
+        int main() 
+        {
+            int i,index_no,count=0;
+            char str1[100];
+            printf("Enter a string: ");
+            gets(str1);
+            printf("Enter the index number: ");
+            scanf("%d",&index_no);
+                
+            for(i = 0; str1[i] != '\0'; i++) {
+                count++;
+            }
+                
+            if (index_no<0 || index_no>=count) {
+                printf("Invalid Index");
+            }
+            else
+            printf("Character Present on index %d is %c\n",index_no,str1[index_no]);
+                
+        }
+
+        <h1>Output</h1>
+        Enter a string: Big Show
+        Enter the index number: 5
+        Character Present on index 5 is h
+        </code>
+    </pre>
+</body>
+</html>

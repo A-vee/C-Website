@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>10. ENTER THE 2 POLYNOMIAL EQUATIONS DYNAMICALLY, SUBTRACT THEM AND DISPLAY THE ANSWER.
+        </h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        // Define the node structure for a polynomial term
+        struct Term {
+            int coeff;  // Coefficient
+            int exp;    // Exponent
+            struct Term* next;
+        };
+        
+        // Function to create a new term
+        struct Term* createTerm(int coeff, int exp) {
+            struct Term* newTerm = (struct Term*)malloc(sizeof(struct Term));
+            newTerm->coeff = coeff;
+            newTerm->exp = exp;
+            newTerm->next = NULL;
+            return newTerm;
+        }
+        
+        // Function to insert a term into the polynomial (sorted by exponent)
+        void insertTerm(struct Term** poly, int coeff, int exp) {
+            struct Term* newTerm = createTerm(coeff, exp);
+            if (*poly == NULL || (*poly)->exp < exp) {
+                newTerm->next = *poly;
+                *poly = newTerm;
+            } else {
+                struct Term* current = *poly;
+                while (current->next != NULL && current->next->exp > exp) {
+                    current = current->next;
+                }
+                if (current->exp == exp) {
+                    current->coeff += coeff; // Combine like terms
+                    free(newTerm); // Free the new term since it will not be used
+                } else {
+                    newTerm->next = current->next;
+                    current->next = newTerm;
+                }
+            }
+        }
+        
+        // Function to read a polynomial from the user
+        struct Term* readPolynomial() {
+            struct Term* poly = NULL;
+            int numTerms, coeff, exp;
+        
+            printf("Enter the number of terms in the polynomial: ");
+            scanf("%d", &numTerms);
+        
+            for (int i = 0; i < numTerms; i++) {
+                printf("Enter coefficient and exponent of term %d: ", i + 1);
+                scanf("%d %d", &coeff, &exp);
+                insertTerm(&poly, coeff, exp);
+            }
+        
+            return poly;
+        }
+        
+        // Function to subtract two polynomials
+        struct Term* subtractPolynomials(struct Term* poly1, struct Term* poly2) {
+            struct Term* result = NULL;
+        
+            while (poly1 != NULL || poly2 != NULL) {
+                int coeff, exp;
+        
+                if (poly1 == NULL) {
+                    coeff = -poly2->coeff;
+                    exp = poly2->exp;
+                    poly2 = poly2->next;
+                } else if (poly2 == NULL) {
+                    coeff = poly1->coeff;
+                    exp = poly1->exp;
+                    poly1 = poly1->next;
+                } else if (poly1->exp > poly2->exp) {
+                    coeff = poly1->coeff;
+                    exp = poly1->exp;
+                    poly1 = poly1->next;
+                } else if (poly1->exp < poly2->exp) {
+                    coeff = -poly2->coeff;
+                    exp = poly2->exp;
+                    poly2 = poly2->next;
+                } else {
+                    coeff = poly1->coeff - poly2->coeff;
+                    exp = poly1->exp;
+                    poly1 = poly1->next;
+                    poly2 = poly2->next;
+                }
+        
+                if (coeff != 0) {
+                    insertTerm(&result, coeff, exp);
+                }
+            }
+        
+            return result;
+        }
+        
+        // Function to display the polynomial
+        void displayPolynomial(struct Term* poly) {
+            if (poly == NULL) {
+                printf("0\n");
+                return;
+            }
+        
+            struct Term* current = poly;
+            while (current != NULL) {
+                printf("%d x^%d", current->coeff, current->exp);
+                current = current->next;
+                if (current != NULL) {
+                    printf(" + ");
+                }
+            }
+            printf("\n");
+        }
+        
+        // Main function
+        int main() {
+            printf("Enter the first polynomial:\n");
+            struct Term* poly1 = readPolynomial();
+            
+            printf("Enter the second polynomial:\n");
+            struct Term* poly2 = readPolynomial();
+        
+            struct Term* result = subtractPolynomials(poly1, poly2);
+        
+            printf("Resulting polynomial after subtraction:\n");
+            displayPolynomial(result);
+        
+            // Free allocated memory (not implemented in this example for brevity)
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the first polynomial:
+        Enter the number of terms in the polynomial: 2
+        Enter coefficient and exponent of term 1: 5 2
+        Enter coefficient and exponent of term 2: 3 0
+        
+        Enter the second polynomial:
+        Enter the number of terms in the polynomial: 2
+        Enter coefficient and exponent of term 1: 2 1
+        Enter coefficient and exponent of term 2: 4 0
+        
+        Resulting polynomial after subtraction:
+        5 x^2 - 2 x^1 - 1 x^0
+        </code>
+    </pre>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>20. Trapping Rain Water Problem: Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.</h1>
+        #include < stdio.h>
+        int trapRainWater(int height[], int n) {
+            int left = 0, right = n - 1;
+            int maxLeft = 0, maxRight = 0;
+            int trappedWater = 0;
+        
+            while (left <= right) {
+                if (height[left] < height[right]) {
+                    if (height[left] >= maxLeft) {
+                        maxLeft = height[left];
+                    } else {
+                        trappedWater += maxLeft - height[left];
+                    }
+                    left++;
+                } else {
+                    if (height[right] >= maxRight) {
+                        maxRight = height[right];
+                    } else {
+                        trappedWater += maxRight - height[right];
+                    }
+                    right--;
+                }
+            }
+        
+            return trappedWater;
+        }
+        
+        int main() {
+            int n;
+            printf("Enter number of bars: ");
+            scanf("%d", &n);
+        
+            int height[n];
+            printf("Enter elevation map:\n");
+            for (int i = 0; i < n; i++) {
+                scanf("%d", &height[i]);
+            }
+        
+            int trappedWater = trapRainWater(height, n);
+            printf("Trapped rain water: %d\n", trappedWater);
+        
+            return 0;
+        }
+        
+        <h1>Output</h1>
+        Enter number of bars: 7
+        Enter elevation map:
+        1 2 0 3 4 2 1
+        Trapped rain water: 6
+        
+        </code>
+    </pre>
+</body>
+</html>

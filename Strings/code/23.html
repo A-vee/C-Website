@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>23. Enter the String from the user and then enter the word and count the occurence of that word in the sentence.</h1>
+        #include < stdio.h>
+        #include < string.h>
+        
+        int countOccurrences(const char *sentence, const char *word) {
+            int count = 0;
+            const char *tmp = sentence;
+        
+            // Get the length of the word
+            int wordLength = strlen(word);
+        
+            while ((tmp = strstr(tmp, word)) != NULL) {
+                // Check if the found word is actually a standalone word
+                if ((tmp == sentence || *(tmp - 1) == ' ') && (*(tmp + wordLength) == ' ' || *(tmp + wordLength) == '\0')) {
+                    count++;
+                }
+                tmp += wordLength; // Move to the next character after the found word
+            }
+        
+            return count;
+        }
+        
+        int main() {
+            char sentence[256];
+            char word[50];
+        
+            // Input the sentence from the user
+            printf("Enter a sentence: ");
+            fgets(sentence, sizeof(sentence), stdin);
+            sentence[strcspn(sentence, "\n")] = 0; // Remove newline character
+
+            // Input the word to count
+            printf("Enter the word to count: ");
+            fgets(word, sizeof(word), stdin);
+            word[strcspn(word, "\n")] = 0; // Remove newline character
+        
+            // Count occurrences of the word in the sentence
+            int occurrences = countOccurrences(sentence, word);
+        
+            // Display the result
+            printf("The word '%s' occurs %d time(s) in the sentence.\n", word, occurrences);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a sentence: The quick brown fox jumps over the lazy dog. The dog is happy.
+        Enter the word to count: dog
+        The word 'dog' occurs 2 time(s) in the sentence.
+        </code>
+    </pre>
+</body>
+</html>

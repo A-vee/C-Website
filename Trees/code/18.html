@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>18. CREATE ALMOST COMPLETE BINARY TREE FROM THE GIVEN INPUT BY THE USER (DYNAMICALLY).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        // Definition of a binary tree node
+        typedef struct Node {
+            int data;
+            struct Node* left;
+            struct Node* right;
+        } Node;
+        
+        // Function to create a new tree node
+        Node* newNode(int data) {
+            Node* node = (Node*)malloc(sizeof(Node));
+            if (!node) {
+                printf("Memory allocation failed\n");
+                exit(1);
+            }
+            node->data = data;
+            node->left = NULL;
+            node->right = NULL;
+            return node;
+        }
+        
+        // Function to insert nodes into the almost complete binary tree
+        Node* insertAlmostComplete(Node* root, int data) {
+            // If the tree is empty, create the root node
+            if (root == NULL) {
+                return newNode(data);
+            }
+        
+            // Use a queue to perform level order insertion
+            Node** queue = (Node**)malloc(sizeof(Node*) * 100); // Static allocation for simplicity
+            int front = 0, rear = 0;
+        
+            // Enqueue the root node
+            queue[rear++] = root;
+        
+            // Perform level order insertion
+            while (front < rear) {
+                Node* current = queue[front++];
+        
+                // Check left child
+                if (current->left != NULL) {
+                    queue[rear++] = current->left;
+                } else {
+                    current->left = newNode(data);
+                    free(queue);
+                    return root; // Node inserted, exit
+                }
+        
+                // Check right child
+                if (current->right != NULL) {
+                    queue[rear++] = current->right;
+                } else {
+                    current->right = newNode(data);
+                    free(queue);
+                    return root; // Node inserted, exit
+                }
+            }
+        
+            free(queue);
+            return root; // This should not be reached
+        }
+        
+        // Function to perform inorder traversal and print nodes
+        void inorderTraversal(Node* root) {
+            if (root == NULL) return;
+            inorderTraversal(root->left);
+            printf("%d ", root->data);
+            inorderTraversal(root->right);
+        }
+        
+        // Main function to demonstrate the construction of an almost complete binary tree
+        int main() {
+            Node* root = NULL;
+            int numNodes, value;
+        
+            printf("Enter the number of nodes you want to add: ");
+            scanf("%d", &numNodes);
+        
+            for (int i = 0; i < numNodes; i++) {
+                printf("Enter value for node %d: ", i + 1);
+                scanf("%d", &value);
+                root = insertAlmostComplete(root, value);
+            }
+        
+            // Print the inorder traversal of the constructed almost complete binary tree
+            printf("Inorder traversal of the constructed almost complete binary tree:\n");
+            inorderTraversal(root);
+            printf("\n");
+        
+            // Freeing memory would go here (not implemented for brevity)
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the number of nodes you want to add: 6
+        Enter value for node 1: 10
+        Enter value for node 2: 20
+        Enter value for node 3: 30
+        Enter value for node 4: 40
+        Enter value for node 5: 50
+        Enter value for node 6: 60
+        Inorder traversal of the constructed almost complete binary tree:
+        40 20 50 10 30 60 
+        </code>
+    </pre>
+</body>
+</html>

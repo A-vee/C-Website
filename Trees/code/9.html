@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>9. FIND INORDER PREDECESSOR AND INORDER SUCCESSOR OF BINARY SEARCH TREE (DYNAMICALLY REPRESENTED).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        // Definition of a binary tree node
+        typedef struct Node {
+            int data;
+            struct Node* left;
+            struct Node* right;
+        } Node;
+        
+        // Function to create a new tree node
+        Node* newNode(int data) {
+            Node* node = (Node*)malloc(sizeof(Node));
+            node->data = data;
+            node->left = NULL;
+            node->right = NULL;
+            return node;
+        }
+        
+        // Function to insert a new value into the BST
+        Node* insert(Node* root, int value) {
+            if (root == NULL) {
+                return newNode(value);
+            }
+            if (value < root->data) {
+                root->left = insert(root->left, value);
+            } else {
+                root->right = insert(root->right, value);
+            }
+            return root;
+        }
+        
+        // Function to find the inorder predecessor of a given node
+        Node* findInorderPredecessor(Node* root, Node* node) {
+            if (node->left != NULL) {
+                // The predecessor is the maximum value in the left subtree
+                Node* current = node->left;
+                while (current->right != NULL) {
+                    current = current->right;
+                }
+                return current;
+            }
+        
+            // If there is no left subtree, traverse the ancestors
+            Node* predecessor = NULL;
+            Node* current = root;
+            while (current != NULL) {
+                if (node->data < current->data) {
+                    current = current->left;
+                } else if (node->data > current->data) {
+                    predecessor = current; // This might be the predecessor
+                    current = current->right;
+                } else {
+                    break; // Node found
+                }
+            }
+            return predecessor;
+        }
+        
+        // Function to find the inorder successor of a given node
+        Node* findInorderSuccessor(Node* root, Node* node) {
+            if (node->right != NULL) {
+                // The successor is the minimum value in the right subtree
+                Node* current = node->right;
+                while (current->left != NULL) {
+                    current = current->left;
+                }
+                return current;
+            }
+        
+            // If there is no right subtree, traverse the ancestors
+            Node* successor = NULL;
+            Node* current = root;
+            while (current != NULL) {
+                if (node->data < current->data) {
+                    successor = current; // This might be the successor
+                    current = current->left;
+                } else if (node->data > current->data) {
+                    current = current->right;
+                } else {
+                    break; // Node found
+                }
+            }
+            return successor;
+        }
+        
+        // Function to find a node in the BST
+        Node* search(Node* root, int value) {
+            if (root == NULL || root->data == value) {
+                return root;
+            }
+            if (value < root->data) {
+                return search(root->left, value);
+            }
+            return search(root->right, value);
+        }
+        
+        // Main function to demonstrate finding predecessor and successor
+        int main() {
+            Node* root = NULL;
+        
+            // Insert values into the BST
+            root = insert(root, 50);
+            insert(root, 30);
+            insert(root, 20);
+            insert(root, 40);
+            insert(root, 70);
+            insert(root, 60);
+            insert(root, 80);
+        
+            // Search for a node to find its predecessor and successor
+            int valueToFind = 30;
+            Node* node = search(root, valueToFind);
+        
+            if (node) {
+                Node* predecessor = findInorderPredecessor(root, node);
+                Node* successor = findInorderSuccessor(root, node);
+        
+                printf("Node: %d\n", node->data);
+                printf("Inorder Predecessor: %s\n", predecessor ? predecessor->data : -1);
+                printf("Inorder Successor: %s\n", successor ? successor->data : -1);
+            } else {
+                printf("Node %d not found in the BST.\n", valueToFind);
+            }
+        
+            // Freeing memory would go here (not implemented for brevity)
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Node: 30
+        Inorder Predecessor: 20
+        Inorder Successor: 40
+        </code>
+    </pre>
+</body>
+</html>

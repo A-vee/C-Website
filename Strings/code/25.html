@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>25. Enter the String from the user and eliminate/trim the spaces from both ends (if any).</h1>
+        #include < stdio.h>
+
+        int main() {
+            int i,j,lenght=0;
+            char str[100];
+            printf("Enter a string");
+            gets(str);
+        
+            while(str[0] == ' '){
+                for (i = 0; str[i] != '\0'; i++) {
+                str[i] = str[i+1];
+                }
+            }
+        
+            for (i = 0; str[i] != '\0'; i++);
+            i--;
+            while(str[i] == ' ') {
+            str[i] == '\0';
+            i--;
+            }
+        
+            printf("%s ",str);   
+        }
+
+        <h1>Output</h1>
+        Enter a string  Mitraan da Chaleya Truck ni
+        Mitraan da Chaleya Truck ni
+        </code>
+    </pre>
+</body>
+</html>

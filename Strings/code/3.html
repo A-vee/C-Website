@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>3. Enter the String from the user and convert in Sentence Case</h1>
+        #include < stdio.h >
+
+        int main() {
+            int i;
+            char str[100];
+            printf("Enter a string: ");
+            gets(str);
+            if(str[0] >= 'a' && str[0] <= 'z') {
+                    str[0] -= 32 ;
+            }
+                
+            for(i = 1; str[i] != '\0'; i++) {
+                if(str[i] >= 'A' && str[i] <= 'Z') {
+                    str[i] += 32 ;
+                }
+                        
+            }
+            printf("Sentence Case: %s",str);
+                
+            }
+
+        <h1>Output</h1>
+        Enter a string: HALL OF FAME
+        Sentence Case: Hall of fame
+        </code>
+    </pre>
+</body>
+</html>

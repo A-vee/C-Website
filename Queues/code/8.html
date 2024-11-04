@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>8. IMPLEMENT THE OPERATIONS OF PRIORITY QUEUE IN AN STRING ARRAY (INSERT, DELETE, PEEK, ISEMPTY, ISFULL).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        
+        #define MAX_SIZE 5    // Define the maximum size of the priority queue
+        #define STR_LEN 100   // Define the maximum length for each string
+        
+        // Define the structure for the Priority Queue
+        struct PriorityQueue {
+            char items[MAX_SIZE][STR_LEN];
+            int size;
+        };
+        
+        // Function to create and initialize the priority queue
+        struct PriorityQueue* createQueue() {
+            struct PriorityQueue* pq = (struct PriorityQueue*)malloc(sizeof(struct PriorityQueue));
+            pq->size = 0;
+            return pq;
+        }
+        
+        // Function to check if the priority queue is empty
+        int isEmpty(struct PriorityQueue* pq) {
+            return (pq->size == 0);
+        }
+        
+        // Function to check if the priority queue is full
+        int isFull(struct PriorityQueue* pq) {
+            return (pq->size == MAX_SIZE);
+        }
+        
+        // Function to insert an element into the priority queue
+        void insert(struct PriorityQueue* pq, const char* value) {
+            if (isFull(pq)) {
+                printf("Priority Queue is full! Cannot insert '%s'\n", value);
+                return;
+            }
+            // Insert the new element at the end
+            strcpy(pq->items[pq->size], value);
+            pq->size++;
+        
+            // Rearrange the elements to maintain priority order
+            int i = pq->size - 1;
+            while (i > 0 && strcmp(pq->items[i], pq->items[(i - 1) / 2]) < 0) {
+                // Swap with parent
+                char temp[STR_LEN];
+                strcpy(temp, pq->items[i]);
+                strcpy(pq->items[i], pq->items[(i - 1) / 2]);
+                strcpy(pq->items[(i - 1) / 2], temp);
+                i = (i - 1) / 2; // Move to parent index
+            }
+            printf("'%s' inserted into the priority queue\n", value);
+        }
+        
+        // Function to delete the highest priority element from the priority queue
+        char* delete(struct PriorityQueue* pq) {
+            if (isEmpty(pq)) {
+                printf("Priority Queue is empty! Cannot delete\n");
+                return NULL; // Indicate that the queue is empty
+            }
+        
+            char* highestPriority = strdup(pq->items[0]); // Duplicate the highest priority string
+            pq->items[0][0] = '\0'; // Clear the root
+        
+            // Move the last element to the root
+            strcpy(pq->items[0], pq->items[pq->size - 1]);
+            pq->size--;
+        
+            // Rearrange the elements to maintain priority order
+            int i = 0;
+            while (1) {
+                int leftChild = 2 * i + 1;
+                int rightChild = 2 * i + 2;
+                int smallest = i;
+        
+                if (leftChild < pq->size && strcmp(pq->items[leftChild], pq->items[smallest]) < 0) {
+                    smallest = leftChild;
+                }
+                if (rightChild < pq->size && strcmp(pq->items[rightChild], pq->items[smallest]) < 0)
+                {
+                    smallest = rightChild;
+                }
+                if (smallest == i) break; // If no swap is needed, break
+        
+                // Swap the current element with the smallest child
+                char temp[STR_LEN];
+                strcpy(temp, pq->items[i]);
+                strcpy(pq->items[i], pq->items[smallest]);
+                strcpy(pq->items[smallest], temp);
+                i = smallest; // Move down to the smallest child
+            }
+        
+            printf("'%s' deleted from the priority queue\n", highestPriority);
+            return highestPriority; // Return the deleted string
+        }
+        
+        // Function to peek at the highest priority element of the priority queue
+        char* peek(struct PriorityQueue* pq) {
+            if (isEmpty(pq)) {
+                printf("Priority Queue is empty! Cannot peek\n");
+                return NULL; // Indicate that the queue is empty
+            }
+            return pq->items[0]; // The highest priority element is at the root
+        }
+        
+        // Function to display the priority queue
+        void display(struct PriorityQueue* pq) {
+            if (isEmpty(pq)) {
+                printf("Priority Queue is empty!\n");
+                return;
+            }
+            printf("Priority Queue elements: ");
+            for (int i = 0; i < pq->size; i++) {
+                printf("'%s' ", pq->items[i]);
+            }
+            printf("\n");
+        }
+        
+        // Main function
+        int main() {
+            struct PriorityQueue* pq = createQueue();
+            
+            int choice;
+            char value[STR_LEN];
+        
+            do {
+                printf("\nPriority Queue Operations:\n");
+                printf("1. Insert\n");
+                printf("2. Delete\n");
+                printf("3. Peek\n");
+                printf("4. Display\n");
+                printf("5. Check if Empty\n");
+                printf("6. Check if Full\n");
+                printf("7. Exit\n");
+                printf("Enter your choice: ");
+                scanf("%d", &choice);
+                getchar(); // Consume the newline character
+        
+                switch (choice) {
+                    case 1:
+                        printf("Enter string to insert: ");
+                        fgets(value, STR_LEN, stdin);
+                        value[strcspn(value, "\n")] = 0; // Remove the newline character
+                        insert(pq, value);
+                        break;
+                    case 2:
+                        {
+                            char* deletedValue = delete(pq);
+                            if (deletedValue != NULL) {
+                                free(deletedValue); // Free the duplicated string
+                            }
+                        }
+                        break;
+                    case 3:
+                        {
+                            char* frontValue = peek(pq);
+                            if (frontValue != NULL) {
+                                printf("Highest priority element is: '%s'\n", frontValue);
+                            }
+                        }
+                        break;
+                    case 4:
+                        display(pq);
+                        break;
+                    case 5:
+                        if (isEmpty(pq)) {
+                            printf("Priority Queue is empty\n");
+                        } else {
+                            printf("Priority Queue is not empty\n");
+                        }
+                        break;
+                    case 6:
+                        if (isFull(pq)) {
+                            printf("Priority Queue is full\n");
+                        } else {
+                            printf("Priority Queue is not full\n");
+                        }
+                        break;
+                    case 7:
+                        printf("Exiting...\n");
+                        break;
+                    default:
+                        printf("Invalid choice! Please try again.\n");
+                }
+            } while (choice != 7);
+        
+            // Free remaining nodes
+            free(pq); // Free the allocated memory for the queue
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Priority Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Check if Full
+        7. Exit
+        Enter your choice: 1
+        Enter string to insert: apple
+        'apple' inserted into the priority queue
+        
+        Priority Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Check if Full
+        7. Exit
+        Enter your choice: 1
+        Enter string to insert: banana
+        'banana' inserted into the priority queue
+        
+        Priority Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Check if Full
+        7. Exit
+        Enter your choice: 4
+        Priority Queue elements: 'apple' 'banana' 
+        
+        Priority Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Check if Full
+        7. Exit
+        Enter your choice: 2
+        'apple' deleted from the priority queue
+        </code>
+    </pre>
+</body>
+</html>

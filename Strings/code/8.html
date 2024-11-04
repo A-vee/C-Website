@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>8. Enter two Strings from the user and concatenate those strings in another string and display the answers.</h1>
+            #include < stdio.h>
+            int main() {
+            int i,j;
+            char str1[100],str2[100],result[200];
+            printf("Enter 1st string: ");
+            gets(str1);
+            printf("Enter 2nd string: ");
+            gets(str2);
+                
+            for(i = 0; str1[i] != '\0'; i++) 
+            {
+                result[i] = str1[i];
+            }
+            
+                for(j = 0; str2[j] != '\0'; j++)
+                {
+
+                    result[i + j] = str2[j];
+                }
+                result[i + j] = '\0';
+                
+            printf("Strings after they are Concatenated: %s",result);
+                
+             }
+
+        <h1>Output</h1>
+        Enter 1st string: Blue lock and
+        Enter 2nd string:  Hell's Pradise
+        </code>
+    </pre>
+</body>
+</html>

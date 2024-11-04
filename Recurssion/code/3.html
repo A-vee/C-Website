@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>3. CALCULATE THE SUM OF NATURAL NUMBERS TILL 10 USING RECURSION.</h1>
+        #include < stdio.h>
+
+        // Function to calculate the sum of natural numbers recursively
+        int sumOfNaturalNumbers(int n) {
+            // Base case
+            if (n == 0) {
+                return 0;
+            }
+            // Recursive case
+            return n + sumOfNaturalNumbers(n - 1);
+        }
+        
+        // Main function
+        int main() {
+            int number = 10; // Calculate the sum up to 10
+        
+            int result = sumOfNaturalNumbers(number);
+            printf("The sum of natural numbers till %d is %d\n", number, result);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        The sum of natural numbers till 10 is 55
+        </code>
+    </pre>
+</body>
+</html>

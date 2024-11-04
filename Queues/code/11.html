@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>11. IMPLEMENT THE OPERATIONS OF PRIORITY QUEUE DYNAMICALLY OF INTEGERS (INSERT, DELETE, PEEK, ISEMPTY, ISFULL).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        struct Node {
+            int data; // The value of the node
+            int priority; // The priority of the node
+            struct Node* next; // Pointer to the next node
+        };
+        
+        // Function to create a new node
+        struct Node* createNode(int data, int priority) {
+            struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+            newNode->data = data;
+            newNode->priority = priority;
+            newNode->next = NULL;
+            return newNode;
+        }
+        
+        // Structure for the priority queue
+        struct PriorityQueue {
+            struct Node* head; // Head of the linked list
+        };
+        
+        // Function to create a priority queue
+        struct PriorityQueue* createPriorityQueue() {
+            struct PriorityQueue* pq = (struct PriorityQueue*)malloc(sizeof(struct PriorityQueue));
+            pq->head = NULL;
+            return pq;
+        }
+        
+        // Function to check if the priority queue is empty
+        int isEmpty(struct PriorityQueue* pq) {
+            return pq->head == NULL;
+        }
+        
+        // Function to insert an element into the priority queue
+        void insert(struct PriorityQueue* pq, int data, int priority) {
+            struct Node* newNode = createNode(data, priority);
+            if (pq->head == NULL || pq->head->priority < priority) {
+                // Insert at the head if the queue is empty or new node has higher priority
+                newNode->next = pq->head;
+                pq->head = newNode;
+            } else {
+                // Find the position to insert the new node
+                struct Node* current = pq->head;
+                while (current->next != NULL && current->next->priority >= priority) {
+                    current = current->next;
+                }
+                newNode->next = current->next;
+                current->next = newNode;
+            }
+            printf("Inserted %d with priority %d\n", data, priority);
+        }
+        
+        // Function to delete the highest priority element
+        int deleteHighestPriority(struct PriorityQueue* pq) {
+            if (isEmpty(pq)) {
+                printf("Priority queue is empty! Cannot delete.\n");
+                return -1; // Indicate that the queue is empty
+            }
+            struct Node* temp = pq->head;
+            int deletedData = temp->data;
+            pq->head = pq->head->next; // Move head to next node
+            free(temp); // Free the old head
+            printf("Deleted %d from the priority queue\n", deletedData);
+            return deletedData;
+        }
+        
+        // Function to peek at the highest priority element
+        int peekHighestPriority(struct PriorityQueue* pq) {
+            if (isEmpty(pq)) {
+                printf("Priority queue is empty! Cannot peek.\n");
+                return -1; // Indicate that the queue is empty
+            }
+            return pq->head->data; // Return the data at the head
+        }
+        
+        // Function to display the priority queue
+        void display(struct PriorityQueue* pq) {
+            if (isEmpty(pq)) {
+                printf("Priority queue is empty!\n");
+                return;
+            }
+            struct Node* current = pq->head;
+            printf("Priority Queue: ");
+            while (current != NULL) {
+                printf("%d (priority: %d) ", current->data, current->priority);
+                current = current->next;
+            }
+            printf("\n");
+        }
+        
+        // Main function
+        int main() {
+            struct PriorityQueue* pq = createPriorityQueue();
+            
+            int choice, data, priority;
+        
+            do {
+                printf("\nPriority Queue Operations:\n");
+                printf("1. Insert\n");
+                printf("2. Delete Highest Priority\n");
+                printf("3. Peek Highest Priority\n");
+                printf("4. Display\n");
+                printf("5. Check if Empty\n");
+                printf("6. Exit\n");
+                printf("Enter your choice: ");
+                scanf("%d", &choice);
+        
+                switch (choice) {
+                    case 1:
+                        printf("Enter integer to insert: ");
+                        scanf("%d", &data);
+                        printf("Enter priority (higher number = higher priority): ");
+                        scanf("%d", &priority);
+                        insert(pq, data, priority);
+                        break;
+                    case 2:
+                        deleteHighestPriority(pq);
+                        break;
+                    case 3:
+                        {
+                            int peekedValue = peekHighestPriority(pq);
+                            if (peekedValue != -1) {
+                                printf("Highest priority element is: %d\n", peekedValue);
+                            }
+                        }
+                        break;
+                    case 4:
+                        display(pq);
+                        break;
+                    case 5:
+                        if (isEmpty(pq)) {
+                            printf("Priority queue is empty\n");
+                        } else {
+                            printf("Priority queue is not empty\n");
+                        }
+                        break;
+                    case 6:
+                        printf("Exiting...\n");
+                        break;
+                    default:
+                        printf("Invalid choice! Please try again.\n");
+                }
+            } while (choice != 6);
+        
+            free(pq); // Free the allocated memory for the priority queue
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Priority Queue Operations:
+        1. Insert
+        2. Delete Highest Priority
+        3. Peek Highest Priority
+        4. Display
+        5. Check if Empty
+        6. Exit
+        Enter your choice: 1
+        Enter integer to insert: 10
+        Enter priority (higher number = higher priority): 2
+        Inserted 10 with priority 2
+        
+        Enter your choice: 1
+        Enter integer to insert: 20
+        Enter priority (higher number = higher priority): 3
+        Inserted 20 with priority 3
+        
+        Enter your choice: 4
+        Priority Queue: 20 (priority: 3) 10 (priority: 2)
+        
+        Enter your choice: 3
+        Highest priority element is: 20
+        
+        Enter your choice: 2
+        Deleted 20 from the priority queue
+        </code>
+    </pre>
+</body>
+</html>

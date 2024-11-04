@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>1. Enter a matrix of 4 rows and 2 columns from the user display it in matrix format.</h1>
+        #include < stdio.h>
+
+        int main() {
+            int rows = 4;
+            int cols = 2;
+            int matrix[4][2];
+        
+            // Input the matrix elements
+            printf("Enter the elements of the matrix (4 rows and 2 columns):\n");
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    printf("Element [%d][%d]: ", i, j);
+                    scanf("%d", &matrix[i][j]);
+                }
+            }
+        
+            // Display the matrix
+            printf("\nThe entered matrix is:\n");
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    printf("%d ", matrix[i][j]);
+                }
+                printf("\n"); // Newline for the next row
+            }
+        
+            return 0;
+        }
+        
+        <h1>Output</h1>
+        Enter the elements of the matrix (4 rows and 2 columns):
+        Element [0][0]: 1
+        Element [0][1]: 2
+        Element [1][0]: 3
+        Element [1][1]: 4
+        Element [2][0]: 5
+        Element [2][1]: 6
+        Element [3][0]: 7
+        Element [3][1]: 8
+        The entered matrix is:
+        1 2 
+        3 4 
+        5 6 
+        7 8 
+
+       
+        
+        </code>
+    </pre>
+</body>
+</html>

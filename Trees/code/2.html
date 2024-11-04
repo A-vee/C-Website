@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>2. BINARY TREE LEVEL ORDER TRAVERSAL.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        // Definition of a binary tree node
+        typedef struct Node {
+            int data;
+            struct Node* left;
+            struct Node* right;
+        } Node;
+        
+        // Definition of a queue node
+        typedef struct QueueNode {
+            Node* treeNode;
+            struct QueueNode* next;
+        } QueueNode;
+        
+        // Queue structure
+        typedef struct Queue {
+            QueueNode* front;
+            QueueNode* rear;
+        } Queue;
+        
+        // Function to create a new tree node
+        Node* newNode(int data) {
+            Node* node = (Node*)malloc(sizeof(Node));
+            node->data = data;
+            node->left = NULL;
+            node->right = NULL;
+            return node;
+        }
+        
+        // Function to create a new queue node
+        QueueNode* newQueueNode(Node* treeNode) {
+            QueueNode* qNode = (QueueNode*)malloc(sizeof(QueueNode));
+            qNode->treeNode = treeNode;
+            qNode->next = NULL;
+            return qNode;
+        }
+        
+        // Function to create a queue
+        Queue* createQueue() {
+            Queue* q = (Queue*)malloc(sizeof(Queue));
+            q->front = q->rear = NULL;
+            return q;
+        }
+        
+        // Function to enqueue a tree node
+        void enqueue(Queue* q, Node* treeNode) {
+            QueueNode* qNode = newQueueNode(treeNode);
+            if (q->rear == NULL) {
+                q->front = q->rear = qNode;
+                return;
+            }
+            q->rear->next = qNode;
+            q->rear = qNode;
+        }
+        
+        // Function to dequeue a tree node
+        Node* dequeue(Queue* q) {
+            if (q->front == NULL) return NULL;
+            QueueNode* temp = q->front;
+            Node* treeNode = temp->treeNode;
+            q->front = q->front->next;
+            if (q->front == NULL) q->rear = NULL; // Queue is empty
+            free(temp);
+            return treeNode;
+        }
+        
+        // Function for level order traversal
+        void levelOrderTraversal(Node* root) {
+            if (root == NULL) return;
+        
+            Queue* q = createQueue();
+            enqueue(q, root);
+        
+            while (q->front != NULL) {
+                Node* current = dequeue(q);
+                printf("%d ", current->data);
+        
+                // Enqueue left child
+                if (current->left != NULL) {
+                    enqueue(q, current->left);
+                }
+                // Enqueue right child
+                if (current->right != NULL) {
+                    enqueue(q, current->right);
+                }
+            }
+        
+            // Clean up the queue
+            free(q);
+        }
+        
+        // Main function to demonstrate the level order traversal
+        int main() {
+            // Create a simple binary tree
+            Node* root = newNode(1);
+            root->left = newNode(2);
+            root->right = newNode(3);
+            root->left->left = newNode(4);
+            root->left->right = newNode(5);
+            root->right->left = newNode(6);
+            root->right->right = newNode(7);
+        
+            printf("Level Order Traversal: ");
+            levelOrderTraversal(root);
+            printf("\n");
+        
+            // Freeing memory would go here (not implemented for brevity)
+        
+            return 0;
+        }
+        
+        <h1>Output</h1>
+                 1
+               /   \
+              2     3
+             / \   / \
+            4   5 6   7
+        
+        Level Order Traversal: 1 2 3 4 5 6 7 
+        </code>
+    </pre>
+</body>
+</html>

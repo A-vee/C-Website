@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>1. CALCULATE FACTORIAL OF A NUMBER USING RECURSION.</h1>
+        #include < stdio.h>
+
+        // Function to calculate factorial recursively
+        unsigned long long factorial(int n) {
+            // Base case
+            if (n == 0) {
+                return 1;
+            }
+            // Recursive case
+            return n * factorial(n - 1);
+        }
+        
+        // Main function
+        int main() {
+            int number;
+            
+            printf("Enter a non-negative integer: ");
+            scanf("%d", &number);
+            
+            if (number < 0) {
+                printf("Factorial is not defined for negative numbers.\n");
+            } else {
+                unsigned long long result = factorial(number);
+                printf("Factorial of %d is %llu\n", number, result);
+            }
+            
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a non-negative integer: 5
+        Factorial of 5 is 120
+        </code>
+    </pre>
+</body>
+</html>

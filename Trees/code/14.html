@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>14. PRINT PREORDER TRAVERSAL TO POSTORDER TRAVERSAL OF BINARY SEARCH TREE.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        // Definition of a binary tree node
+        typedef struct Node {
+            int data;
+            struct Node* left;
+            struct Node* right;
+        } Node;
+        
+        // Function to create a new tree node
+        Node* newNode(int data) {
+            Node* node = (Node*)malloc(sizeof(Node));
+            node->data = data;
+            node->left = NULL;
+            node->right = NULL;
+            return node;
+        }
+        
+        // Function to insert a new value into the BST
+        Node* insert(Node* root, int value) {
+            if (root == NULL) {
+                return newNode(value);
+            }
+            if (value < root->data) {
+                root->left = insert(root->left, value);
+            } else {
+                root->right = insert(root->right, value);
+            }
+            return root;
+        }
+        
+        // Function to construct BST from preorder traversal
+        Node* constructBSTFromPreorder(int* preorder, int* index, int size) {
+            if (*index >= size) return NULL;
+        
+            Node* root = newNode(preorder[*index]);
+            (*index)++;
+        
+            // Find the index where right subtree starts
+            int rightIndex = *index;
+            while (rightIndex < size && preorder[rightIndex] < root->data) {
+                rightIndex++;
+            }
+        
+            // Construct left and right subtrees
+            root->left = constructBSTFromPreorder(preorder, index, rightIndex);
+            root->right = constructBSTFromPreorder(preorder, index, size);
+        
+            return root;
+        }
+        
+        // Function to perform postorder traversal and print nodes
+        void postorderTraversal(Node* root) {
+            if (root == NULL) return;
+            postorderTraversal(root->left);
+            postorderTraversal(root->right);
+            printf("%d ", root->data);
+        }
+        
+        // Main function to demonstrate the conversion from preorder to postorder
+        int main() {
+            int preorder[] = {10, 5, 1, 7, 40, 50};
+            int size = sizeof(preorder) / sizeof(preorder[0]);
+            int index = 0;
+        
+            // Construct the BST from preorder traversal
+            Node* root = constructBSTFromPreorder(preorder, &index, size);
+        
+            // Print the postorder traversal
+            printf("Postorder traversal of the constructed BST:\n");
+            postorderTraversal(root);
+            printf("\n");
+        
+            // Freeing memory would go here (not implemented for brevity)
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Postorder traversal of the constructed BST:
+        1 7 5 50 40 10
+        </code>
+    </pre>
+</body>
+</html>

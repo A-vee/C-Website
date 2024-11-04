@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>14. Length of the longest valid substring.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        
+        int longestValidParentheses(char *s) {
+            int max_length = 0;
+            int *stack = (int *)malloc(sizeof(int) * (strlen(s) + 1));
+            int top = -1; // Stack pointer
+            stack[++top] = -1; // Initialize with -1
+        
+            for (int i = 0; s[i] != '\0'; i++) {
+                if (s[i] == '(') {
+                    stack[++top] = i; // Push index of '('
+                } else {
+                    // Pop the last index
+                    if (top != -1) {
+                        top--; // Pop the last index
+        
+                        // If stack is empty, push current index
+                        if (top == -1) {
+                            stack[++top] = i; // Push current index
+                        } else {
+                            // Calculate valid length
+                            int length = i - stack[top];
+                            if (length > max_length) {
+                                max_length = length;
+                            }
+                        }
+                    }
+                }
+            }
+        
+            free(stack);
+            return max_length;
+        }
+        
+        int main() {
+            char s[] = "(()())";
+            int length = longestValidParentheses(s);
+            printf("The length of the longest valid parentheses substring is: %d\n", length);
+            return 0;
+        }
+
+        <h1>Output</h1>
+        The length of the longest valid parentheses substring is: 6
+        </code>
+    </pre>
+</body>
+</html>

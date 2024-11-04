@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>17. Queue based approach for first non-repeating character in a stream.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        
+        #define MAX_CHAR 256
+        
+        typedef struct Node {
+            char data;
+            struct Node *next;
+        } Node;
+        
+        typedef struct Queue {
+            Node *front;
+            Node *rear;
+        } Queue;
+        
+        Queue* createQueue() {
+            Queue *q = (Queue *)malloc(sizeof(Queue));
+            q->front = q->rear = NULL;
+            return q;
+        }
+        
+        void enqueue(Queue *q, char c) {
+            Node *temp = (Node *)malloc(sizeof(Node));
+            temp->data = c;
+            temp->next = NULL;
+            if (q->rear == NULL) {
+                q->front = q->rear = temp;
+                return;
+            }
+            q->rear->next = temp;
+            q->rear = temp;
+        }
+        
+        void dequeue(Queue *q) {
+            if (q->front == NULL) return;
+            Node *temp = q->front;
+            q->front = q->front->next;
+            if (q->front == NULL) q->rear = NULL;
+            free(temp);
+        }
+        
+        char front(Queue *q) {
+            if (q->front != NULL) {
+                return q->front->data;
+            }
+            return '\0'; // Return null character if queue is empty
+        }
+        
+        void firstNonRepeatingCharacter(char *stream) {
+            int charCount[MAX_CHAR] = {0}; // Character count
+            Queue *q = createQueue();
+        
+            for (int i = 0; stream[i] != '\0'; i++) {
+                char currentChar = stream[i];
+        
+                // Update count of the character
+                charCount[currentChar]++;
+        
+                // If it's the first occurrence, add to the queue
+                if (charCount[currentChar] == 1) {
+                    enqueue(q, currentChar);
+                } 
+                // If it's the second occurrence, remove from the queue
+                else if (charCount[currentChar] == 2) {
+                    // Dequeue until the front of the queue is non-repeating
+                    while (q->front != NULL && charCount[q->front->data] > 1) {
+                        dequeue(q);
+                    }
+                }
+        
+                // Print the current first non-repeating character
+                char firstNonRepeating = front(q);
+                if (firstNonRepeating != '\0') {
+                    printf("First non-repeating character so far: %c\n", firstNonRepeating);
+                } else {
+                    printf("No non-repeating character so far.\n");
+                }
+            }
+        
+            // Clean up
+            while (q->front != NULL) {
+                dequeue(q);
+            }
+            free(q);
+        }
+        
+        int main() {
+            char stream[] = "geeksforgeeks";
+            firstNonRepeatingCharacter(stream);
+            return 0;
+        }
+
+        <h1>Output</h1>
+        First non-repeating character so far: g
+        First non-repeating character so far: g
+        First non-repeating character so far: e
+        First non-repeating character so far: e
+        First non-repeating character so far: e
+        First non-repeating character so far: f
+        First non-repeating character so far: f
+        First non-repeating character so far: r
+        First non-repeating character so far: r
+        First non-repeating character so far: t
+        First non-repeating character so far: t
+        First non-repeating character so far: k
+        First non-repeating character so far: k
+        First non-repeating character so far: s
+        </code>
+    </pre>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>5. Enter the String from the user and convert in ToggleCase</h1>
+        #include < stdio.h >
+        int main() {
+            int i;
+            char str[100];
+            printf("Enter a string: ");
+            gets(str);
+            for(i = 0; str[i] != '\0'; i++) {
+                if(str[i] >= 'A' && str[i] <= 'Z') {
+                    str[i] += 32 ;
+                }
+                else if(str[i] >= 'a' && str[i] <= 'z') {
+                    str[i] -= 32 ;
+                }
+            }
+            printf("ToggleCase: %s",str);
+        
+        }
+       
+        <h1>Output</h1>
+        Enter a string: gaMe oF ThrOnEs
+        ToggleCase: GAmE Of tHRoNeS
+        </code>
+    </pre>
+</body>
+</html>

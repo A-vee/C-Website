@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>5. CONVERT A NUMBER INTO BINARY USING RECURSION.</h1>
+        #include < stdio.h>
+
+        // Function to convert a number to binary recursively
+        void convertToBinary(int n) {
+            // Base case: when n is 0, return
+            if (n == 0) {
+                return;
+            }
+            // Recursive call
+            convertToBinary(n / 2);
+            // Print the remainder (binary digit)
+            printf("%d", n % 2);
+        }
+        
+        // Main function
+        int main() {
+            int number;
+        
+            printf("Enter a non-negative integer: ");
+            scanf("%d", &number);
+        
+            if (number < 0) {
+                printf("Please enter a non-negative integer.\n");
+            } else if (number == 0) {
+                printf("The binary representation of 0 is 0\n");
+            } else {
+                printf("The binary representation of %d is: ", number);
+                convertToBinary(number);
+                printf("\n");
+            }
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter a non-negative integer: 10
+        The binary representation of 10 is: 1010
+        </code>
+    </pre>
+</body>
+</html>

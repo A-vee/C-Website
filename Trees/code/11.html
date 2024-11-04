@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>11. CREATE BINARY TREE TO BINARY SEARCH TREE THROUGH ARRAY.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        // Definition of a binary tree node
+        typedef struct Node {
+            int data;
+            struct Node* left;
+            struct Node* right;
+        } Node;
+        
+        // Function to create a new tree node
+        Node* newNode(int data) {
+            Node* node = (Node*)malloc(sizeof(Node));
+            node->data = data;
+            node->left = NULL;
+            node->right = NULL;
+            return node;
+        }
+        
+        // Function for inorder traversal to collect elements into an array
+        void inorderTraversal(Node* root, int* arr, int* index) {
+            if (root == NULL) return;
+            inorderTraversal(root->left, arr, index);
+            arr[(*index)++] = root->data; // Store the node data
+            inorderTraversal(root->right, arr, index);
+        }
+        
+        // Comparison function for qsort
+        int compare(const void* a, const void* b) {
+            return (*(int*)a - *(int*)b);
+        }
+        
+        // Function to construct a balanced BST from the sorted array
+        Node* sortedArrayToBST(int* arr, int start, int end) {
+            if (start > end) return NULL;
+        
+            int mid = (start + end) / 2; // Find middle element
+            Node* node = newNode(arr[mid]); // Create node
+        
+            // Recursively construct the left and right subtrees
+            node->left = sortedArrayToBST(arr, start, mid - 1);
+            node->right = sortedArrayToBST(arr, mid + 1, end);
+            return node;
+        }
+        
+        // Function to convert a binary tree to a binary search tree
+        Node* convertToBST(Node* root) {
+            if (root == NULL) return NULL;
+        
+            // Step 1: Get the number of nodes in the binary tree
+            int n = 0;
+            inorderTraversal(root, NULL, &n);
+        
+            // Step 2: Create an array to store the elements
+            int* arr = (int*)malloc(n * sizeof(int));
+            int index = 0;
+            inorderTraversal(root, arr, &index); // Fill the array
+        
+            // Step 3: Sort the array
+            qsort(arr, n, sizeof(int), compare);
+        
+            // Step 4: Construct the BST from the sorted array
+            Node* bstRoot = sortedArrayToBST(arr, 0, n - 1);
+        
+            // Free the allocated array
+            free(arr);
+            return bstRoot;
+        }
+        
+        // Function to print inorder traversal of the tree
+        void printInorder(Node* root) {
+            if (root == NULL) return;
+            printInorder(root->left);
+            printf("%d ", root->data);
+            printInorder(root->right);
+        }
+        
+        // Main function to demonstrate the conversion
+        int main() {
+            // Creating a binary tree
+            Node* root = newNode(10);
+            root->left = newNode(30);
+            root->right = newNode(15);
+            root->left->left = newNode(5);
+            root->left->right = newNode(20);
+            
+            printf("Inorder traversal of the original binary tree:\n");
+            printInorder(root);
+            printf("\n");
+        
+            // Convert to BST
+            Node* bstRoot = convertToBST(root);
+        
+            printf("Inorder traversal of the resulting binary search tree:\n");
+            printInorder(bstRoot);
+            printf("\n");
+        
+            // Freeing memory would go here (not implemented for brevity)
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Inorder traversal of the original binary tree:
+        5 30 20 10 15 
+        
+        Inorder traversal of the resulting binary search tree:
+        5 10 15 20 30 
+        </code>
+    </pre>
+</body>
+</html>

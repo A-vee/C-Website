@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>5. IMPLEMENT THE OPERATIONS OF CIRCULAR QUEUE IN AN INTEGER ARRAY (INSERT, DELETE, PEEK, ISEMPTY, ISFULL).</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        
+        #define MAX_SIZE 5 // Define the maximum size of the circular queue
+        
+        // Define the structure for the Circular Queue
+        struct CircularQueue {
+            int items[MAX_SIZE];
+            int front;
+            int rear;
+        };
+        
+        // Function to create and initialize the circular queue
+        struct CircularQueue* createQueue() {
+            struct CircularQueue* q = (struct CircularQueue*)malloc(sizeof(struct CircularQueue));
+            q->front = -1;
+            q->rear = -1;
+            return q;
+        }
+        
+        // Function to check if the queue is empty
+        int isEmpty(struct CircularQueue* q) {
+            return (q->front == -1);
+        }
+        
+        // Function to check if the queue is full
+        int isFull(struct CircularQueue* q) {
+            return (q->front == (q->rear + 1) % MAX_SIZE);
+        }
+        
+        // Function to insert an element into the circular queue
+        void insert(struct CircularQueue* q, int value) {
+            if (isFull(q)) {
+                printf("Queue is full! Cannot insert %d\n", value);
+                return;
+            }
+            if (isEmpty(q)) {
+                q->front = 0; // Initialize front when first element is added
+            }
+            q->rear = (q->rear + 1) % MAX_SIZE; // Move rear to next position
+            q->items[q->rear] = value;
+            printf("%d inserted into the queue\n", value);
+        }
+        
+        // Function to delete an element from the circular queue
+        int delete(struct CircularQueue* q) {
+            if (isEmpty(q)) {
+                printf("Queue is empty! Cannot delete\n");
+                return -1; // Indicate that the queue is empty
+            }
+            int deletedValue = q->items[q->front];
+            if (q->front == q->rear) {
+                // Queue will be empty after this deletion
+                q->front = -1;
+                q->rear = -1;
+            } else {
+                // Move front to next position
+                q->front = (q->front + 1) % MAX_SIZE;
+            }
+            printf("%d deleted from the queue\n", deletedValue);
+            return deletedValue;
+        }
+        
+        // Function to peek at the front element of the circular queue
+        int peek(struct CircularQueue* q) {
+            if (isEmpty(q)) {
+                printf("Queue is empty! Cannot peek\n");
+                return -1; // Indicate that the queue is empty
+            }
+            return q->items[q->front];
+        }
+        
+        // Function to display the circular queue
+        void display(struct CircularQueue* q) {
+            if (isEmpty(q)) {
+                printf("Queue is empty!\n");
+                return;
+            }
+            printf("Queue elements: ");
+            int i = q->front;
+            while (1) {
+                printf("%d ", q->items[i]);
+                if (i == q->rear) {
+                    break;
+                }
+                i = (i + 1) % MAX_SIZE;
+            }
+            printf("\n");
+        }
+        
+        // Main function
+        int main() {
+            struct CircularQueue* q = createQueue();
+            
+            int choice, value;
+        
+            do {
+                printf("\nCircular Queue Operations:\n");
+                printf("1. Insert\n");
+                printf("2. Delete\n");
+                printf("3. Peek\n");
+                printf("4. Display\n");
+                printf("5. Check if Empty\n");
+                printf("6. Check if Full\n");
+                printf("7. Exit\n");
+                printf("Enter your choice: ");
+                scanf("%d", &choice);
+        
+                switch (choice) {
+                    case 1:
+                        printf("Enter value to insert: ");
+                        scanf("%d", &value);
+                        insert(q, value);
+                        break;
+                    case 2:
+                        delete(q);
+                        break;
+                    case 3:
+                        value = peek(q);
+                        if (value != -1) {
+                            printf("Front element is: %d\n", value);
+                        }
+                        break;
+                    case 4:
+                        display(q);
+                        break;
+                    case 5:
+                        if (isEmpty(q)) {
+                            printf("Queue is empty\n");
+                        } else {
+                            printf("Queue is not empty\n");
+                        }
+                        break;
+                    case 6:
+                        if (isFull(q)) {
+                            printf("Queue is full\n");
+                        } else {
+                            printf("Queue is not full\n");
+                        }
+                        break;
+                    case 7:
+                        printf("Exiting...\n");
+                        break;
+                    default:
+                        printf("Invalid choice! Please try again.\n");
+                }
+            } while (choice != 7);
+        
+            free(q); // Free the allocated memory for the queue
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Circular Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Check if Full
+        7. Exit
+        Enter your choice: 1
+        Enter value to insert: 10
+        10 inserted into the queue
+        
+        Circular Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Check if Full
+        7. Exit
+        Enter your choice: 1
+        Enter value to insert: 20
+        20 inserted into the queue
+        
+        Circular Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Check if Full
+        7. Exit
+        Enter your choice: 4
+        Queue elements: 10 20 
+        
+        Circular Queue Operations:
+        1. Insert
+        2. Delete
+        3. Peek
+        4. Display
+        5. Check if Empty
+        6. Check if Full
+        7. Exit
+        Enter your choice: 2
+        10 deleted from the queue
+        </code>
+    </pre>
+</body>
+</html>

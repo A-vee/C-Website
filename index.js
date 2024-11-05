@@ -103,6 +103,6 @@ function loader() {
         "<"
       );
     }
-  }, 50);
+  }, 45);
 }
 window.onload = loader;

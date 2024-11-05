@@ -10,11 +10,52 @@
    
     <pre>
         <code>
-        <h1></h1>
+        <h1>2. ENTER A STRING FROM THE USER, ENTER A CHARACTER AND PERFORM LINEAR SEARCH ALGORITHM THROUGH RECURSION.</h1>
+        #include < stdio.h>
+
+        // Recursive function for linear search in a string
+        int linearSearch(char str[], char ch, int index) {
+            // Base case: if we've checked all characters
+            if (str[index] == '\0') {
+                return -1; // Character not found
+            }
+            // Check if the current character matches the search character
+            if (str[index] == ch) {
+                return index; // Return the index of the found character
+            }
+            // Recursive call to check the next character
+            return linearSearch(str, ch, index + 1);
+        }
         
+        int main() {
+            char str[100]; // Buffer for the string input
+            char ch; // Character to search for
+        
+            // Input the string from the user
+            printf("Enter a string: ");
+            fgets(str, sizeof(str), stdin);
+        
+            // Input the character to search for
+            printf("Enter the character to search for: ");
+            scanf("%c", &ch);
+        
+            // Perform recursive linear search starting from index 0
+            int result = linearSearch(str, ch, 0);
+        
+            // Output the result
+            if (result != -1) {
+                printf("Character '%c' found at index %d.\n", ch, result);
+            } else {
+                printf("Character '%c' not found in the string.\n", ch);
+            }
+        
+            return 0;
+        }
 
         <h1>Output</h1>
-        
+        Enter a string: Hello, World!
+        Enter the character to search for: W
+        Character 'W' found at index 7.
         </code>
     </pre>
 </body>

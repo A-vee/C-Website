@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>9. ENTER A INTEGER ARRAY FROM THE USER AND PERFORM QUICK SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < time.h>
+        
+        // Function to swap two elements
+        void swap(int *a, int *b) {
+            int temp = *a;
+            *a = *b;
+            *b = temp;
+        }
+        
+        // Iterative function to perform quick sort
+        void iterativeQuickSort(int arr[], int size) {
+            // Create an auxiliary stack
+            int *stack = (int *)malloc(size * sizeof(int));
+            int top = -1;
+        
+            // Push the initial values
+            stack[++top] = 0; // Starting index
+            stack[++top] = size - 1; // Ending index
+        
+            // Keep popping elements from the stack while it is not empty
+            while (top >= 0) {
+                // Pop the ending index
+                int end = stack[top--];
+                // Pop the starting index
+                int start = stack[top--];
+        
+                // Set the pivot element
+                int pivot = arr[end];
+                int i = (start - 1); // Index of smaller element
+        
+                // Partitioning process
+                for (int j = start; j < end; j++) {
+                    if (arr[j] <= pivot) {
+                        i++;
+                        swap(&arr[i], &arr[j]);
+                    }
+                }
+                swap(&arr[i + 1], &arr[end]);
+                int pivotIndex = i + 1;
+        
+                // Push left side to stack
+                if (pivotIndex - 1 > start) {
+                    stack[++top] = start;
+                    stack[++top] = pivotIndex - 1;
+                }
+        
+                // Push right side to stack
+                if (pivotIndex + 1 < end) {
+                    stack[++top] = pivotIndex + 1;
+                    stack[++top] = end;
+                }
+            }
+        
+            // Free the allocated stack
+            free(stack);
+        }
+        
+        int main() {
+            int size;
+        
+            // Input the size of the array
+            printf("Enter the number of elements in the array: ");
+            scanf("%d", &size);
+        
+            int arr[size];
+        
+            // Input the elements of the array
+            printf("Enter %d integers:\n", size);
+            for (int i = 0; i < size; i++) {
+                scanf("%d", &arr[i]);
+            }
+        
+            // Measure time taken for iterative quick sort
+            clock_t start = clock(); // Start timing
+            iterativeQuickSort(arr, size);
+            clock_t end = clock(); // End timing
+        
+            // Calculate elapsed time
+            double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+        
+            // Output the sorted array
+            printf("Sorted array:\n");
+            for (int i = 0; i < size; i++) {
+                printf("%d ", arr[i]);
+            }
+            printf("\n");
+        
+            // Print the time taken
+            printf("Time taken for iterative quick sort: %f seconds\n", time_taken);
+        
+            // Time complexity analysis
+            // Best Case: O(n log n)
+            // Worst Case: O(n^2)
+            printf("Best-case time complexity: O(n log n)\n");
+            printf("Worst-case time complexity: O(n^2)\n");
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the number of elements in the array: 5
+        Enter 5 integers:
+        64 25 12 22 11
+        Sorted array:
+        11 12 22 25 64 
+        Time taken for iterative quick sort: 0.000002 seconds
+        Best-case time complexity: O(n log n)
+        Worst-case time complexity: O(n^2)
+        </code>
+    </pre>
+</body>
+</html>

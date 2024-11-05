@@ -10,11 +10,129 @@
    
     <pre>
         <code>
-        <h1></h1>
+        <h1>18. ENTER A STRING ARRAY FROM THE USER AND PERFORM MERGE SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        #include < time.h>
         
+        #define MAX_STRING_LENGTH 100
+        #define MAX_ARRAY_SIZE 100
+        
+        // Function to merge two halves of the array
+        void merge(char arr[][MAX_STRING_LENGTH], int left, int mid, int right) {
+            int i, j, k;
+            int n1 = mid - left + 1;
+            int n2 = right - mid;
+        
+            // Create temporary arrays
+            char L[MAX_ARRAY_SIZE][MAX_STRING_LENGTH], R[MAX_ARRAY_SIZE][MAX_STRING_LENGTH];
+        
+            // Copy data to temporary arrays L[] and R[]
+            for (i = 0; i < n1; i++)
+                strcpy(L[i], arr[left + i]);
+            for (j = 0; j < n2; j++)
+                strcpy(R[j], arr[mid + 1 + j]);
+        
+            // Merge the temporary arrays back into arr[left..right]
+            i = 0; // Initial index of first sub-array
+            j = 0; // Initial index of second sub-array
+            k = left; // Initial index of merged sub-array
+            while (i < n1 && j < n2) {
+                if (strcmp(L[i], R[j]) <= 0) {
+                    strcpy(arr[k], L[i]);
+                    i++;
+                } else {
+                    strcpy(arr[k], R[j]);
+                    j++;
+                }
+                k++;
+            }
+        
+            // Copy the remaining elements of L[], if there are any
+            while (i < n1) {
+                strcpy(arr[k], L[i]);
+                i++;
+                k++;
+            }
+        
+            // Copy the remaining elements of R[], if there are any
+            while (j < n2) {
+                strcpy(arr[k], R[j]);
+                j++;
+                k++;
+            }
+        }
+        
+        // Recursive merge sort function
+        void recursiveMergeSort(char arr[][MAX_STRING_LENGTH], int left, int right) {
+            if (left < right) {
+                int mid = left + (right - left) / 2;
+        
+                // Sort first and second halves
+                recursiveMergeSort(arr, left, mid);
+                recursiveMergeSort(arr, mid + 1, right);
+        
+                // Merge the sorted halves
+                merge(arr, left, mid, right);
+            }
+        }
+        
+        int main() {
+            int n;
+        
+            // Input the number of strings
+            printf("Enter the number of strings: ");
+            scanf("%d", &n);
+        
+            // Array to store strings
+            char arr[MAX_ARRAY_SIZE][MAX_STRING_LENGTH];
+        
+            // Input the strings
+            printf("Enter %d strings:\n", n);
+            for (int i = 0; i < n; i++) {
+                scanf("%s", arr[i]);
+            }
+        
+            // Measure time taken for recursive merge sort
+            clock_t start = clock(); // Start timing
+            recursiveMergeSort(arr, 0, n - 1);
+            clock_t end = clock(); // End timing
+        
+            // Calculate elapsed time
+            double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+        
+            // Output the sorted strings
+            printf("Sorted strings:\n");
+            for (int i = 0; i < n; i++) {
+                printf("%s\n", arr[i]);
+            }
+        
+            // Print the time taken
+            printf("Time taken for recursive merge sort: %f seconds\n", time_taken);
+        
+            // Time complexity analysis
+            // Best Case: O(n log n)
+            // Worst Case: O(n log n)
+            printf("Best-case time complexity: O(n log n)\n");
+            printf("Worst-case time complexity: O(n log n)\n");
+        
+            return 0;
+        }
 
         <h1>Output</h1>
-        
+        Enter the number of strings: 5
+        Enter 5 strings:
+        banana apple orange grape mango
+        Sorted strings:
+        apple
+        banana
+        grape
+        mango
+        orange
+        Time taken for recursive merge sort: 0.000004 seconds
+        Best-case time complexity: O(n log n)
+        Worst-case time complexity: O(n log n)
         </code>
     </pre>
 </body>

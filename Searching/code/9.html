@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>9. CALCULATE THE BEST AND WORST COMPLEXITY OF THE LINEAR SEARCHING ALGORITHM WITH EXACT TIME TAKEN BY THE ALGORITHM ON INTEGER ARRAY.</h1>
+        #include < stdio.h>
+        #include < time.h>
+        
+        int linearSearch(int arr[], int size, int value) {
+            for (int i = 0; i < size; i++) {
+                if (arr[i] == value) {
+                    return i; // Return the index of the found value
+                }
+            }
+            return -1; // Value not found
+        }
+        
+        int main() {
+            int size;
+        
+            // Input the size of the array
+            printf("Enter the number of elements in the array: ");
+            scanf("%d", &size);
+        
+            int arr[size];
+        
+            // Input the elements of the array
+            printf("Enter %d integers:\n", size);
+            for (int i = 0; i < size; i++) {
+                scanf("%d", &arr[i]);
+            }
+        
+            // Input the value to search for (worst case - last element)
+            int value;
+            printf("Enter the integer value to search for: ");
+            scanf("%d", &value);
+        
+            // Measure time taken for linear search
+            clock_t start = clock(); // Start timing
+            int result = linearSearch(arr, size, value);
+            clock_t end = clock(); // End timing
+        
+            // Calculate elapsed time
+            double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+        
+            // Output the result
+            if (result != -1) {
+                printf("Value %d found at index %d.\n", value, result);
+            } else {
+                printf("Value %d not found in the array.\n", value);
+            }
+        
+            // Print the time taken
+            printf("Time taken for linear search: %f seconds\n", time_taken);
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the number of elements in the array: 5
+        Enter 5 integers:
+        10 20 30 40 50
+        Enter the integer value to search for: 50
+        Value 50 found at index 4.
+        Time taken for linear search: 0.000001 seconds
+        </code>
+    </pre>
+</body>
+</html>

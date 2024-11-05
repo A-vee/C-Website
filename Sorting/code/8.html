@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="code.css">
+</head>
+<body>
+   
+    <pre>
+        <code>
+        <h1>8. ENTER A INTEGER ARRAY FROM THE USER AND PERFORM MERGE SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < time.h>
+        
+        // Function to merge two halves of the array
+        void merge(int arr[], int left, int mid, int right) {
+            int i, j, k;
+            int n1 = mid - left + 1;
+            int n2 = right - mid;
+        
+            // Create temporary arrays
+            int *L = (int *)malloc(n1 * sizeof(int));
+            int *R = (int *)malloc(n2 * sizeof(int));
+        
+            // Copy data to temporary arrays L[] and R[]
+            for (i = 0; i < n1; i++)
+                L[i] = arr[left + i];
+            for (j = 0; j < n2; j++)
+                R[j] = arr[mid + 1 + j];
+        
+            // Merge the temporary arrays back into arr[left..right]
+            i = 0; // Initial index of first sub-array
+            j = 0; // Initial index of second sub-array
+            k = left; // Initial index of merged sub-array
+            while (i < n1 && j < n2) {
+                if (L[i] <= R[j]) {
+                    arr[k] = L[i];
+                    i++;
+                } else {
+                    arr[k] = R[j];
+                    j++;
+                }
+                k++;
+            }
+        
+            // Copy the remaining elements of L[], if there are any
+            while (i < n1) {
+                arr[k] = L[i];
+                i++;
+                k++;
+            }
+        
+            // Copy the remaining elements of R[], if there are any
+            while (j < n2) {
+                arr[k] = R[j];
+                j++;
+                k++;
+            }
+        
+            // Free the temporary arrays
+            free(L);
+            free(R);
+        }
+        
+        // Recursive function to perform merge sort
+        void mergeSort(int arr[], int left, int right) {
+            if (left < right) {
+                // Find the middle point
+                int mid = left + (right - left) / 2;
+        
+                // Recursively sort first and second halves
+                mergeSort(arr, left, mid);
+                mergeSort(arr, mid + 1, right);
+        
+                // Merge the sorted halves
+                merge(arr, left, mid, right);
+            }
+        }
+        
+        int main() {
+            int size;
+        
+            // Input the size of the array
+            printf("Enter the number of elements in the array: ");
+            scanf("%d", &size);
+        
+            int arr[size];
+        
+            // Input the elements of the array
+            printf("Enter %d integers:\n", size);
+            for (int i = 0; i < size; i++) {
+                scanf("%d", &arr[i]);
+            }
+        
+            // Measure time taken for recursive merge sort
+            clock_t start = clock(); // Start timing
+            mergeSort(arr, 0, size - 1);
+            clock_t end = clock(); // End timing
+        
+            // Calculate elapsed time
+            double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+        
+            // Output the sorted array
+            printf("Sorted array:\n");
+            for (int i = 0; i < size; i++) {
+                printf("%d ", arr[i]);
+            }
+            printf("\n");
+        
+            // Print the time taken
+            printf("Time taken for recursive merge sort: %f seconds\n", time_taken);
+        
+            // Time complexity analysis
+            // Best Case: O(n log n)
+            // Worst Case: O(n log n)
+            printf("Best-case time complexity: O(n log n)\n");
+            printf("Worst-case time complexity: O(n log n)\n");
+        
+            return 0;
+        }
+
+        <h1>Output</h1>
+        Enter the number of elements in the array: 5
+        Enter 5 integers:
+        64 25 12 22 11
+        Sorted array:
+        11 12 22 25 64 
+        Time taken for recursive merge sort: 0.000002 seconds
+        Best-case time complexity: O(n log n)
+        Worst-case time complexity: O(n log n)
+        </code>
+    </pre>
+</body>
+</html>

@@ -10,11 +10,56 @@
    
     <pre>
         <code>
-        <h1></h1>
+        <h1>1. ENTER A INTEGER ARRAY FROM THE USER, ENTER AN INTEGER VALUE AND PERFORM LINEAR SEARCH ALGORITHM THROUGH ITERATION.</h1>
+        #include < stdio.h>
+
+        int linearSearch(int arr[], int size, int value) {
+            for (int i = 0; i < size; i++) {
+                if (arr[i] == value) {
+                    return i; // Return the index if the value is found
+                }
+            }
+            return -1; // Return -1 if the value is not found
+        }
         
+        int main() {
+            int n, value;
+        
+            // Input the size of the array
+            printf("Enter the number of elements in the array: ");
+            scanf("%d", &n);
+        
+            int arr[n]; // Declare the array with user-defined size
+        
+            // Input the elements of the array
+            printf("Enter %d integers:\n", n);
+            for (int i = 0; i < n; i++) {
+                scanf("%d", &arr[i]);
+            }
+        
+            // Input the value to search
+            printf("Enter the integer value to search: ");
+            scanf("%d", &value);
+        
+            // Perform linear search
+            int result = linearSearch(arr, n, value);
+        
+            // Output the result
+            if (result != -1) {
+                printf("Value %d found at index %d.\n", value, result);
+            } else {
+                printf("Value %d not found in the array.\n", value);
+            }
+        
+            return 0;
+        }
 
         <h1>Output</h1>
-        
+        Enter the number of elements in the array: 5
+        Enter 5 integers:
+        10 20 30 40 50
+        Enter the integer value to search for: 30
+        Value 30 found at index 2.
         </code>
     </pre>
 </body>

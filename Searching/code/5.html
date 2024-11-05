@@ -10,11 +10,72 @@
    
     <pre>
         <code>
-        <h1></h1>
+        <h1>5. ENTER A INTEGER ARRAY FROM THE USER, ENTER AN INTEGER VALUE AND PERFORM BINARY SEARCH ALGORITHM THROUGH ITERATION.</h1>
+        #include < stdio.h>
+
+        // Function to perform binary search
+        int binarySearch(int arr[], int size, int value) {
+            int left = 0;
+            int right = size - 1;
         
+            while (left <= right) {
+                int mid = left + (right - left) / 2; // To avoid overflow
+        
+                // Check if the value is present at mid
+                if (arr[mid] == value) {
+                    return mid; // Return the index of the found value
+                }
+                // If value is greater, ignore the left half
+                else if (arr[mid] < value) {
+                    left = mid + 1;
+                }
+                // If value is smaller, ignore the right half
+                else {
+                    right = mid - 1;
+                }
+            }
+            return -1; // Value not found
+        }
+        
+        int main() {
+            int size;
+        
+            // Input the size of the array
+            printf("Enter the number of elements in the sorted array: ");
+            scanf("%d", &size);
+        
+            int arr[size];
+        
+            // Input the elements of the array
+            printf("Enter %d sorted integers:\n", size);
+            for (int i = 0; i < size; i++) {
+                scanf("%d", &arr[i]);
+            }
+        
+            // Input the value to search for
+            int value;
+            printf("Enter the integer value to search for: ");
+            scanf("%d", &value);
+        
+            // Perform iterative binary search
+            int result = binarySearch(arr, size, value);
+        
+            // Output the result
+            if (result != -1) {
+                printf("Value %d found at index %d.\n", value, result);
+            } else {
+                printf("Value %d not found in the array.\n", value);
+            }
+        
+            return 0;
+        }
 
         <h1>Output</h1>
-        
+        Enter the number of elements in the sorted array: 5
+        Enter 5 sorted integers:
+        10 20 30 40 50
+        Enter the integer value to search for: 30
+        Value 30 found at index 2.
         </code>
     </pre>
 </body>

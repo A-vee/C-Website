@@ -10,11 +10,62 @@
    
     <pre>
         <code>
-        <h1></h1>
+        <h1>3. ENTER A INTEGER ARRAY FROM THE USER, ENTER AN INTEGER VALUE AND PERFORM LINEAR SEARCH ALGORITHM THROUGH RECURSION.</h1>
+        #include < stdio.h>
+
+        // Recursive function for linear search in an array
+        int linearSearch(int arr[], int size, int value, int index) {
+            // Base case: if we've checked all elements
+            if (index >= size) {
+                return -1; // Value not found
+            }
+            // Check if the current element matches the search value
+            if (arr[index] == value) {
+                return index; // Return the index of the found value
+            }
+            // Recursive call to check the next element
+            return linearSearch(arr, size, value, index + 1);
+        }
         
+        int main() {
+            int size;
+        
+            // Input the size of the array
+            printf("Enter the number of elements in the array: ");
+            scanf("%d", &size);
+        
+            int arr[size];
+        
+            // Input the elements of the array
+            printf("Enter %d integers:\n", size);
+            for (int i = 0; i < size; i++) {
+                scanf("%d", &arr[i]);
+            }
+        
+            // Input the value to search for
+            int value;
+            printf("Enter the integer value to search for: ");
+            scanf("%d", &value);
+        
+            // Perform recursive linear search starting from index 0
+            int result = linearSearch(arr, size, value, 0);
+        
+            // Output the result
+            if (result != -1) {
+                printf("Value %d found at index %d.\n", value, result);
+            } else {
+                printf("Value %d not found in the array.\n", value);
+            }
+        
+            return 0;
+        }
 
         <h1>Output</h1>
-        
+        Enter the number of elements in the array: 5
+        Enter 5 integers:
+        10 20 30 40 50
+        Enter the integer value to search for: 30
+        Value 30 found at index 2.
         </code>
     </pre>
 </body>

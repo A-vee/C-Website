@@ -10,11 +10,63 @@
    
     <pre>
         <code>
-        <h1></h1>
+        <h1>6. ENTER A STRING FROM THE USER, ENTER A CHARACTER AND PERFORM BINARY SEARCH ALGORITHM THROUGH RECURSION.</h1>
+        #include < stdio.h>
+        #include < string.h>
         
+        // Recursive function for binary search in a string
+        int binarySearch(char str[], char ch, int left, int right) {
+            // Base case: if the range is invalid
+            if (left > right) {
+                return -1; // Character not found
+            }
+            
+            int mid = left + (right - left) / 2; // Calculate mid
+        
+            // Check if the character at mid is the one we're searching for
+            if (str[mid] == ch) {
+                return mid; // Return the index of the found character
+            }
+            // If character is greater, search in the right half
+            else if (str[mid] < ch) {
+                return binarySearch(str, ch, mid + 1, right);
+            }
+            // If character is smaller, search in the left half
+            else {
+                return binarySearch(str, ch, left, mid - 1);
+            }
+        }
+        
+        int main() {
+            char str[100]; // Buffer for the string input
+            char ch; // Character to search for
+        
+            // Input the string from the user
+            printf("Enter a sorted string: ");
+            fgets(str, sizeof(str), stdin);
+            str[strcspn(str, "\n")] = 0; // Remove newline character from input
+        
+            // Input the character to search for
+            printf("Enter the character to search for: ");
+            scanf(" %c", &ch); // Space before %c to consume any newline character
+        
+            // Perform recursive binary search
+            int result = binarySearch(str, ch, 0, strlen(str) - 1);
+        
+            // Output the result
+            if (result != -1) {
+                printf("Character '%c' found at index %d.\n", ch, result);
+            } else {
+                printf("Character '%c' not found in the string.\n", ch);
+            }
+        
+            return 0;
+        }
 
         <h1>Output</h1>
-        
+        Enter a sorted string: abcdefghijklmnopqrstuvwxyz
+        Enter the character to search for: j
+        Character 'j' found at index 9.
         </code>
     </pre>
 </body>

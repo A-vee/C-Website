@@ -10,11 +10,94 @@
    
     <pre>
         <code>
-        <h1></h1>
+        <h1>14. ENTER A STRING ARRAY FROM THE USER AND PERFORM BUBBLE SORT ALGORITHM THROUGH RECURSION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        #include < time.h>
         
+        #define MAX_STRING_LENGTH 100
+        #define MAX_ARRAY_SIZE 100
+        
+        // Function to swap two strings
+        void swap(char *str1, char *str2) {
+            char temp[MAX_STRING_LENGTH];
+            strcpy(temp, str1);
+            strcpy(str1, str2);
+            strcpy(str2, temp);
+        }
+        
+        // Recursive bubble sort function
+        void recursiveBubbleSort(char arr[][MAX_STRING_LENGTH], int n, int index) {
+            // Base case: if the index reaches the end of the array
+            if (index == n - 1) return;
+        
+            // Perform a single pass and bubble the largest element to the end
+            for (int j = 0; j < n - index - 1; j++) {
+                if (strcmp(arr[j], arr[j + 1]) > 0) {
+                    swap(arr[j], arr[j + 1]);
+                }
+            }
+        
+            // Recursively call bubble sort for the next index
+            recursiveBubbleSort(arr, n, index + 1);
+        }
+        
+        int main() {
+            int n;
+        
+            // Input the number of strings
+            printf("Enter the number of strings: ");
+            scanf("%d", &n);
+        
+            // Array to store strings
+            char arr[MAX_ARRAY_SIZE][MAX_STRING_LENGTH];
+        
+            // Input the strings
+            printf("Enter %d strings:\n", n);
+            for (int i = 0; i < n; i++) {
+                scanf("%s", arr[i]);
+            }
+        
+            // Measure time taken for recursive bubble sort
+            clock_t start = clock(); // Start timing
+            recursiveBubbleSort(arr, n, 0);
+            clock_t end = clock(); // End timing
+        
+            // Calculate elapsed time
+            double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+        
+            // Output the sorted strings
+            printf("Sorted strings:\n");
+            for (int i = 0; i < n; i++) {
+                printf("%s\n", arr[i]);
+            }
+        
+            // Print the time taken
+            printf("Time taken for recursive bubble sort: %f seconds\n", time_taken);
+        
+            // Time complexity analysis
+            // Best Case: O(n)
+            // Worst Case: O(n^2)
+            printf("Best-case time complexity: O(n)\n");
+            printf("Worst-case time complexity: O(n^2)\n");
+        
+            return 0;
+        }
 
         <h1>Output</h1>
-        
+        Enter the number of strings: 5
+        Enter 5 strings:
+        banana apple orange grape mango
+        Sorted strings:
+        apple
+        banana
+        grape
+        mango
+        orange
+        Time taken for recursive bubble sort: 0.000005 seconds
+        Best-case time complexity: O(n)
+        Worst-case time complexity: O(n^2)
         </code>
     </pre>
 </body>

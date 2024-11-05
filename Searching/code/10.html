@@ -10,11 +10,81 @@
    
     <pre>
         <code>
-        <h1></h1>
+        <h1>10. CALCULATE THE BEST AND WORST COMPLEXITY OF THE BINARY SEARCHING ALGORITHM WITH EXACT TIME TAKEN BY THE ALGORITHM ON INTEGER ARRAY.</h1>
+        #include < stdio.h>
+        #include < time.h>
         
+        // Recursive function for binary search
+        int binarySearch(int arr[], int left, int right, int value) {
+            // Base case: if the range is invalid
+            if (left > right) {
+                return -1; // Value not found
+            }
+        
+            int mid = left + (right - left) / 2; // Calculate mid
+        
+            // Check if the value is present at mid
+            if (arr[mid] == value) {
+                return mid; // Return the index of the found value
+            }
+            // If value is greater, ignore the left half
+            else if (arr[mid] < value) {
+                return binarySearch(arr, mid + 1, right, value);
+            }
+            // If value is smaller, ignore the right half
+            else {
+                return binarySearch(arr, left, mid - 1, value);
+            }
+        }
+        
+        int main() {
+            int size;
+        
+            // Input the size of the array
+            printf("Enter the number of elements in the sorted array: ");
+            scanf("%d", &size);
+        
+            int arr[size];
+        
+            // Input the elements of the array
+            printf("Enter %d sorted integers:\n", size);
+            for (int i = 0; i < size; i++) {
+                scanf("%d", &arr[i]);
+            }
+        
+            // Input the value to search for (worst case - not found or last element)
+            int value;
+            printf("Enter the integer value to search for: ");
+            scanf("%d", &value);
+        
+            // Measure time taken for binary search
+            clock_t start = clock(); // Start timing
+            int result = binarySearch(arr, 0, size - 1, value);
+            clock_t end = clock(); // End timing
+        
+            // Calculate elapsed time
+            double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+        
+            // Output the result
+            if (result != -1) {
+                printf("Value %d found at index %d.\n", value, result);
+            } else {
+                printf("Value %d not found in the array.\n", value);
+            }
+        
+            // Print the time taken
+            printf("Time taken for binary search: %f seconds\n", time_taken);
+        
+            return 0;
+        }
 
         <h1>Output</h1>
-        
+        Enter the number of elements in the sorted array: 5
+        Enter 5 sorted integers:
+        10 20 30 40 50
+        Enter the integer value to search for: 30
+        Value 30 found at index 2.
+        Time taken for binary search: 0.000001 seconds 
         </code>
     </pre>
 </body>

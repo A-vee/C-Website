@@ -10,11 +10,135 @@
    
     <pre>
         <code>
-        <h1></h1>
+        <h1>17. ENTER A STRING ARRAY FROM THE USER AND PERFORM MERGE SORT ALGORITHM THROUGH ITERATION. ALSO CALCULATE THE WORST AND BEST COMPLEXITY WITH EXACT TIME.</h1>
+        #include < stdio.h>
+        #include < stdlib.h>
+        #include < string.h>
+        #include < time.h>
         
+        #define MAX_STRING_LENGTH 100
+        #define MAX_ARRAY_SIZE 100
+        
+        // Function to merge two halves of the array
+        void merge(char arr[][MAX_STRING_LENGTH], int left, int mid, int right) {
+            int i, j, k;
+            int n1 = mid - left + 1;
+            int n2 = right - mid;
+        
+            // Create temporary arrays
+            char L[MAX_ARRAY_SIZE][MAX_STRING_LENGTH], R[MAX_ARRAY_SIZE][MAX_STRING_LENGTH];
+        
+            // Copy data to temporary arrays L[] and R[]
+            for (i = 0; i < n1; i++)
+                strcpy(L[i], arr[left + i]);
+            for (j = 0; j < n2; j++)
+                strcpy(R[j], arr[mid + 1 + j]);
+        
+            // Merge the temporary arrays back into arr[left..right]
+            i = 0; // Initial index of first sub-array
+            j = 0; // Initial index of second sub-array
+            k = left; // Initial index of merged sub-array
+            while (i < n1 && j < n2) {
+                if (strcmp(L[i], R[j]) <= 0) {
+                    strcpy(arr[k], L[i]);
+                    i++;
+                } else {
+                    strcpy(arr[k], R[j]);
+                    j++;
+                }
+                k++;
+            }
+        
+            // Copy the remaining elements of L[], if there are any
+            while (i < n1) {
+                strcpy(arr[k], L[i]);
+                i++;
+                k++;
+            }
+        
+            // Copy the remaining elements of R[], if there are any
+            while (j < n2) {
+                strcpy(arr[k], R[j]);
+                j++;
+                k++;
+            }
+        }
+        
+        // Iterative merge sort function
+        void iterativeMergeSort(char arr[][MAX_STRING_LENGTH], int n) {
+            int curr_size; // Current size of subarrays to be merged
+            int left_start; // Left index of the subarray to be merged
+        
+            // Merge subarrays in bottom-up manner
+            for (curr_size = 1; curr_size <= n - 1; curr_size = 2 * curr_size) {
+                for (left_start = 0; left_start < n - 1; left_start += 2 * curr_size) {
+                    // Find the ending point of the left subarray
+                    int mid = left_start + curr_size - 1;
+        
+                    // Right subarray's starting point
+                    int right_end = left_start + 2 * curr_size - 1;
+        
+                    // Call merge on two halves
+                    merge(arr, left_start, mid, right_end < n ? right_end : n - 1);
+                }
+            }
+        }
+        
+        int main() {
+            int n;
+        
+            // Input the number of strings
+            printf("Enter the number of strings: ");
+            scanf("%d", &n);
+        
+            // Array to store strings
+            char arr[MAX_ARRAY_SIZE][MAX_STRING_LENGTH];
+        
+            // Input the strings
+            printf("Enter %d strings:\n", n);
+            for (int i = 0; i < n; i++) {
+                scanf("%s", arr[i]);
+            }
+        
+            // Measure time taken for iterative merge sort
+            clock_t start = clock(); // Start timing
+            iterativeMergeSort(arr, n);
+            clock_t end = clock(); // End timing
+        
+            // Calculate elapsed time
+            double time_taken = ((double)(end - start)) / CLOCKS_PER_SEC;
+        
+            // Output the sorted strings
+            printf("Sorted strings:\n");
+            for (int i = 0; i < n; i++) {
+                printf("%s\n", arr[i]);
+            }
+        
+            // Print the time taken
+            printf("Time taken for iterative merge sort: %f seconds\n", time_taken);
+        
+            // Time complexity analysis
+            // Best Case: O(n log n)
+            // Worst Case: O(n log n)
+            printf("Best-case time complexity: O(n log n)\n");
+            printf("Worst-case time complexity: O(n log n)\n");
+        
+            return 0;
+        }
 
         <h1>Output</h1>
-        
+        Enter the number of strings: 5
+        Enter 5 strings:
+        banana apple orange grape mango
+        Sorted strings:
+        apple
+        banana
+        grape
+        mango
+        orange
+        Time taken for iterative merge sort: 0.000004 seconds
+        Best-case time complexity: O(n log n)
+        Worst-case time complexity: O(n log n)
         </code>
     </pre>
 </body>
